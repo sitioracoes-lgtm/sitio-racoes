@@ -533,7 +533,7 @@ footer{background:#2D2D2D;color:#aaa;padding:56px 0 24px}
       <div class="footer-col">
         <h4>Atendimento</h4>
         <ul>
-          <li>📞 (71) 99123-3638</li>
+          <li>📞 (71) 8151-7185</li>
           <li>📧 sitioracoes@gmail.com</li>
           <li>⏰ Seg-Sex 8h às 18h</li>
           <li>💬 WhatsApp</li>
@@ -720,7 +720,7 @@ function pedidoWhatsApp(){
   items.forEach(i=>msg+=`• ${i.nome} x${i.qty} = ${fmt(i.preco*i.qty)}\n`);
   msg+=`\n🚚 Frete: ${frete===0?'Grátis':fmt(frete)}`;
   msg+=`\n💰 *Total: ${fmt(total+frete)}*`;
-  const num = '557199123363';
+  const num = '557181517185';
   window.open(`https://wa.me/${num}?text=${encodeURIComponent(msg)}`,'_blank');
 }
 
