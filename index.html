@@ -564,14 +564,38 @@ footer{background:#2D2D2D;color:#aaa;padding:56px 0 24px}
     <div class="cart-row"><span class="label">Subtotal</span><span class="val" id="cartSubtotal"></span></div>
     <div class="cart-row"><span class="label">Frete</span><span class="val" id="cartFrete"></span></div>
     <div class="cart-row total"><span class="label">Total</span><span class="val" id="cartTotal"></span></div>
-    <button class="checkout-btn" onclick="finalizarPedido()">✅ Finalizar pedido</button>
-    <button class="whats-btn" onclick="pedidoWhatsApp()">💬 Pedir pelo WhatsApp</button>
+    <button class="checkout-btn" onclick="abrirPix()">🟢 Pagar com Pix agora</button>
   </div>
 </div>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
   <div class="modal" id="modalContent"></div>
+</div>
+
+<!-- MODAL PIX -->
+<div class="modal-overlay" id="pixOverlay" style="z-index:700">
+  <div class="modal" style="max-width:440px;text-align:center" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="document.getElementById(&apos;pixOverlay&apos;).classList.remove(&apos;open&apos;)">✕</button>
+    <div style="padding:32px 28px 28px">
+      <div style="font-size:3rem;margin-bottom:8px">💚</div>
+      <div style="font-family:&apos;Fredoka One&apos;,cursive;font-size:1.6rem;color:var(--verde);margin-bottom:4px">Pagar com Pix</div>
+      <p style="font-size:13px;color:var(--texto2);margin-bottom:20px">Copie o código abaixo e pague no app do seu banco</p>
+      <div style="background:var(--fundo);border:1.5px solid var(--borda);border-radius:12px;padding:12px;margin-bottom:16px">
+        <div style="font-size:12px;color:var(--texto2);font-weight:700;margin-bottom:4px">Total a pagar</div>
+        <div style="font-family:&apos;Fredoka One&apos;,cursive;font-size:1.8rem;color:var(--laranja)" id="pixValor"></div>
+      </div>
+      <div style="background:#F0FFF4;border:1.5px solid var(--verde);border-radius:12px;padding:14px;margin-bottom:14px">
+        <div style="font-size:11px;font-weight:800;color:var(--verde);margin-bottom:8px">CODIGO PIX COPIA E COLA</div>
+        <div style="font-size:10px;word-break:break-all;color:var(--texto2);line-height:1.6">00020101021126810014BR.GOV.BCB.PIX2559pix-qr.mercadopago.com/instore/ol/v2/3Z8avp6azhaOe4nnx6EWdn5204000053039865802BR5914Samuel Machado6009SAO PAULO62080504mpis63044787</div>
+      </div>
+      <button onclick="copiarPix()" id="copiarBtn" style="width:100%;background:var(--verde);color:#fff;border:none;padding:14px;border-radius:50px;font-family:&apos;Fredoka One&apos;,cursive;font-size:1.1rem;cursor:pointer;margin-bottom:10px">Copiar codigo Pix</button>
+      <div style="background:#FFF8E1;border:1.5px solid #FFD54F;border-radius:12px;padding:12px;font-size:12px;color:#795548;line-height:1.6;margin-bottom:10px">
+        Apos pagar, envie o comprovante para (71) 8151-7185 via WhatsApp para confirmar seu pedido.
+      </div>
+      <button onclick="enviarComprovante()" style="width:100%;background:#25D366;color:#fff;border:none;padding:12px;border-radius:50px;font-family:&apos;Nunito&apos;,sans-serif;font-weight:800;font-size:14px;cursor:pointer">Enviar comprovante pelo WhatsApp</button>
+    </div>
+  </div>
 </div>
 
 <!-- TOAST -->
@@ -742,7 +766,7 @@ function openModal(id){
       ${p.precoOld?`<div class="modal-old">De: ${fmt(p.precoOld)}</div>`:''}
       <div class="modal-btns">
         <button class="btn btn-primary" onclick="addToCartById(${p.id});document.getElementById('modalOverlay').classList.remove('open')">🛒 Adicionar ao carrinho</button>
-        <button class="btn btn-verde" onclick="cart[${p.id}]={...produtos.find(x=>x.id===${p.id}),qty:1};pedidoWhatsApp()">💬 Comprar pelo WhatsApp</button>
+        <button class="btn btn-verde" onclick="addToCartById(${p.id});toggleCart();document.getElementById('modalOverlay').classList.remove('open')">🛒 Adicionar e pagar</button>
       </div>
     </div>`;
   document.getElementById('modalOverlay').classList.add('open');
@@ -760,6 +784,35 @@ function toast(msg){
 function subscribeNewsletter(){
   toast('🎉 Inscrição realizada com sucesso!');
 }
+
+
+function abrirPix(){
+  const total = Object.values(cart).reduce((s,i)=>s+i.preco*i.qty,0);
+  const frete = total>=199?0:15.90;
+  const totalFinal = total+frete;
+  document.getElementById('pixValor').textContent = 'R$'+totalFinal.toFixed(2).replace('.',',');
+  document.getElementById('pixOverlay').classList.add('open');
+  toggleCart();
+}
+function copiarPix(){
+  const codigo = '00020101021126810014BR.GOV.BCB.PIX2559pix-qr.mercadopago.com/instore/ol/v2/3Z8avp6azhaOe4nnx6EWdn5204000053039865802BR5914Samuel Machado6009SAO PAULO62080504mpis63044787';
+  navigator.clipboard.writeText(codigo).then(()=>{
+    const btn = document.getElementById('copiarBtn');
+    btn.textContent = 'Copiado!';
+    btn.style.background = 'var(--verde-d)';
+    toast('Codigo Pix copiado!');
+    setTimeout(()=>{btn.textContent='Copiar codigo Pix';btn.style.background='var(--verde)'},2500);
+  });
+}
+function enviarComprovante(){
+  const total = Object.values(cart).reduce((s,i)=>s+i.preco*i.qty,0);
+  const frete = total>=199?0:15.90;
+  const msg = 'Ola! Acabei de pagar o Pix de R$'+((total+frete).toFixed(2).replace('.',','))+' no Sitio Racoes. Segue o comprovante!';
+  window.open('https://wa.me/5571815171885?text='+encodeURIComponent(msg),'_blank');
+}
+document.getElementById('pixOverlay').addEventListener('click', function(e){
+  if(e.target===this) this.classList.remove('open');
+});
 
 // INIT
 renderCats();
