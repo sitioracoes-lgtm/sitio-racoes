@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Sítio Rações — Tudo para seu Pet</title>
-<meta name="description" content="Rações, remédios, casinhas, coleiras e acessórios para seu pet. Entrega rápida em todo o Brasil!"/>
+<meta name="description" content="Rações, remédios, casinhas, coleiras e acessórios para cães, gatos, coelhos e pássaros. Entrega rápida em todo o Brasil!"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
@@ -12,10 +12,11 @@
 :root{
   --laranja:#FF7A2F;--laranja-d:#E06820;--laranja-l:#FFF0E6;
   --verde:#4CAF50;--verde-d:#388E3C;--verde-l:#E8F5E9;
-  --rosa:#FF4081;--roxo:#7C4DFF;
-  --fundo:#FFFBF7;--borda:#F0E0D0;--texto:#2D2D2D;--texto2:#777;
-  --branco:#fff;--radius:16px;--radius-sm:10px;
-  --sombra:0 4px 24px rgba(255,122,47,.12);
+  --rosa:#FF4081;--roxo:#9C27B0;--roxo-l:#F3E5F5;
+  --fundo:#FFFBF7;--borda:#F0E0D0;
+  --texto:#2D2D2D;--texto2:#777;--branco:#fff;
+  --radius:16px;--radius-sm:10px;
+  --sombra:0 4px 24px rgba(255,122,47,.13);
 }
 html{scroll-behavior:smooth}
 body{font-family:'Nunito',sans-serif;background:var(--fundo);color:var(--texto);overflow-x:hidden}
@@ -27,230 +28,243 @@ body{font-family:'Nunito',sans-serif;background:var(--fundo);color:var(--texto);
 .btn-secondary:hover{background:var(--laranja-l)}
 .section-title{font-family:'Fredoka One',cursive;font-size:2rem;color:var(--texto);margin-bottom:8px}
 .section-sub{color:var(--texto2);font-size:15px;margin-bottom:32px}
-section{padding:56px 0}
+.hidden{display:none!important}
+
+/* TOPBAR */
 .topbar{background:var(--laranja);color:#fff;text-align:center;padding:10px 24px;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
 .topbar-pill{background:rgba(255,255,255,.25);border-radius:50px;padding:2px 12px;font-size:12px;font-weight:900}
+
+/* NAV */
 nav{background:#fff;border-bottom:2px solid var(--borda);position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.05)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px;gap:10px}
-.logo{font-family:'Fredoka One',cursive;font-size:1.6rem;color:var(--laranja);display:flex;align-items:center;gap:6px;text-decoration:none;flex-shrink:0}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;gap:12px}
+.logo{font-family:'Fredoka One',cursive;font-size:1.7rem;color:var(--laranja);display:flex;align-items:center;gap:8px;text-decoration:none;cursor:pointer}
 .logo span{color:var(--verde)}
-.nav-links{display:flex;gap:2px}
-.nav-links a{text-decoration:none;padding:7px 10px;border-radius:var(--radius-sm);font-weight:700;font-size:13px;color:var(--texto2);transition:all .18s;white-space:nowrap}
-.nav-links a:hover,.nav-links a.active{background:var(--laranja-l);color:var(--laranja)}
-.nav-links a.promo-link{color:var(--rosa)}
-.nav-links a.promo-link:hover,.nav-links a.promo-link.active{background:rgba(255,64,129,.12);color:var(--rosa)}
+.nav-links{display:flex;gap:2px;align-items:center}
+.nav-links button{background:none;border:none;padding:7px 12px;border-radius:var(--radius-sm);font-family:'Nunito',sans-serif;font-weight:700;font-size:13px;color:var(--texto2);cursor:pointer;transition:all .18s;white-space:nowrap}
+.nav-links button:hover,.nav-links button.active{background:var(--laranja-l);color:var(--laranja)}
+.nav-promo{color:var(--rosa)!important}
+.nav-promo:hover,.nav-promo.active{background:#fff0f5!important;color:var(--rosa)!important}
 .nav-right{display:flex;align-items:center;gap:8px}
 .search-box{display:flex;align-items:center;background:var(--fundo);border:1.5px solid var(--borda);border-radius:50px;padding:7px 14px;gap:6px;transition:border-color .18s}
 .search-box:focus-within{border-color:var(--laranja)}
-.search-box input{border:none;background:none;font-family:'Nunito',sans-serif;font-size:13px;color:var(--texto);outline:none;width:120px}
-.cart-btn{position:relative;background:var(--laranja);border:none;border-radius:50px;padding:9px 16px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:#fff;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .18s;flex-shrink:0}
+.search-box input{border:none;background:none;font-family:'Nunito',sans-serif;font-size:13px;color:var(--texto);outline:none;width:140px}
+.cart-btn{position:relative;background:var(--laranja);border:none;border-radius:50px;padding:9px 18px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:#fff;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .18s}
 .cart-btn:hover{background:var(--laranja-d)}
-.cart-badge{position:absolute;top:-7px;right:-7px;background:var(--rosa);color:#fff;font-size:11px;font-weight:900;width:21px;height:21px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.cart-badge{position:absolute;top:-7px;right:-7px;background:var(--rosa);color:#fff;font-size:11px;font-weight:900;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
 .hamburger span{width:24px;height:2.5px;background:var(--texto);border-radius:2px}
-.mobile-menu{display:none;position:fixed;inset:0;background:#fff;z-index:300;padding:76px 28px 28px;flex-direction:column;gap:4px;overflow-y:auto}
+.mobile-menu{display:none;position:fixed;inset:0;background:#fff;z-index:300;padding:80px 24px 32px;flex-direction:column;gap:4px;overflow-y:auto}
 .mobile-menu.open{display:flex}
-.mobile-menu a{text-decoration:none;font-size:1.05rem;font-weight:800;color:var(--texto);padding:11px 0;border-bottom:1.5px solid var(--borda)}
-.mobile-close{position:absolute;top:18px;right:22px;background:none;border:none;font-size:26px;cursor:pointer;color:var(--texto)}
-.mob-label{font-size:11px;font-weight:900;color:var(--texto2);text-transform:uppercase;letter-spacing:.06em;padding:14px 0 4px}
-.page{display:none}
-.page.active{display:block}
+.mobile-menu button{background:none;border:none;font-size:1rem;font-weight:800;font-family:'Nunito',sans-serif;color:var(--texto);padding:12px 16px;border-radius:var(--radius-sm);text-align:left;cursor:pointer;display:flex;align-items:center;gap:10px}
+.mobile-menu button:hover{background:var(--laranja-l);color:var(--laranja)}
+.mobile-close{position:absolute;top:20px;right:24px;background:var(--laranja-l);border:none;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer;color:var(--laranja)}
+
+/* BARRA DE ANIMAIS */
+.animal-nav{background:#fff;border-bottom:2px solid var(--borda);overflow-x:auto;scrollbar-width:none}
+.animal-nav::-webkit-scrollbar{display:none}
+.animal-nav-inner{display:flex;min-width:max-content}
+.animal-tab{padding:14px 22px;font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;color:var(--texto2);cursor:pointer;border:none;background:none;border-bottom:3px solid transparent;display:flex;align-items:center;gap:8px;transition:all .18s;white-space:nowrap}
+.animal-tab:hover{color:var(--laranja);background:var(--laranja-l)}
+.animal-tab.active{color:var(--laranja);border-bottom-color:var(--laranja)}
+.promo-tab{color:var(--rosa)!important}
+.promo-tab:hover{background:#fff0f5!important}
+.promo-tab.active{color:var(--rosa)!important;border-bottom-color:var(--rosa)!important}
+
+/* HERO */
 .hero{background:linear-gradient(135deg,#FFF0E6 0%,#FFF8E1 50%,#E8F5E9 100%);padding:64px 0}
 .hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.hero-tag{display:inline-flex;align-items:center;gap:6px;background:var(--laranja-l);color:var(--laranja);border-radius:50px;padding:6px 16px;font-size:13px;font-weight:800;margin-bottom:14px}
-.hero h1{font-family:'Fredoka One',cursive;font-size:3rem;line-height:1.15;margin-bottom:14px}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:var(--laranja-l);color:var(--laranja);border-radius:50px;padding:6px 16px;font-size:13px;font-weight:800;margin-bottom:16px}
+.hero h1{font-family:'Fredoka One',cursive;font-size:3rem;line-height:1.15;margin-bottom:16px}
 .hero h1 em{color:var(--laranja);font-style:normal}
 .hero h1 strong{color:var(--verde)}
-.hero p{font-size:15px;color:var(--texto2);line-height:1.7;margin-bottom:26px;max-width:420px}
-.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
-.hero-stats{display:flex;gap:22px}
+.hero p{font-size:15px;color:var(--texto2);line-height:1.7;margin-bottom:28px;max-width:420px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px}
+.hero-stats{display:flex;gap:24px}
 .hero-stat .num{font-family:'Fredoka One',cursive;font-size:1.4rem;color:var(--laranja)}
 .hero-stat .lbl{font-size:12px;color:var(--texto2);font-weight:700}
-.hero-pets{display:flex;flex-direction:column;gap:13px;align-items:flex-end}
-.pet-card{background:#fff;border-radius:20px;padding:16px 20px;border:2px solid var(--borda);display:flex;align-items:center;gap:12px;box-shadow:var(--sombra);animation:float 3.5s ease-in-out infinite;cursor:pointer;transition:border-color .18s}
-.pet-card:hover{border-color:var(--laranja)}
-.pet-card:nth-child(2){animation-delay:.9s;margin-right:28px}
-.pet-card:nth-child(3){animation-delay:1.8s}
-.pet-card:nth-child(4){animation-delay:2.7s;margin-right:14px}
+.hero-animals{display:flex;flex-direction:column;gap:12px;align-items:flex-end}
+.animal-bubble{background:#fff;border-radius:20px;padding:16px 20px;border:2px solid var(--borda);display:flex;align-items:center;gap:12px;box-shadow:var(--sombra);animation:float 3.5s ease-in-out infinite;cursor:pointer;transition:border-color .2s}
+.animal-bubble:hover{border-color:var(--laranja)}
+.animal-bubble:nth-child(2){animation-delay:.8s;margin-right:28px}
+.animal-bubble:nth-child(3){animation-delay:1.6s}
+.animal-bubble:nth-child(4){animation-delay:2.4s;margin-right:16px}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.pet-emoji{font-size:2rem}
-.pet-name{font-weight:800;font-size:14px}
-.pet-desc{font-size:12px;color:var(--texto2)}
-.banners-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:0}
-.banner-card{border-radius:var(--radius);padding:22px 18px;display:flex;flex-direction:column;gap:6px;position:relative;overflow:hidden;cursor:pointer;transition:transform .2s}
-.banner-card:hover{transform:translateY(-3px)}
-.b-laranja{background:linear-gradient(135deg,#FF7A2F,#FF9A5F)}
-.b-verde{background:linear-gradient(135deg,#4CAF50,#66BB6A)}
-.b-rosa{background:linear-gradient(135deg,#FF4081,#FF80AB)}
-.b-roxo{background:linear-gradient(135deg,#7C4DFF,#AB7AFF)}
-.bc-tag{background:rgba(255,255,255,.25);color:#fff;border-radius:50px;padding:2px 10px;font-size:11px;font-weight:900;width:fit-content}
-.bc-title{font-family:'Fredoka One',cursive;font-size:1.25rem;color:#fff}
-.bc-sub{font-size:12px;color:rgba(255,255,255,.85);font-weight:600}
-.bc-emoji{position:absolute;right:12px;bottom:8px;font-size:2.5rem;opacity:.3}
-.animal-hero{padding:36px 0 0}
-.animal-top{display:flex;align-items:center;gap:16px;margin-bottom:24px;flex-wrap:wrap}
-.animal-emoji-big{font-size:3.5rem}
-.animal-top h2{font-family:'Fredoka One',cursive;font-size:2.2rem;color:var(--texto)}
-.animal-top p{font-size:14px;color:var(--texto2);max-width:480px}
-.subcats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
-.sc-pill{background:#fff;border:2px solid var(--borda);border-radius:50px;padding:8px 18px;font-weight:800;font-size:13px;color:var(--texto2);cursor:pointer;transition:all .18s;white-space:nowrap}
-.sc-pill:hover,.sc-pill.active{border-color:var(--laranja);background:var(--laranja-l);color:var(--laranja)}
-.sc-pill.rp:hover,.sc-pill.rp.active{border-color:var(--roxo);background:#EDE7F6;color:var(--roxo)}
-.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;padding-bottom:48px}
-.product-card{background:#fff;border:2px solid var(--borda);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .2s;position:relative}
+.ab-emoji{font-size:2rem}
+.ab-name{font-weight:800;font-size:14px}
+.ab-desc{font-size:11px;color:var(--texto2)}
+
+/* PROMOÇÕES */
+.promo-section{background:linear-gradient(135deg,#2D2D2D,#3D3D3D);color:#fff;padding:48px 0}
+.promo-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:16px}
+.promo-title{font-family:'Fredoka One',cursive;font-size:2rem;color:#fff}
+.timer-box{display:flex;gap:8px;align-items:center}
+.timer-unit{background:var(--rosa);border-radius:var(--radius-sm);padding:8px 14px;text-align:center;min-width:54px}
+.timer-num{font-family:'Fredoka One',cursive;font-size:1.8rem;color:#fff;line-height:1}
+.timer-lbl{font-size:10px;color:rgba(255,255,255,.7);font-weight:700}
+.timer-sep{font-family:'Fredoka One',cursive;font-size:1.8rem;color:var(--rosa)}
+.promo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px}
+.promo-card{background:#fff;border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .2s}
+.promo-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.promo-img{background:#FFF8F4;height:140px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;border-bottom:1.5px solid var(--borda)}
+.promo-badge{position:absolute;top:8px;left:8px;background:var(--rosa);color:#fff;font-size:11px;font-weight:900;padding:3px 10px;border-radius:50px}
+.promo-body{padding:12px}
+.promo-name{font-weight:800;font-size:13px;color:var(--texto);margin-bottom:6px;line-height:1.3}
+.promo-prices{display:flex;align-items:center;justify-content:space-between}
+.promo-price{font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--laranja)}
+.promo-old{font-size:11px;color:var(--texto2);text-decoration:line-through}
+.promo-add{width:32px;height:32px;border-radius:50%;background:var(--laranja);border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s}
+.promo-add:hover{background:var(--laranja-d);transform:scale(1.15)}
+
+/* SEÇÕES ANIMAL */
+.animal-page{padding:48px 0}
+.animal-header{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+.animal-icon-big{width:68px;height:68px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:2.6rem;border:2px solid var(--borda);background:#fff;flex-shrink:0}
+.at-name{font-family:'Fredoka One',cursive;font-size:1.8rem;color:var(--texto)}
+.at-sub{font-size:14px;color:var(--texto2);margin-top:4px}
+.sub-cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.sub-cat{background:#fff;border:2px solid var(--borda);border-radius:50px;padding:7px 16px;font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;color:var(--texto2);cursor:pointer;border:none;transition:all .18s;border:2px solid var(--borda)}
+.sub-cat:hover,.sub-cat.active{border-color:var(--laranja);background:var(--laranja-l);color:var(--laranja)}
+.sub-cat.rem:hover,.sub-cat.rem.active{border-color:var(--roxo);background:var(--roxo-l);color:var(--roxo)}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px}
+.product-card{background:#fff;border:2px solid var(--borda);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .2s}
 .product-card:hover{border-color:var(--laranja);transform:translateY(-4px);box-shadow:var(--sombra)}
-.product-card.rc:hover{border-color:var(--roxo)}
-.product-card.pr:hover{border-color:var(--rosa)}
-.product-img{background:#FFF8F4;height:165px;display:flex;align-items:center;justify-content:center;font-size:3.8rem;position:relative;border-bottom:1.5px solid var(--borda)}
-.product-img.ri{background:#F3E5F5}
-.product-img.pi{background:#FFF0F5}
+.product-card.rem-card:hover{border-color:var(--roxo)}
+.product-img{background:#FFF8F4;height:165px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;border-bottom:1.5px solid var(--borda)}
+.product-card.rem-card .product-img{background:var(--roxo-l)}
 .badge{position:absolute;border-radius:50px;padding:3px 10px;font-size:11px;font-weight:900}
+.badge-novo{top:10px;left:10px;background:var(--rosa);color:#fff}
 .badge-off{top:10px;right:10px;background:var(--verde);color:#fff}
-.badge-promo{top:10px;left:10px;background:var(--rosa);color:#fff}
 .badge-rem{top:10px;left:10px;background:var(--roxo);color:#fff}
-.product-body{padding:13px}
-.product-tag{font-size:11px;font-weight:800;color:var(--laranja);background:var(--laranja-l);padding:2px 9px;border-radius:50px;display:inline-block;margin-bottom:5px}
-.product-tag.rt{color:var(--roxo);background:#EDE7F6}
-.product-tag.pt{color:var(--rosa);background:#FFF0F5}
-.product-name{font-weight:800;font-size:14px;line-height:1.35;margin-bottom:3px}
-.product-rating{font-size:12px;color:#FFA726;margin-bottom:9px}
+.product-body{padding:14px}
+.product-tag{font-size:11px;font-weight:800;color:var(--laranja);background:var(--laranja-l);padding:2px 10px;border-radius:50px;display:inline-block;margin-bottom:6px}
+.product-tag.rem{color:var(--roxo);background:var(--roxo-l)}
+.product-name{font-weight:800;font-size:13px;line-height:1.35;margin-bottom:4px;color:var(--texto)}
+.product-rating{font-size:11px;color:#FFA726;margin-bottom:8px}
 .product-rating span{color:var(--texto2);font-weight:700}
 .product-footer{display:flex;align-items:center;justify-content:space-between}
 .product-price{font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--laranja)}
-.product-old{font-size:11px;color:var(--texto2);text-decoration:line-through;margin-top:1px}
-.add-btn{width:35px;height:35px;border-radius:50%;background:var(--laranja);border:none;color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:900;transition:all .18s;flex-shrink:0}
+.product-old{font-size:11px;color:var(--texto2);text-decoration:line-through;margin-top:2px}
+.add-btn{width:36px;height:36px;border-radius:50%;background:var(--laranja);border:none;color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:900;transition:all .18s;flex-shrink:0}
 .add-btn:hover{background:var(--laranja-d);transform:scale(1.15)}
-.add-btn.adicionado{background:var(--verde)}
-.promo-hero{background:linear-gradient(135deg,#FF4081,#FF7A2F);padding:44px 0 28px;color:#fff}
-.promo-hero h2{font-family:'Fredoka One',cursive;font-size:2.3rem;margin-bottom:6px}
-.promo-hero p{font-size:14px;opacity:.9}
-.timer-wrap{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
-.timer-block{background:rgba(255,255,255,.2);border-radius:12px;padding:10px 18px;text-align:center;min-width:66px}
-.t-num{font-family:'Fredoka One',cursive;font-size:1.8rem;color:#fff}
-.t-lbl{font-size:11px;color:rgba(255,255,255,.8);font-weight:700}
-.insta-section{background:#fff;border-top:2px solid var(--borda);padding:44px 0}
-.insta-head{display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap}
-.insta-icon{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
-.insta-info h3{font-family:'Fredoka One',cursive;font-size:1.4rem}
-.insta-info p{font-size:13px;color:var(--texto2)}
-.insta-follow{background:linear-gradient(135deg,#f09433,#dc2743,#bc1888);color:#fff;border:none;border-radius:50px;padding:9px 20px;font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;cursor:pointer;margin-left:auto;transition:opacity .18s}
-.insta-follow:hover{opacity:.85}
-.insta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.insta-post{border-radius:var(--radius-sm);aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.8rem;cursor:pointer;transition:transform .2s;position:relative;overflow:hidden}
-.insta-post:hover{transform:scale(1.04)}
-.insta-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}
-.insta-post:hover .insta-overlay{opacity:1}
-.insta-overlay span{color:#fff;font-size:.9rem;font-weight:800}
-.como-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.step{text-align:center;padding:18px 10px}
-.step-num{width:50px;height:50px;border-radius:50%;background:var(--laranja-l);color:var(--laranja);font-family:'Fredoka One',cursive;font-size:1.3rem;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
-.step-icon{font-size:1.7rem;margin-bottom:7px}
-.step h4{font-weight:800;font-size:14px;margin-bottom:5px}
+.add-btn.ok{background:var(--verde)}
+
+/* INSTAGRAM */
+.insta-section{background:#fff;padding:56px 0;border-top:2px solid var(--borda)}
+.insta-handle{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;border-radius:50px;padding:10px 24px;font-weight:800;font-size:15px;text-decoration:none;margin-top:12px;transition:transform .2s}
+.insta-handle:hover{transform:scale(1.05)}
+.insta-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:24px}
+.insta-post{border-radius:var(--radius-sm);aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:2.5rem;cursor:pointer;transition:transform .2s;position:relative;overflow:hidden}
+.insta-post:hover{transform:scale(1.05)}
+.insta-overlay{position:absolute;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;font-weight:800}
+.insta-post:hover .insta-overlay{display:flex}
+
+/* COMO/DEPO */
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.step{text-align:center;padding:24px 16px}
+.step-num{width:52px;height:52px;border-radius:50%;background:var(--laranja-l);color:var(--laranja);font-family:'Fredoka One',cursive;font-size:1.4rem;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.step h4{font-weight:800;font-size:14px;margin-bottom:6px}
 .step p{font-size:13px;color:var(--texto2);line-height:1.6}
-.dep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.dep-card{background:#fff;border:2px solid var(--borda);border-radius:var(--radius);padding:20px;transition:border-color .2s}
+.dep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.dep-card{background:#fff;border:2px solid var(--borda);border-radius:var(--radius);padding:22px;transition:border-color .2s}
 .dep-card:hover{border-color:var(--laranja)}
-.dep-stars{color:#FFA726;margin-bottom:7px}
-.dep-text{font-size:13px;line-height:1.7;color:var(--texto2);margin-bottom:12px;font-style:italic}
-.dep-author{display:flex;align-items:center;gap:9px}
-.dep-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.dep-stars{color:#FFA726;margin-bottom:8px}
+.dep-text{font-size:13px;line-height:1.7;color:var(--texto2);margin-bottom:14px;font-style:italic}
+.dep-author{display:flex;align-items:center;gap:10px}
+.dep-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
 .dep-name{font-weight:800;font-size:13px}
 .dep-pet{font-size:11px;color:var(--texto2)}
-.newsletter{background:linear-gradient(135deg,var(--laranja),#FF9A5F);color:#fff;text-align:center;padding:52px 0}
-.newsletter h2{font-family:'Fredoka One',cursive;font-size:1.9rem;margin-bottom:7px}
-.newsletter p{font-size:14px;opacity:.9;margin-bottom:22px}
-.nl-form{display:flex;gap:9px;max-width:440px;margin:0 auto}
-.nl-form input{flex:1;padding:12px 18px;border-radius:50px;border:none;font-family:'Nunito',sans-serif;font-size:14px;outline:none}
-.nl-form button{background:#2D2D2D;color:#fff;border:none;border-radius:50px;padding:12px 22px;font-family:'Nunito',sans-serif;font-weight:800;cursor:pointer;white-space:nowrap}
-.nl-form button:hover{background:#1a1a1a}
-footer{background:#2D2D2D;color:#aaa;padding:44px 0 18px}
+.newsletter{background:linear-gradient(135deg,var(--laranja),#FF9A5F);color:#fff;text-align:center;padding:56px 0}
+.newsletter h2{font-family:'Fredoka One',cursive;font-size:2rem;margin-bottom:8px}
+.newsletter p{font-size:14px;opacity:.9;margin-bottom:24px}
+.nl-form{display:flex;gap:10px;max-width:460px;margin:0 auto}
+.nl-form input{flex:1;padding:13px 20px;border-radius:50px;border:none;font-family:'Nunito',sans-serif;font-size:14px;outline:none}
+.nl-form button{background:#2D2D2D;color:#fff;border:none;border-radius:50px;padding:13px 22px;font-family:'Nunito',sans-serif;font-weight:800;cursor:pointer;white-space:nowrap}
+footer{background:#2D2D2D;color:#aaa;padding:48px 0 20px}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:32px}
-.footer-brand .logo{color:var(--laranja);margin-bottom:10px;display:inline-flex}
-.footer-brand p{font-size:13px;line-height:1.8;max-width:220px}
-.footer-col h4{color:#fff;font-size:13px;font-weight:800;margin-bottom:11px}
+.footer-col h4{color:#fff;font-size:13px;font-weight:800;margin-bottom:12px}
 .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:7px}
 .footer-col ul li{font-size:13px;cursor:pointer;transition:color .15s}
 .footer-col ul li:hover{color:var(--laranja)}
-.footer-bottom{border-top:1px solid #3d3d3d;padding-top:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.footer-seals{display:flex;gap:7px;flex-wrap:wrap}
-.seal{background:#3d3d3d;border-radius:7px;padding:4px 11px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:4px}
-.footer-copy{font-size:12px}
-.cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:400;backdrop-filter:blur(2px)}
+.footer-bottom{border-top:1px solid #3d3d3d;padding-top:16px}
+.footer-seals{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.seal{background:#3d3d3d;border-radius:8px;padding:4px 12px;font-size:11px;font-weight:700}
+
+/* CARRINHO */
+.cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:400}
 .cart-overlay.open{display:block}
-.cart-panel{position:fixed;right:-410px;top:0;width:390px;height:100vh;background:#fff;z-index:401;display:flex;flex-direction:column;border-left:2px solid var(--borda);transition:right .3s cubic-bezier(.4,0,.2,1)}
+.cart-panel{position:fixed;right:-420px;top:0;width:400px;height:100vh;background:#fff;z-index:401;display:flex;flex-direction:column;border-left:2px solid var(--borda);transition:right .3s cubic-bezier(.4,0,.2,1)}
 .cart-panel.open{right:0}
-.cart-head{padding:17px 20px;border-bottom:2px solid var(--borda);display:flex;align-items:center;justify-content:space-between}
-.cart-head h2{font-family:'Fredoka One',cursive;font-size:1.25rem;color:var(--laranja)}
-.cart-close{background:var(--laranja-l);border:none;width:30px;height:30px;border-radius:50%;font-size:17px;cursor:pointer;color:var(--laranja);display:flex;align-items:center;justify-content:center;font-weight:900}
-.cart-close:hover{background:var(--laranja);color:#fff}
-.cart-body{flex:1;overflow-y:auto;padding:13px 20px}
-.cart-empty{text-align:center;padding:36px 0;color:var(--texto2)}
-.cart-empty .ce-emoji{font-size:3rem;margin-bottom:8px}
-.cart-item{display:flex;gap:11px;align-items:center;padding:11px 0;border-bottom:1.5px solid var(--borda)}
-.ci-emoji{font-size:2rem;flex-shrink:0}
+.cart-head{padding:18px 22px;border-bottom:2px solid var(--borda);display:flex;align-items:center;justify-content:space-between}
+.cart-head h2{font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--laranja)}
+.cart-close{background:var(--laranja-l);border:none;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;color:var(--laranja)}
+.cart-body{flex:1;overflow-y:auto;padding:14px 22px}
+.cart-empty{text-align:center;padding:40px 0;color:var(--texto2)}
+.cart-item{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1.5px solid var(--borda)}
+.ci-emoji{font-size:2.2rem;flex-shrink:0}
 .ci-info{flex:1}
 .ci-name{font-size:13px;font-weight:800;margin-bottom:3px}
-.ci-price{font-family:'Fredoka One',cursive;font-size:.95rem;color:var(--laranja)}
-.ci-controls{display:flex;align-items:center;gap:6px;margin-top:3px}
-.qty-btn{width:24px;height:24px;border-radius:50%;background:var(--laranja-l);border:1.5px solid var(--borda);font-size:14px;font-weight:900;cursor:pointer;color:var(--laranja);display:flex;align-items:center;justify-content:center;transition:all .12s}
+.ci-price{font-family:'Fredoka One',cursive;font-size:1rem;color:var(--laranja)}
+.ci-controls{display:flex;align-items:center;gap:6px;margin-top:4px}
+.qty-btn{width:26px;height:26px;border-radius:50%;background:var(--laranja-l);border:1.5px solid var(--borda);font-size:15px;cursor:pointer;color:var(--laranja);display:flex;align-items:center;justify-content:center;transition:all .12s;font-weight:900}
 .qty-btn:hover{background:var(--laranja);color:#fff;border-color:var(--laranja)}
 .qty-val{font-size:13px;font-weight:800;min-width:16px;text-align:center}
-.ci-remove{background:none;border:none;font-size:14px;cursor:pointer;color:#ccc;transition:color .15s}
+.ci-remove{background:none;border:none;font-size:15px;cursor:pointer;color:#ccc;transition:color .15s;margin-left:4px}
 .ci-remove:hover{color:var(--rosa)}
-.cart-foot{padding:16px 20px;border-top:2px solid var(--borda);background:var(--fundo)}
+.cart-foot{padding:16px 22px;border-top:2px solid var(--borda);background:var(--fundo)}
 .cart-row{display:flex;justify-content:space-between;margin-bottom:5px;font-size:13px}
 .cart-row .label{color:var(--texto2);font-weight:700}
 .cart-row .val{font-weight:800}
 .cart-row.total{margin-top:8px;padding-top:8px;border-top:1.5px solid var(--borda)}
-.cart-row.total .label{font-family:'Fredoka One',cursive;font-size:.95rem}
-.cart-row.total .val{font-family:'Fredoka One',cursive;font-size:1.25rem;color:var(--laranja)}
-.checkout-btn{margin-top:11px;width:100%;background:var(--verde);color:#fff;border:none;padding:13px;border-radius:50px;font-family:'Fredoka One',cursive;font-size:1.05rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:7px}
-.checkout-btn:hover{background:var(--verde-d);transform:translateY(-2px)}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:600;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.cart-row.total .label{font-family:'Fredoka One',cursive;font-size:1rem}
+.cart-row.total .val{font-family:'Fredoka One',cursive;font-size:1.3rem;color:var(--laranja)}
+.pagar-btn{margin-top:12px;width:100%;background:var(--verde);color:#fff;border:none;padding:14px;border-radius:50px;font-family:'Fredoka One',cursive;font-size:1.1rem;cursor:pointer;transition:all .2s}
+.pagar-btn:hover{background:var(--verde-d)}
+
+/* MODAIS */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:600;align-items:center;justify-content:center}
 .modal-overlay.open{display:flex}
-.modal{background:#fff;border-radius:20px;max-width:620px;width:90%;max-height:88vh;overflow-y:auto;position:relative}
-.modal-close{position:absolute;top:12px;right:12px;background:var(--fundo);border:none;width:32px;height:32px;border-radius:50%;font-size:17px;cursor:pointer;color:var(--texto);display:flex;align-items:center;justify-content:center;z-index:1}
-.modal-img{background:var(--fundo);height:210px;display:flex;align-items:center;justify-content:center;font-size:5.5rem;border-radius:20px 20px 0 0}
-.modal-body{padding:20px}
-.modal-tag{font-size:12px;font-weight:800;color:var(--laranja);background:var(--laranja-l);padding:3px 11px;border-radius:50px;display:inline-block;margin-bottom:7px}
-.modal-tag.rt{color:var(--roxo);background:#EDE7F6}
-.modal-name{font-family:'Fredoka One',cursive;font-size:1.45rem;margin-bottom:6px}
-.modal-rating{color:#FFA726;font-size:13px;margin-bottom:9px}
-.modal-desc{font-size:14px;color:var(--texto2);line-height:1.7;margin-bottom:16px}
-.modal-price{font-family:'Fredoka One',cursive;font-size:1.8rem;color:var(--laranja);margin-bottom:4px}
+.modal-box{background:#fff;border-radius:24px;max-width:480px;width:92%;position:relative;max-height:90vh;overflow-y:auto}
+.modal-close{position:absolute;top:14px;right:14px;background:var(--fundo);border:none;width:34px;height:34px;border-radius:50%;font-size:18px;cursor:pointer;color:var(--texto);z-index:1}
+.modal-img{background:var(--fundo);height:200px;display:flex;align-items:center;justify-content:center;font-size:6rem;border-radius:24px 24px 0 0}
+.modal-body{padding:22px}
+.modal-tag{font-size:12px;font-weight:800;color:var(--laranja);background:var(--laranja-l);padding:3px 12px;border-radius:50px;display:inline-block;margin-bottom:8px}
+.modal-name{font-family:'Fredoka One',cursive;font-size:1.4rem;margin-bottom:6px}
+.modal-desc{font-size:13px;color:var(--texto2);line-height:1.7;margin-bottom:16px}
+.modal-price{font-family:'Fredoka One',cursive;font-size:1.8rem;color:var(--laranja)}
 .modal-old{font-size:13px;color:var(--texto2);text-decoration:line-through;margin-bottom:16px}
-.modal-btns{display:flex;gap:10px;flex-wrap:wrap}
-.pix-modal{background:#fff;border-radius:20px;max-width:400px;width:90%;padding:26px;position:relative;text-align:center}
-.pix-title{font-family:'Fredoka One',cursive;font-size:1.4rem;color:var(--verde);margin-bottom:5px}
-.pix-valor{font-family:'Fredoka One',cursive;font-size:1.9rem;color:var(--laranja);margin:8px 0}
-.pix-code{background:var(--fundo);border:1.5px solid var(--borda);border-radius:var(--radius-sm);padding:10px;font-size:10px;word-break:break-all;color:var(--texto2);line-height:1.6;margin:12px 0;text-align:left}
-.pix-copy{width:100%;background:var(--verde);color:#fff;border:none;padding:12px;border-radius:50px;font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;cursor:pointer;transition:all .2s}
-.pix-copy:hover{background:var(--verde-d)}
-.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(100px);background:#2D2D2D;color:#fff;padding:11px 22px;border-radius:50px;font-weight:800;font-size:13px;z-index:800;transition:transform .25s cubic-bezier(.4,0,.2,1);white-space:nowrap;pointer-events:none}
+.pix-box{padding:24px}
+.pix-title{font-family:'Fredoka One',cursive;font-size:1.5rem;color:var(--verde);text-align:center;margin-bottom:4px}
+.pix-valor{font-family:'Fredoka One',cursive;font-size:2rem;color:var(--laranja);text-align:center;margin-bottom:14px}
+.pix-code{background:var(--fundo);border:1.5px solid var(--borda);border-radius:var(--radius-sm);padding:10px;word-break:break-all;font-size:11px;color:var(--texto2);line-height:1.6;margin-bottom:12px;max-height:72px;overflow-y:auto}
+.pix-copy{width:100%;background:var(--verde);color:#fff;border:none;padding:14px;border-radius:50px;font-family:'Fredoka One',cursive;font-size:1.1rem;cursor:pointer;margin-bottom:8px}
+.pix-info{font-size:12px;color:var(--texto2);text-align:center;line-height:1.6}
+.field-label{display:block;font-size:12px;font-weight:800;color:var(--texto2);margin-bottom:5px}
+.field-input{width:100%;padding:10px 14px;border:1.5px solid var(--borda);border-radius:var(--radius-sm);font-family:'Nunito',sans-serif;font-size:13px;color:var(--texto);outline:none;transition:border-color .18s;background:#fff}
+.field-input:focus{border-color:var(--laranja)}
+.field-input.ok{border-color:var(--verde)}
+.field-input.erro{border-color:var(--rosa)}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(100px);background:#2D2D2D;color:#fff;padding:12px 24px;border-radius:50px;font-weight:800;font-size:14px;z-index:800;transition:transform .25s;white-space:nowrap;pointer-events:none}
 .toast.show{transform:translateX(-50%) translateY(0)}
-@media(max-width:900px){
+
+@media(max-width:960px){
   .hero-inner{grid-template-columns:1fr}
-  .hero-pets{flex-direction:row;flex-wrap:wrap}
-  .pet-card:nth-child(2){margin-right:0}
-  .banners-grid{grid-template-columns:1fr 1fr}
-  .como-steps{grid-template-columns:repeat(2,1fr)}
-  .dep-grid{grid-column:1fr}
+  .hero-animals{flex-direction:row;flex-wrap:wrap;justify-content:center}
+  .animal-bubble:nth-child(2){margin-right:0}
+  .steps-grid{grid-template-columns:repeat(2,1fr)}
+  .dep-grid{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr 1fr}
   .insta-grid{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:600px){
   .nav-links,.search-box{display:none}
   .hamburger{display:flex}
-  .hero h1{font-size:2.1rem}
-  .hero-pets{display:none}
-  .banners-grid{grid-template-columns:1fr}
-  .como-steps{grid-template-columns:1fr}
+  .hero h1{font-size:2rem}
+  .hero-animals{display:none}
+  .steps-grid{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr}
   .nl-form{flex-direction:column}
   .cart-panel{width:100%;right:-100%}
-  .footer-bottom{flex-direction:column}
-  .insta-grid{grid-template-columns:repeat(2,1fr)}
-  .dep-grid{grid-template-columns:1fr}
+  .insta-grid{grid-template-columns:repeat(3,1fr)}
 }
 </style>
 </head>
@@ -264,49 +278,60 @@ footer{background:#2D2D2D;color:#aaa;padding:44px 0 18px}
 
 <nav>
   <div class="container nav-inner">
-    <a href="#" class="logo" onclick="showPage('home');return false">🐾 Sítio <span>Rações</span></a>
+    <div class="logo" onclick="ir('home')">🐾 Sítio <span>Rações</span></div>
     <div class="nav-links">
-      <a href="#" id="nav-home" class="active" onclick="showPage('home');return false">Início</a>
-      <a href="#" id="nav-cao" onclick="showPage('cao');return false">🐶 Cão</a>
-      <a href="#" id="nav-gato" onclick="showPage('gato');return false">🐱 Gato</a>
-      <a href="#" id="nav-coelho" onclick="showPage('coelho');return false">🐇 Coelho</a>
-      <a href="#" id="nav-passaro" onclick="showPage('passaro');return false">🐦 Pássaro</a>
-      <a href="#" id="nav-promo" class="promo-link" onclick="showPage('promo');return false">🔥 Promoções</a>
+      <button onclick="ir('home')" id="nb-home" class="active">Início</button>
+      <button onclick="ir('cao')" id="nb-cao">🐶 Cão</button>
+      <button onclick="ir('gato')" id="nb-gato">🐱 Gato</button>
+      <button onclick="ir('coelho')" id="nb-coelho">🐇 Coelho</button>
+      <button onclick="ir('passaro')" id="nb-passaro">🐦 Pássaro</button>
+      <button onclick="ir('promo')" id="nb-promo" class="nav-promo">🔥 Promoções</button>
     </div>
     <div class="nav-right">
       <div class="search-box">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" placeholder="Buscar..." id="searchInput" oninput="buscarGlobal()"/>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Buscar produtos..." id="searchInput" oninput="buscar()"/>
       </div>
-      <button class="cart-btn" onclick="toggleCart()">🛒 Carrinho <span id="cartBadge" class="cart-badge">0</span></button>
-      <div class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
+      <button class="cart-btn" onclick="toggleCart()">🛒 Carrinho <span class="cart-badge" id="cartBadge">0</span></button>
+      <button class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></button>
     </div>
   </div>
 </nav>
 
+<div class="animal-nav">
+  <div class="container">
+    <div class="animal-nav-inner">
+      <button class="animal-tab active" id="tab-home" onclick="ir('home')">🏠 Início</button>
+      <button class="animal-tab" id="tab-cao" onclick="ir('cao')">🐶 Cão</button>
+      <button class="animal-tab" id="tab-gato" onclick="ir('gato')">🐱 Gato</button>
+      <button class="animal-tab" id="tab-coelho" onclick="ir('coelho')">🐇 Coelho</button>
+      <button class="animal-tab" id="tab-passaro" onclick="ir('passaro')">🐦 Pássaro</button>
+      <button class="animal-tab promo-tab" id="tab-promo" onclick="ir('promo')">🔥 Promoções do Dia</button>
+    </div>
+  </div>
+</div>
+
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-close" onclick="toggleMobile()">✕</button>
-  <div class="mob-label">Menu</div>
-  <a href="#" onclick="showPage('home');toggleMobile()">🏠 Início</a>
-  <div class="mob-label">Por animal</div>
-  <a href="#" onclick="showPage('cao');toggleMobile()">🐶 Cão</a>
-  <a href="#" onclick="showPage('gato');toggleMobile()">🐱 Gato</a>
-  <a href="#" onclick="showPage('coelho');toggleMobile()">🐇 Coelho</a>
-  <a href="#" onclick="showPage('passaro');toggleMobile()">🐦 Pássaro</a>
-  <a href="#" onclick="showPage('promo');toggleMobile()" style="color:var(--rosa)">🔥 Promoções do dia</a>
+  <button onclick="ir('home');toggleMobile()">🏠 Início</button>
+  <button onclick="ir('cao');toggleMobile()">🐶 Produtos para Cão</button>
+  <button onclick="ir('gato');toggleMobile()">🐱 Produtos para Gato</button>
+  <button onclick="ir('coelho');toggleMobile()">🐇 Produtos para Coelho</button>
+  <button onclick="ir('passaro');toggleMobile()">🐦 Produtos para Pássaro</button>
+  <button onclick="ir('promo');toggleMobile()" style="color:var(--rosa)">🔥 Promoções do Dia</button>
 </div>
 
 <!-- HOME -->
-<div id="page-home" class="page active">
+<div id="pg-home">
   <section class="hero">
     <div class="container hero-inner">
       <div>
         <div class="hero-tag">🐾 A loja preferida dos pets</div>
         <h1>Tudo que seu<br/><em>pet</em> <strong>merece!</strong></h1>
-        <p>Rações premium, remédios, casinhas e muito mais. Entrega rápida para todo o Brasil!</p>
+        <p>Rações premium, remédios, casinhas, coleiras e muito mais para cães, gatos, coelhos e pássaros!</p>
         <div class="hero-btns">
-          <button class="btn btn-primary" onclick="showPage('cao')">🐶 Ver produtos</button>
-          <button class="btn btn-secondary" onclick="showPage('promo')">🔥 Ver promoções</button>
+          <button class="btn btn-primary" onclick="ir('cao')">🐶 Ver produtos</button>
+          <button class="btn btn-secondary" onclick="ir('promo')">🔥 Promoções</button>
         </div>
         <div class="hero-stats">
           <div class="hero-stat"><div class="num">+500</div><div class="lbl">Produtos</div></div>
@@ -314,359 +339,564 @@ footer{background:#2D2D2D;color:#aaa;padding:44px 0 18px}
           <div class="hero-stat"><div class="num">4.9★</div><div class="lbl">Avaliação</div></div>
         </div>
       </div>
-      <div class="hero-pets">
-        <div class="pet-card" onclick="showPage('cao')"><div class="pet-emoji">🐶</div><div><div class="pet-name">Para cães</div><div class="pet-desc">Ração, coleiras e mais</div></div></div>
-        <div class="pet-card" onclick="showPage('gato')"><div class="pet-emoji">🐱</div><div><div class="pet-name">Para gatos</div><div class="pet-desc">Arranhadores e petiscos</div></div></div>
-        <div class="pet-card" onclick="showPage('coelho')"><div class="pet-emoji">🐇</div><div><div class="pet-name">Para coelhos</div><div class="pet-desc">Rações e gaiolas</div></div></div>
-        <div class="pet-card" onclick="showPage('passaro')"><div class="pet-emoji">🐦</div><div><div class="pet-name">Para pássaros</div><div class="pet-desc">Sementes e poleiros</div></div></div>
+      <div class="hero-animals">
+        <div class="animal-bubble" onclick="ir('cao')"><div class="ab-emoji">🐶</div><div><div class="ab-name">Cão</div><div class="ab-desc">Ração, remédio e mais</div></div></div>
+        <div class="animal-bubble" onclick="ir('gato')"><div class="ab-emoji">🐱</div><div><div class="ab-name">Gato</div><div class="ab-desc">Arranhador e petiscos</div></div></div>
+        <div class="animal-bubble" onclick="ir('coelho')"><div class="ab-emoji">🐇</div><div><div class="ab-name">Coelho</div><div class="ab-desc">Gaiola e feno</div></div></div>
+        <div class="animal-bubble" onclick="ir('passaro')"><div class="ab-emoji">🐦</div><div><div class="ab-name">Pássaro</div><div class="ab-desc">Ração e gaiola</div></div></div>
       </div>
     </div>
   </section>
-  <section style="padding:36px 0">
+
+  <section style="padding:56px 0;background:var(--fundo)">
     <div class="container">
-      <div class="banners-grid">
-        <div class="banner-card b-laranja" onclick="showPage('cao')"><div class="bc-tag">MAIS VENDIDO</div><div class="bc-title">Produtos para Cão</div><div class="bc-sub">Ração, coleiras, casinhas</div><div class="bc-emoji">🐶</div></div>
-        <div class="banner-card b-verde" onclick="showPage('gato')"><div class="bc-tag">NOVIDADE</div><div class="bc-title">Produtos para Gato</div><div class="bc-sub">Arranhadores e petiscos</div><div class="bc-emoji">🐱</div></div>
-        <div class="banner-card b-rosa" onclick="showPage('promo')"><div class="bc-tag">HOJE</div><div class="bc-title">Promoções do Dia</div><div class="bc-sub">Até 47% off por tempo limitado</div><div class="bc-emoji">🔥</div></div>
+      <div style="text-align:center;margin-bottom:36px"><div class="section-title">Como funciona?</div><p class="section-sub">Simples, rápido e seguro</p></div>
+      <div class="steps-grid">
+        <div class="step"><div class="step-num">1</div><div style="font-size:1.8rem;margin-bottom:8px">🛍️</div><h4>Escolha o animal</h4><p>Navegue pela seção do seu pet e encontre o que precisa</p></div>
+        <div class="step"><div class="step-num">2</div><div style="font-size:1.8rem;margin-bottom:8px">🛒</div><h4>Adicione ao carrinho</h4><p>Selecione a quantidade e confirme</p></div>
+        <div class="step"><div class="step-num">3</div><div style="font-size:1.8rem;margin-bottom:8px">💳</div><h4>Pague com Pix</h4><p>Pagamento instantâneo e seguro</p></div>
+        <div class="step"><div class="step-num">4</div><div style="font-size:1.8rem;margin-bottom:8px">🚚</div><h4>Receba em casa</h4><p>Entrega rápida com rastreio</p></div>
       </div>
     </div>
   </section>
-  <section style="background:#fff">
+
+  <section style="padding:56px 0;background:#fff">
     <div class="container">
-      <div style="text-align:center;margin-bottom:32px"><div class="section-title">Como funciona?</div><p class="section-sub">Simples, rápido e seguro</p></div>
-      <div class="como-steps">
-        <div class="step"><div class="step-num">1</div><div class="step-icon">🛍️</div><h4>Escolha por animal</h4><p>Cão, gato, coelho ou pássaro</p></div>
-        <div class="step"><div class="step-num">2</div><div class="step-icon">🛒</div><h4>Adicione ao carrinho</h4><p>Selecione e confirme</p></div>
-        <div class="step"><div class="step-num">3</div><div class="step-icon">💳</div><h4>Pague com Pix</h4><p>Rápido e sem taxas</p></div>
-        <div class="step"><div class="step-num">4</div><div class="step-icon">🚚</div><h4>Receba em casa</h4><p>Entrega para todo Brasil</p></div>
-      </div>
-    </div>
-  </section>
-  <section style="background:var(--fundo)">
-    <div class="container">
-      <div style="text-align:center;margin-bottom:28px"><div class="section-title">⭐ O que dizem nossos clientes</div><p class="section-sub">Mais de 2.000 pets satisfeitos!</p></div>
+      <div style="text-align:center;margin-bottom:32px"><div class="section-title">⭐ O que dizem nossos clientes</div><p class="section-sub">Mais de 2.000 pets satisfeitos!</p></div>
       <div class="dep-grid">
-        <div class="dep-card"><div class="dep-stars">★★★★★</div><p class="dep-text">"Chegou rápido e meu golden amou a ração! Qualidade incrível, virei cliente fiel."</p><div class="dep-author"><div class="dep-avatar" style="background:#FFF0E6">🐶</div><div><div class="dep-name">Ana Paula S.</div><div class="dep-pet">Tutora do Thor 🐕</div></div></div></div>
-        <div class="dep-card"><div class="dep-stars">★★★★★</div><p class="dep-text">"Melhor preço! A casinha chegou bem embalada e meu gato não quer mais sair."</p><div class="dep-author"><div class="dep-avatar" style="background:#FBE4F0">🐱</div><div><div class="dep-name">Carlos M.</div><div class="dep-pet">Tutor da Mimi 🐈</div></div></div></div>
-        <div class="dep-card"><div class="dep-stars">★★★★★</div><p class="dep-text">"Atendimento excelente! Tiraram todas as dúvidas e o produto chegou antes do prazo."</p><div class="dep-author"><div class="dep-avatar" style="background:#E8F5E9">🐦</div><div><div class="dep-name">Fernanda L.</div><div class="dep-pet">Tutora do Pipoca 🦜</div></div></div></div>
+        <div class="dep-card"><div class="dep-stars">★★★★★</div><p class="dep-text">"Chegou super rápido e meu golden amou a ração! Já virei cliente fiel do Sítio Rações."</p><div class="dep-author"><div class="dep-avatar" style="background:#FFF0E6">🐶</div><div><div class="dep-name">Ana Paula S.</div><div class="dep-pet">Tutora do Thor 🐕</div></div></div></div>
+        <div class="dep-card"><div class="dep-stars">★★★★★</div><p class="dep-text">"Melhor preço que encontrei! A casinha chegou bem embalada e meu gato não quer sair."</p><div class="dep-author"><div class="dep-avatar" style="background:#FBE4F0">🐱</div><div><div class="dep-name">Carlos M.</div><div class="dep-pet">Tutor da Mimi 🐈</div></div></div></div>
+        <div class="dep-card"><div class="dep-stars">★★★★★</div><p class="dep-text">"Atendimento incrível pelo WhatsApp! Produto chegou antes do prazo. Nota 10!"</p><div class="dep-author"><div class="dep-avatar" style="background:#E8F5E9">🐦</div><div><div class="dep-name">Fernanda L.</div><div class="dep-pet">Tutora do Pipoca 🦜</div></div></div></div>
       </div>
     </div>
   </section>
-  <div id="instaHome"></div>
-  <div class="newsletter"><div class="container"><h2>🐾 Fique por dentro das ofertas!</h2><p>Cadastre seu e-mail e receba promoções exclusivas</p><div class="nl-form"><input type="email" placeholder="Seu melhor e-mail..."/><button onclick="toast('🎉 Inscrição realizada!')">Quero ofertas!</button></div></div></div>
-</div>
 
-<!-- CÃO -->
-<div id="page-cao" class="page">
-  <div class="container animal-hero">
-    <div class="animal-top"><div class="animal-emoji-big">🐶</div><div><h2>Produtos para Cão</h2><p>Ração, coleiras, casinhas, brinquedos e remédios para seu cachorro.</p></div></div>
-    <div class="subcats" id="sc-cao"></div>
-    <div class="products-grid" id="grid-cao"></div>
+  <div class="insta-section">
+    <div class="container">
+      <div style="text-align:center">
+        <div class="section-title">📸 Nos siga no Instagram</div>
+        <p class="section-sub">Veja nossos pets felizes e fique por dentro das novidades</p>
+        <a href="https://instagram.com/sitionracoes" target="_blank" class="insta-handle">📸 @sitionracoes</a>
+      </div>
+      <div class="insta-grid" id="instaGrid"></div>
+    </div>
   </div>
-  <div id="instaCao"></div>
-</div>
 
-<!-- GATO -->
-<div id="page-gato" class="page">
-  <div class="container animal-hero">
-    <div class="animal-top"><div class="animal-emoji-big">🐱</div><div><h2>Produtos para Gato</h2><p>Ração, arranhadores, caixas de areia, brinquedos e remédios para felinos.</p></div></div>
-    <div class="subcats" id="sc-gato"></div>
-    <div class="products-grid" id="grid-gato"></div>
-  </div>
-</div>
-
-<!-- COELHO -->
-<div id="page-coelho" class="page">
-  <div class="container animal-hero">
-    <div class="animal-top"><div class="animal-emoji-big">🐇</div><div><h2>Produtos para Coelho</h2><p>Ração, feno, gaiolas, bebedouros e remédios para coelhos.</p></div></div>
-    <div class="subcats" id="sc-coelho"></div>
-    <div class="products-grid" id="grid-coelho"></div>
-  </div>
-</div>
-
-<!-- PÁSSARO -->
-<div id="page-passaro" class="page">
-  <div class="container animal-hero">
-    <div class="animal-top"><div class="animal-emoji-big">🐦</div><div><h2>Produtos para Pássaro</h2><p>Sementes, gaiolas, poleiros, vitaminas e mais para suas aves.</p></div></div>
-    <div class="subcats" id="sc-passaro"></div>
-    <div class="products-grid" id="grid-passaro"></div>
+  <div class="newsletter">
+    <div class="container">
+      <h2>🐾 Receba ofertas exclusivas!</h2>
+      <p>Cadastre seu e-mail e fique sabendo das promoções em primeira mão</p>
+      <div class="nl-form">
+        <input type="email" placeholder="Seu melhor e-mail..."/>
+        <button onclick="showToast('🎉 Inscrito com sucesso!')">Quero ofertas! 🎁</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- PROMOÇÕES -->
-<div id="page-promo" class="page">
-  <div class="promo-hero">
+<div id="pg-promo" class="hidden">
+  <div class="promo-section">
     <div class="container">
-      <h2>🔥 Promoções do Dia</h2>
-      <p>Ofertas relâmpago com tempo limitado — aproveite agora!</p>
-      <div class="timer-wrap">
-        <div class="timer-block"><div class="t-num" id="th">00</div><div class="t-lbl">Horas</div></div>
-        <div class="timer-block"><div class="t-num" id="tm">00</div><div class="t-lbl">Min</div></div>
-        <div class="timer-block"><div class="t-num" id="ts">00</div><div class="t-lbl">Seg</div></div>
+      <div class="promo-header">
+        <div class="promo-title">🔥 Promoções do Dia</div>
+        <div class="timer-box">
+          <div class="timer-unit"><div class="timer-num" id="th">00</div><div class="timer-lbl">HORAS</div></div>
+          <div class="timer-sep">:</div>
+          <div class="timer-unit"><div class="timer-num" id="tm">00</div><div class="timer-lbl">MIN</div></div>
+          <div class="timer-sep">:</div>
+          <div class="timer-unit"><div class="timer-num" id="ts">00</div><div class="timer-lbl">SEG</div></div>
+        </div>
       </div>
+      <div class="promo-grid" id="promoGrid"></div>
     </div>
   </div>
-  <div class="container" style="padding-bottom:48px">
-    <div class="products-grid" id="grid-promo"></div>
-  </div>
 </div>
+
+<!-- PÁGINAS ANIMAIS -->
+<div id="pg-cao" class="hidden animal-page"><div class="container"><div class="animal-header"><div class="animal-icon-big">🐶</div><div><div class="at-name">Produtos para Cão</div><div class="at-sub">Tudo que seu cachorro precisa para ser feliz e saudável</div></div></div><div class="sub-cats" id="sc-cao"></div><div class="products-grid" id="grid-cao"></div></div></div>
+<div id="pg-gato" class="hidden animal-page"><div class="container"><div class="animal-header"><div class="animal-icon-big">🐱</div><div><div class="at-name">Produtos para Gato</div><div class="at-sub">Tudo que sua gatinha precisa para ser feliz e saudável</div></div></div><div class="sub-cats" id="sc-gato"></div><div class="products-grid" id="grid-gato"></div></div></div>
+<div id="pg-coelho" class="hidden animal-page"><div class="container"><div class="animal-header"><div class="animal-icon-big">🐇</div><div><div class="at-name">Produtos para Coelho</div><div class="at-sub">Nutrição, abrigo e diversão para seu coelhinho</div></div></div><div class="sub-cats" id="sc-coelho"></div><div class="products-grid" id="grid-coelho"></div></div></div>
+<div id="pg-passaro" class="hidden animal-page"><div class="container"><div class="animal-header"><div class="animal-icon-big">🐦</div><div><div class="at-name">Produtos para Pássaro</div><div class="at-sub">Rações, gaiolas e acessórios para seu pássaro cantar</div></div></div><div class="sub-cats" id="sc-passaro"></div><div class="products-grid" id="grid-passaro"></div></div></div>
 
 <footer>
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand"><a href="#" class="logo" onclick="showPage('home')">🐾 Sítio Rações</a><p>Tudo que seu pet merece com carinho. Entregamos em todo o Brasil!</p></div>
-      <div class="footer-col"><h4>Animais</h4><ul><li onclick="showPage('cao')">🐶 Cão</li><li onclick="showPage('gato')">🐱 Gato</li><li onclick="showPage('coelho')">🐇 Coelho</li><li onclick="showPage('passaro')">🐦 Pássaro</li></ul></div>
-      <div class="footer-col"><h4>Links úteis</h4><ul><li>Quem somos</li><li>Política de trocas</li><li>Rastrear pedido</li><li onclick="showPage('promo')">🔥 Promoções</li></ul></div>
-      <div class="footer-col"><h4>Atendimento</h4><ul><li>📞 (71) 8151-7185</li><li>📧 sitioracoes@gmail.com</li><li>⏰ Seg-Sex 8h às 18h</li><li onclick="window.open('https://wa.me/557181517185','_blank')">💬 WhatsApp</li></ul></div>
+      <div><div class="logo" onclick="ir('home')" style="margin-bottom:12px">🐾 Sítio <span style="color:var(--verde)">Rações</span></div><p style="font-size:13px;line-height:1.8;max-width:220px">Tudo que seu pet merece com carinho de quem ama animais.</p></div>
+      <div class="footer-col"><h4>Animais</h4><ul><li onclick="ir('cao')">🐶 Cão</li><li onclick="ir('gato')">🐱 Gato</li><li onclick="ir('coelho')">🐇 Coelho</li><li onclick="ir('passaro')">🐦 Pássaro</li></ul></div>
+      <div class="footer-col"><h4>Links</h4><ul><li>Quem somos</li><li>Política de trocas</li><li>Rastrear pedido</li><li onclick="ir('promo')" style="color:var(--rosa)">🔥 Promoções</li></ul></div>
+      <div class="footer-col"><h4>Contato</h4><ul><li>📞 (71) 8151-7185</li><li>📧 sitioracoes@gmail.com</li><li>⏰ Seg-Sex 8h às 18h</li><li><a href="https://instagram.com/sitionracoes" target="_blank" style="color:#aaa;text-decoration:none">📸 Instagram</a></li></ul></div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-seals"><div class="seal">🔒 Compra Segura</div><div class="seal">🚚 Frete grátis +R$199</div><div class="seal">💳 12x sem juros</div><div class="seal">🔄 30 dias p/ troca</div></div>
-      <span class="footer-copy">© 2025 Sítio Rações</span>
+      <div class="footer-seals"><div class="seal">🔒 Compra Segura</div><div class="seal">🚚 Frete grátis +R$199</div><div class="seal">💳 Pix sem taxa</div><div class="seal">🔄 30 dias troca</div></div>
+      <p style="font-size:12px;text-align:center;margin-top:10px">© 2025 Sítio Rações. Todos os direitos reservados.</p>
     </div>
   </div>
 </footer>
 
+<!-- CARRINHO -->
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 <div class="cart-panel" id="cartPanel">
   <div class="cart-head"><h2>🛒 Carrinho</h2><button class="cart-close" onclick="toggleCart()">✕</button></div>
   <div class="cart-body" id="cartBody"></div>
   <div class="cart-foot" id="cartFoot" style="display:none">
-    <div class="cart-row"><span class="label">Subtotal</span><span class="val" id="cartSubtotal"></span></div>
-    <div class="cart-row"><span class="label">Frete</span><span class="val" id="cartFrete"></span></div>
-    <div class="cart-row total"><span class="label">Total</span><span class="val" id="cartTotal"></span></div>
-    <button class="checkout-btn" onclick="abrirPix()">🟢 Pagar com Pix agora</button>
+    <div class="cart-row"><span class="label">Subtotal</span><span class="val" id="cSub"></span></div>
+    <div class="cart-row"><span class="label">Frete</span><span class="val" id="cFrete"></span></div>
+    <div class="cart-row total"><span class="label">Total</span><span class="val" id="cTotal"></span></div>
+    <button class="pagar-btn" onclick="abrirPix()">🟢 Pagar com Pix agora</button>
   </div>
 </div>
 
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal" id="modalContent"></div>
-</div>
+<!-- CHECKOUT MODAL (Endereço + Pix) -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal-box" style="padding:0;max-width:520px" id="checkoutBox">
+    <button class="modal-close" onclick="fecharCheckout()">✕</button>
 
-<div class="modal-overlay" id="pixOverlay" style="z-index:700" onclick="if(event.target===this)this.classList.remove('open')">
-  <div class="pix-modal">
-    <button class="modal-close" onclick="document.getElementById('pixOverlay').classList.remove('open')" style="position:absolute;top:11px;right:11px">✕</button>
-    <div style="font-size:2.5rem;margin-bottom:6px">💚</div>
-    <div class="pix-title">Pagar com Pix</div>
-    <p style="font-size:13px;color:var(--texto2)">Total do pedido:</p>
-    <div class="pix-valor" id="pixValor"></div>
-    <p style="font-size:11px;font-weight:800;color:var(--verde);margin-bottom:3px">CÓDIGO PIX — COPIA E COLA</p>
-    <div class="pix-code" id="pixCode"></div>
-    <button class="pix-copy" onclick="copiarPix()">📋 Copiar código Pix</button>
-    <p style="font-size:11px;color:var(--texto2);margin-top:10px">Após o pagamento envie o comprovante: (71) 8151-7185</p>
+    <!-- PASSO 1: ENDEREÇO -->
+    <div id="step-endereco">
+      <div style="background:linear-gradient(135deg,var(--laranja),#FF9A5F);padding:24px 24px 16px;border-radius:24px 24px 0 0">
+        <div style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:#fff;margin-bottom:4px">📦 Endereço de Entrega</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.85)">Preencha seus dados para finalizar o pedido</div>
+        <div style="display:flex;gap:8px;margin-top:14px">
+          <div style="background:rgba(255,255,255,.9);border-radius:50px;padding:4px 14px;font-size:12px;font-weight:800;color:var(--laranja)">1 Endereço</div>
+          <div style="background:rgba(255,255,255,.3);border-radius:50px;padding:4px 14px;font-size:12px;font-weight:800;color:rgba(255,255,255,.7)">2 Pagamento</div>
+        </div>
+      </div>
+      <div style="padding:22px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div style="grid-column:1/-1">
+            <label class="field-label">Nome completo *</label>
+            <input class="field-input" id="f-nome" type="text" placeholder="Seu nome completo" oninput="validarCampos()"/>
+          </div>
+          <div>
+            <label class="field-label">WhatsApp *</label>
+            <input class="field-input" id="f-tel" type="tel" placeholder="(71) 99999-9999" oninput="mascaraTel(this);validarCampos()"/>
+          </div>
+          <div>
+            <label class="field-label">CPF *</label>
+            <input class="field-input" id="f-cpf" type="text" placeholder="000.000.000-00" oninput="mascaraCPF(this);validarCampos()"/>
+          </div>
+          <div>
+            <label class="field-label">CEP *</label>
+            <input class="field-input" id="f-cep" type="text" placeholder="00000-000" oninput="mascaraCEP(this)" onblur="buscarCEP()"/>
+          </div>
+          <div>
+            <label class="field-label">Estado *</label>
+            <input class="field-input" id="f-uf" type="text" placeholder="BA" maxlength="2" oninput="validarCampos()"/>
+          </div>
+          <div style="grid-column:1/-1">
+            <label class="field-label">Cidade *</label>
+            <input class="field-input" id="f-cidade" type="text" placeholder="Sua cidade" oninput="validarCampos()"/>
+          </div>
+          <div style="grid-column:1/-1">
+            <label class="field-label">Bairro *</label>
+            <input class="field-input" id="f-bairro" type="text" placeholder="Seu bairro" oninput="validarCampos()"/>
+          </div>
+          <div>
+            <label class="field-label">Rua / Logradouro *</label>
+            <input class="field-input" id="f-rua" type="text" placeholder="Nome da rua" oninput="validarCampos()"/>
+          </div>
+          <div>
+            <label class="field-label">Número *</label>
+            <input class="field-input" id="f-num" type="text" placeholder="123" oninput="validarCampos()"/>
+          </div>
+          <div style="grid-column:1/-1">
+            <label class="field-label">Complemento</label>
+            <input class="field-input" id="f-comp" type="text" placeholder="Apto, bloco, referência... (opcional)"/>
+          </div>
+        </div>
+        <div id="cep-status" style="font-size:12px;color:var(--verde);margin-bottom:10px;display:none">✅ Endereço preenchido automaticamente!</div>
+        <button class="pagar-btn" id="btn-ir-pix" onclick="irParaPix()" disabled style="opacity:.4;cursor:not-allowed">
+          Continuar para Pagamento →
+        </button>
+      </div>
+    </div>
+
+    <!-- PASSO 2: PIX -->
+    <div id="step-pix" class="hidden">
+      <div style="background:linear-gradient(135deg,var(--verde),#66BB6A);padding:24px 24px 16px;border-radius:24px 24px 0 0">
+        <div style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:#fff;margin-bottom:4px">🟢 Pagamento via Pix</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.85)">Copie o código e pague no seu banco</div>
+        <div style="display:flex;gap:8px;margin-top:14px">
+          <div style="background:rgba(255,255,255,.3);border-radius:50px;padding:4px 14px;font-size:12px;font-weight:800;color:rgba(255,255,255,.7)">1 Endereço ✓</div>
+          <div style="background:rgba(255,255,255,.9);border-radius:50px;padding:4px 14px;font-size:12px;font-weight:800;color:var(--verde)">2 Pagamento</div>
+        </div>
+      </div>
+      <div style="padding:22px">
+        <div style="background:var(--fundo);border-radius:var(--radius);padding:14px;margin-bottom:16px;border:1.5px solid var(--borda)">
+          <div style="font-size:12px;font-weight:800;color:var(--texto2);margin-bottom:6px">📍 ENTREGANDO EM:</div>
+          <div style="font-size:13px;font-weight:700;color:var(--texto)" id="resumo-endereco"></div>
+        </div>
+        <div style="text-align:center;margin-bottom:12px">
+          <div style="font-size:13px;color:var(--texto2);font-weight:700">Valor total do pedido</div>
+          <div style="font-family:'Fredoka One',cursive;font-size:2.2rem;color:var(--laranja)" id="pixVal"></div>
+        </div>
+        <div style="font-size:11px;font-weight:800;color:var(--verde);margin-bottom:6px;text-align:center;text-transform:uppercase">Código Pix — Copia e Cola</div>
+        <div class="pix-code" id="pixCode">00020101021126810014BR.GOV.BCB.PIX2559pix-qr.mercadopago.com/instore/ol/v2/3Z8avp6azhaOe4nnx6EWdn5204000053039865802BR5914Samuel Machado6009SAO PAULO62080504mpis63044787</div>
+        <button class="pix-copy" onclick="copiarPix()">📋 Copiar código Pix</button>
+        <button onclick="enviarWhats()" style="width:100%;background:#25D366;color:#fff;border:none;padding:13px;border-radius:50px;font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;cursor:pointer;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px">
+          💬 Enviar comprovante pelo WhatsApp
+        </button>
+        <p class="pix-info">Após pagar, envie o comprovante para <strong>(71) 8151-7185</strong> e confirmaremos seu pedido em minutos! 🐾</p>
+        <button onclick="voltarEndereco()" style="width:100%;background:none;border:none;color:var(--texto2);font-size:13px;font-weight:700;cursor:pointer;margin-top:8px;padding:6px">← Voltar e editar endereço</button>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<!-- PRODUTO MODAL -->
+<div class="modal-overlay" id="prodModal" onclick="if(event.target===this)classList.remove('open')">
+  <div class="modal-box" id="prodContent"></div>
+</div>
+
+<div class="toast" id="toastEl"></div>
 
 <script>
 const PIX='00020101021126810014BR.GOV.BCB.PIX2559pix-qr.mercadopago.com/instore/ol/v2/3Z8avp6azhaOe4nnx6EWdn5204000053039865802BR5914Samuel Machado6009SAO PAULO62080504mpis63044787';
-
-const produtos=[
-  {id:1,nome:'Ração Premium Cães Adultos 15kg',animal:'cao',cat:'racao',emoji:'🥣',preco:189.90,precoOld:239.90,tag:'Cão',rating:4.8,reviews:312,desc:'Formulada com proteínas de alta qualidade, vitaminas e minerais. Sem corantes artificiais.'},
-  {id:2,nome:'Ração Filhotes Raças Grandes 10kg',animal:'cao',cat:'racao',emoji:'🍖',preco:149.90,precoOld:189.90,tag:'Cão Filhote',rating:4.7,reviews:198,desc:'Ideal para filhotes de raças grandes de 2 a 15 meses. Rica em cálcio e fósforo.'},
-  {id:3,nome:'Ração Úmida Cão Adulto Pack 12un',animal:'cao',cat:'racao',emoji:'🥩',preco:79.90,precoOld:null,tag:'Cão',rating:4.5,reviews:87,desc:'Pack com 12 sachês de ração úmida. Sabores variados: frango, carne e legumes.'},
-  {id:4,nome:'Coleira Antipulgas Refletiva P/M',animal:'cao',cat:'coleira',emoji:'🎀',preco:49.90,precoOld:79.90,tag:'Cão',rating:4.6,reviews:541,desc:'Faixa refletiva para segurança noturna. Ação antipulgas por até 8 meses.'},
-  {id:5,nome:'Coleira Guia Nylon Resistente 1,5m',animal:'cao',cat:'coleira',emoji:'🦮',preco:27.90,precoOld:null,tag:'Cão',rating:4.4,reviews:284,desc:'Guia em nylon reforçado com fivela de metal. Comprimento 1,5m.'},
-  {id:6,nome:'Casinha de Madeira Rústica GG',animal:'cao',cat:'casinha',emoji:'🏠',preco:349.00,precoOld:null,tag:'Cão GG',rating:4.9,reviews:87,desc:'Casinha em madeira tratada resistente. Tamanho GG para cães até 30kg.'},
-  {id:7,nome:'Casinha Premium Telhado Duplo XGG',animal:'cao',cat:'casinha',emoji:'🏡',preco:529.00,precoOld:649.00,tag:'Cão XGG',rating:4.8,reviews:54,desc:'Telhado duplo para isolamento térmico. Madeira tratada anti-mofo.'},
-  {id:8,nome:'Brinquedo Kong Borracha Resistente',animal:'cao',cat:'brinquedo',emoji:'🎾',preco:54.90,precoOld:null,tag:'Cão',rating:4.9,reviews:326,desc:'Ultra-resistente para cães que destroem tudo. Pode ser recheado com petisco.'},
-  {id:9,nome:'Vermífugo Cães 10kg — 4 comprimidos',animal:'cao',cat:'remedio',emoji:'💊',preco:34.90,precoOld:44.90,tag:'Remédio Cão',rating:4.8,reviews:412,desc:'Vermífugo de amplo espectro. Ação contra lombrigas e tênia. Acima de 10kg.'},
-  {id:10,nome:'Antipulgas Cão Spot-on até 10kg',animal:'cao',cat:'remedio',emoji:'🧴',preco:42.90,precoOld:59.90,tag:'Remédio Cão',rating:4.7,reviews:289,desc:'Pipeta antipulgas e carrapatos de aplicação tópica. Proteção de até 30 dias.'},
-  {id:11,nome:'Suplemento Articular Cão 60 tabs',animal:'cao',cat:'remedio',emoji:'💉',preco:89.90,precoOld:null,tag:'Remédio Cão',rating:4.6,reviews:134,desc:'Glucosamina e condroitina para articulações. Indicado para cães idosos.'},
-  {id:12,nome:'Ração Premium Gatos Adultos 3kg',animal:'gato',cat:'racao',emoji:'🥣',preco:69.90,precoOld:89.90,tag:'Gato',rating:4.8,reviews:267,desc:'Ração seca premium para gatos adultos. Rica em taurina e ômega 3.'},
-  {id:13,nome:'Ração Úmida Gatos Filhotes',animal:'gato',cat:'racao',emoji:'🍖',preco:12.90,precoOld:18.90,tag:'Gato Filhote',rating:4.5,reviews:409,desc:'Sachê com frango e legumes. Ideal para filhotes de 2 a 12 meses.'},
-  {id:14,nome:'Arranhador Torre 3 Andares',animal:'gato',cat:'acessorio',emoji:'🗼',preco:199.90,precoOld:249.00,tag:'Gato',rating:4.7,reviews:142,desc:'Torre arranhador em sisal natural com brinquedo pendente. Altura 120cm.'},
-  {id:15,nome:'Caixa de Areia Premium c/ Tampa',animal:'gato',cat:'acessorio',emoji:'📦',preco:129.90,precoOld:null,tag:'Gato',rating:4.6,reviews:98,desc:'Caixa fechada com filtro de carvão ativado que elimina odores.'},
-  {id:16,nome:'Brinquedo Interativo Ratinho',animal:'gato',cat:'brinquedo',emoji:'🐭',preco:32.90,precoOld:null,tag:'Gato',rating:4.7,reviews:218,desc:'Movimento automático que estimula o instinto caçador. Funciona com pilhas AA.'},
-  {id:17,nome:'Vermífugo Gatos — 2 comprimidos',animal:'gato',cat:'remedio',emoji:'💊',preco:28.90,precoOld:39.90,tag:'Remédio Gato',rating:4.7,reviews:321,desc:'Vermífugo de amplo espectro para gatos adultos. Palatável e fácil de administrar.'},
-  {id:18,nome:'Antipulgas Gato Spot-on até 4kg',animal:'gato',cat:'remedio',emoji:'🧴',preco:38.90,precoOld:52.90,tag:'Remédio Gato',rating:4.8,reviews:276,desc:'Pipeta antipulgas para gatos até 4kg. Proteção de até 30 dias.'},
-  {id:19,nome:'Ração Coelho Adulto 1kg',animal:'coelho',cat:'racao',emoji:'🥕',preco:32.90,precoOld:42.90,tag:'Coelho',rating:4.7,reviews:89,desc:'Ração balanceada com feno, cenoura e verduras para coelhos adultos.'},
-  {id:20,nome:'Feno Timothy Premium 500g',animal:'coelho',cat:'racao',emoji:'🌾',preco:24.90,precoOld:null,tag:'Coelho',rating:4.9,reviews:134,desc:'Feno de alta qualidade essencial para a digestão dos coelhos. 100% natural.'},
-  {id:21,nome:'Gaiola Coelho Grande c/ Bandeja',animal:'coelho',cat:'acessorio',emoji:'🏠',preco:289.00,precoOld:359.00,tag:'Coelho',rating:4.6,reviews:67,desc:'Gaiola espaçosa com bandeja removível. Fácil de limpar. Grade galvanizada.'},
-  {id:22,nome:'Bebedouro Automático Coelho',animal:'coelho',cat:'acessorio',emoji:'💧',preco:29.90,precoOld:null,tag:'Coelho',rating:4.5,reviews:112,desc:'Bebedouro com bico metálico que evita vazamentos. Capacidade 500ml.'},
-  {id:23,nome:'Vitamina C Coelho 30 comprimidos',animal:'coelho',cat:'remedio',emoji:'💊',preco:39.90,precoOld:null,tag:'Remédio Coelho',rating:4.7,reviews:56,desc:'Suplemento de Vitamina C essencial para coelhos. Previne escorbuto.'},
-  {id:24,nome:'Ração Canário Premium 500g',animal:'passaro',cat:'racao',emoji:'🐦',preco:24.90,precoOld:34.90,tag:'Pássaro',rating:4.6,reviews:178,desc:'Mistura especial de sementes para canários. Enriquecida com vitaminas A, D e E.'},
-  {id:25,nome:'Mistura Sementes Periquito 1kg',animal:'passaro',cat:'racao',emoji:'🌻',preco:19.90,precoOld:null,tag:'Pássaro',rating:4.5,reviews:143,desc:'Mix de sementes nutritivas para periquitos. Contém alpiste, milheto e aveia.'},
-  {id:26,nome:'Pasta de Frutas Pássaros 300g',animal:'passaro',cat:'racao',emoji:'🍓',preco:29.90,precoOld:39.90,tag:'Pássaro',rating:4.8,reviews:92,desc:'Pasta nutritiva com frutas tropicais. Fornece vitaminas e minerais essenciais.'},
-  {id:27,nome:'Gaiola Redonda Decorativa M',animal:'passaro',cat:'acessorio',emoji:'🏮',preco:159.00,precoOld:199.00,tag:'Pássaro',rating:4.7,reviews:74,desc:'Gaiola decorativa em arame galvanizado. Inclui poleiros e comedouro.'},
-  {id:28,nome:'Poleiro Madeira Natural Kit 3un',animal:'passaro',cat:'acessorio',emoji:'🪵',preco:34.90,precoOld:null,tag:'Pássaro',rating:4.6,reviews:98,desc:'Kit com 3 poleiros em madeira natural. Diferentes espessuras para as patinhas.'},
-  {id:29,nome:'Vitaminas Pássaros Líquido 30ml',animal:'passaro',cat:'remedio',emoji:'💧',preco:32.90,precoOld:44.90,tag:'Remédio Pássaro',rating:4.8,reviews:167,desc:'Complexo vitamínico líquido. Adicione à água. Fortalece plumagem e imunidade.'},
-  {id:30,nome:'Antiparasitário Spray Aves 100ml',animal:'passaro',cat:'remedio',emoji:'🧴',preco:28.90,precoOld:null,tag:'Remédio Pássaro',rating:4.6,reviews:89,desc:'Spray antiparasitário para piolhos e ácaros em aves. Aplicar nas penas.'},
-  {id:31,nome:'Ração Premium Cão 15kg',animal:'promo',cat:'promo',emoji:'🥣',preco:149.90,precoOld:239.90,tag:'PROMO',rating:4.9,reviews:512,desc:'Promoção relâmpago! Ração premium com 37% de desconto por tempo limitado.'},
-  {id:32,nome:'Kit Higiene Pet Shampoo+Cond',animal:'promo',cat:'promo',emoji:'🛁',preco:39.90,precoOld:64.90,tag:'PROMO',rating:4.8,reviews:163,desc:'Kit shampoo e condicionador neutro. Fórmula suave sem parabenos.'},
-  {id:33,nome:'Caminha Redonda Pelúcia M',animal:'promo',cat:'promo',emoji:'🛏️',preco:79.90,precoOld:149.90,tag:'PROMO',rating:4.9,reviews:97,desc:'Caminha em pelúcia macia lavável. Diâmetro 60cm. 47% OFF!'},
-  {id:34,nome:'Coleira + Guia Kit Completo',animal:'promo',cat:'promo',emoji:'🎀',preco:49.90,precoOld:89.90,tag:'PROMO',rating:4.7,reviews:234,desc:'Kit coleira + guia combinando. Nylon resistente com fivela metálica.'},
-  {id:35,nome:'Antipulgas Cão + Gato Combo',animal:'promo',cat:'promo',emoji:'💊',preco:59.90,precoOld:99.90,tag:'PROMO',rating:4.8,reviews:187,desc:'Combo antipulgas para cão E gato. 30 dias de proteção cada. 40% OFF!'},
-  {id:36,nome:'Brinquedo Kong + Ratinho Kit',animal:'promo',cat:'promo',emoji:'🎾',preco:69.90,precoOld:109.90,tag:'PROMO',rating:4.8,reviews:143,desc:'Kit Kong resistente + ratinho interativo. Super combo!'},
+const P={
+  cao:[
+    {id:1,nome:'Ração Premium Adultos 15kg',sub:'racao',emoji:'🥣',preco:189.90,velha:239.90,tag:'Ração',r:4.8,rv:312,badge:'off',desc:'Proteínas de alta qualidade, vitaminas e minerais. Para cães adultos de todas as raças. Sem corantes artificiais.'},
+    {id:2,nome:'Ração Filhotes Frango 10kg',sub:'racao',emoji:'🍗',preco:149.90,velha:null,tag:'Ração',r:4.7,rv:198,badge:'novo',desc:'Ração para filhotes com DHA para desenvolvimento cerebral. Sem corantes.'},
+    {id:3,nome:'Casinha Madeira Rústica GG',sub:'casinha',emoji:'🏠',preco:349.00,velha:null,tag:'Casinha',r:4.9,rv:87,badge:'novo',desc:'Madeira tratada resistente à chuva e sol. Tamanho GG para cães até 30kg.'},
+    {id:4,nome:'Coleira Antipulgas Refletiva',sub:'coleira',emoji:'🎀',preco:49.90,velha:79.90,tag:'Coleira',r:4.6,rv:541,badge:'off',desc:'Faixa refletiva para segurança noturna. Ação antipulgas por até 8 meses.'},
+    {id:5,nome:'Brinquedo Kong Borracha',sub:'brinquedo',emoji:'🎾',preco:54.90,velha:null,tag:'Brinquedo',r:4.9,rv:326,badge:null,desc:'Borracha ultra-resistente. Ideal para cães que destroem tudo. Pode ser recheado.'},
+    {id:6,nome:'Caminha Redonda Pelúcia M',sub:'acessorio',emoji:'🛏️',preco:119.90,velha:149.90,tag:'Acessório',r:4.9,rv:97,badge:'off',desc:'Pelúcia macia lavável na máquina. Diâmetro 60cm para pets até 8kg.'},
+    {id:7,nome:'Antipulgas Frontline Cão M',sub:'remedio',emoji:'💊',preco:89.90,velha:109.90,tag:'Remédio',r:4.8,rv:245,badge:'off',desc:'Antipulgas e carrapatos para cães 10-20kg. Proteção por 30 dias. Aplicação tópica.'},
+    {id:8,nome:'Vermífugo Drontal Cão',sub:'remedio',emoji:'🧴',preco:34.90,velha:null,tag:'Remédio',r:4.7,rv:178,badge:'novo',desc:'Vermífugo de amplo espectro. Age contra vermes redondos e planos.'},
+    {id:9,nome:'Suplemento Condroitina+Glucosamina',sub:'remedio',emoji:'💉',preco:64.90,velha:79.90,tag:'Remédio',r:4.6,rv:93,badge:'off',desc:'Suplemento para saúde articular. Ideal para raças grandes e cães idosos.'},
+  ],
+  gato:[
+    {id:10,nome:'Ração Úmida Filhotes Frango',sub:'racao',emoji:'🍖',preco:12.90,velha:18.90,tag:'Ração',r:4.5,rv:409,badge:'off',desc:'Com frango e legumes para filhotes de 2 a 12 meses. Embalagem 85g.'},
+    {id:11,nome:'Ração Seca Adultos 3kg',sub:'racao',emoji:'🥣',preco:79.90,velha:null,tag:'Ração',r:4.7,rv:267,badge:'novo',desc:'Ração premium para gatos adultos. Enriquecida com taurina para saúde do coração.'},
+    {id:12,nome:'Arranhador Torre 3 Andares',sub:'acessorio',emoji:'🗼',preco:199.90,velha:249.00,tag:'Acessório',r:4.7,rv:142,badge:'off',desc:'Sisal natural com 3 andares e brinquedo pendente. Altura 120cm.'},
+    {id:13,nome:'Brinquedo Interativo Ratinho',sub:'brinquedo',emoji:'🐭',preco:32.90,velha:null,tag:'Brinquedo',r:4.7,rv:218,badge:'novo',desc:'Movimento automático que estimula o instinto caçador. Funciona com pilhas AA.'},
+    {id:14,nome:'Caixa de Areia Fechada Premium',sub:'acessorio',emoji:'📦',preco:149.90,velha:189.90,tag:'Acessório',r:4.6,rv:134,badge:'off',desc:'Filtro de carvão ativado elimina odores. Porta giratória. Fácil limpeza.'},
+    {id:15,nome:'Antipulgas Revolution Gato',sub:'remedio',emoji:'💊',preco:74.90,velha:94.90,tag:'Remédio',r:4.8,rv:189,badge:'off',desc:'Antipulgas e vermífugo para gatos. Proteção contra pulgas, carrapatos e vermes por 30 dias.'},
+    {id:16,nome:'Pomada Cicatrizante Pet',sub:'remedio',emoji:'🧴',preco:29.90,velha:null,tag:'Remédio',r:4.5,rv:76,badge:'novo',desc:'Segura para gatos. Auxilia na cura de feridas e arranhões.'},
+  ],
+  coelho:[
+    {id:17,nome:'Ração Coelho Feno Premium 1kg',sub:'racao',emoji:'🌾',preco:39.90,velha:49.90,tag:'Ração',r:4.8,rv:134,badge:'off',desc:'Feno premium com pellets. Rica em fibras para digestão saudável do coelho.'},
+    {id:18,nome:'Gaiola Duplo Andar',sub:'gaiola',emoji:'🏠',preco:289.00,velha:349.00,tag:'Gaiola',r:4.7,rv:67,badge:'off',desc:'2 andares, grade galvanizada anticorrosão e bandeja removível.'},
+    {id:19,nome:'Bebedouro Automático 500ml',sub:'acessorio',emoji:'💧',preco:44.90,velha:null,tag:'Acessório',r:4.6,rv:89,badge:'novo',desc:'Bico metálico anticontaminação. Capacidade 500ml. Fácil instalação.'},
+    {id:20,nome:'Brinquedo Mastigável Madeira',sub:'brinquedo',emoji:'🪵',preco:24.90,velha:34.90,tag:'Brinquedo',r:4.5,rv:112,badge:'off',desc:'Madeira natural para desgaste dos dentes. Sem químicos ou tinturas.'},
+    {id:21,nome:'Vermífugo Coelho Oral',sub:'remedio',emoji:'💊',preco:42.90,velha:null,tag:'Remédio',r:4.6,rv:58,badge:'novo',desc:'Vermífugo oral especial para coelhos. Fácil administração, sabor neutro.'},
+    {id:22,nome:'Vitamina C Coelho 30ml',sub:'remedio',emoji:'🧴',preco:31.90,velha:39.90,tag:'Remédio',r:4.7,rv:43,badge:'off',desc:'Essencial para coelhos. Previne escorbuto. Adição simples na água.'},
+  ],
+  passaro:[
+    {id:23,nome:'Ração Canário Premium 500g',sub:'racao',emoji:'🌻',preco:24.90,velha:34.90,tag:'Ração',r:4.6,rv:178,badge:'off',desc:'Sementes especiais para canários. Enriquecida com vitaminas A, D e E.'},
+    {id:24,nome:'Ração Periquito Mix 1kg',sub:'racao',emoji:'🌿',preco:32.90,velha:null,tag:'Ração',r:4.7,rv:145,badge:'novo',desc:'Sementes, frutas desidratadas e minerais para periquitos.'},
+    {id:25,nome:'Gaiola Luxo Arara Grande',sub:'gaiola',emoji:'🏰',preco:459.00,velha:579.00,tag:'Gaiola',r:4.9,rv:54,badge:'off',desc:'Aço inoxidável para araras e papagaios. Com poleiro e comedouros.'},
+    {id:26,nome:'Poleiro Natural Madeira',sub:'acessorio',emoji:'🌲',preco:29.90,velha:null,tag:'Acessório',r:4.5,rv:98,badge:'novo',desc:'Madeira natural irregular. Ajuda no desgaste das unhas e bico.'},
+    {id:27,nome:'Brinquedo Colorido com Espelho',sub:'brinquedo',emoji:'🪞',preco:19.90,velha:29.90,tag:'Brinquedo',r:4.6,rv:167,badge:'off',desc:'Espelho e sinos coloridos. Estimula a atividade mental do pássaro.'},
+    {id:28,nome:'Spray Antiácaro Pássaro',sub:'remedio',emoji:'🧴',preco:38.90,velha:null,tag:'Remédio',r:4.7,rv:89,badge:'novo',desc:'Antiparasitário para aves. Age contra ácaros e piolhos de forma segura.'},
+    {id:29,nome:'Vitaminas Pássaro 30ml',sub:'remedio',emoji:'💊',preco:27.90,velha:34.90,tag:'Remédio',r:4.8,rv:76,badge:'off',desc:'Complexo vitamínico para pássaros. Melhora plumagem e imunidade.'},
+  ]
+};
+const PROMOS=[
+  {id:1,nome:'Ração Premium 15kg',emoji:'🥣',preco:149.90,velha:239.90,animal:'🐶'},
+  {id:12,nome:'Arranhador Torre 3 Andares',emoji:'🗼',preco:159.90,velha:249.00,animal:'🐱'},
+  {id:4,nome:'Coleira Antipulgas Refletiva',emoji:'🎀',preco:34.90,velha:79.90,animal:'🐶'},
+  {id:18,nome:'Gaiola Coelho Duplo Andar',emoji:'🏠',preco:219.00,velha:349.00,animal:'🐇'},
+  {id:25,nome:'Gaiola Luxo Arara Grande',emoji:'🏰',preco:349.00,velha:579.00,animal:'🐦'},
+  {id:7,nome:'Antipulgas Frontline Cão M',emoji:'💊',preco:59.90,velha:109.90,animal:'🐶'},
 ];
-
-const scLabels={racao:{l:'Ração',e:'🥣'},coleira:{l:'Coleiras',e:'🎀'},casinha:{l:'Casinhas',e:'🏠'},brinquedo:{l:'Brinquedos',e:'🎾'},acessorio:{l:'Acessórios',e:'⭐'},remedio:{l:'Remédios',e:'💊',r:true}};
+const subNomes={todos:'🐾 Todos',racao:'🥣 Ração',casinha:'🏠 Casinha',coleira:'🎀 Coleira',brinquedo:'🎾 Brinquedo',acessorio:'⭐ Acessório',gaiola:'🏠 Gaiola',remedio:'💊 Remédios'};
 let cart={};
-let animalSC={};
+let subAtual={cao:'todos',gato:'todos',coelho:'todos',passaro:'todos'};
+let timerInt;
 
-function fmt(v){return 'R$'+v.toFixed(2).replace('.',',')}
+const fmt=v=>'R$'+v.toFixed(2).replace('.',',');
 
-function showPage(p){
-  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-  document.getElementById('page-'+p).classList.add('active');
-  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
-  const n=document.getElementById('nav-'+p);
-  if(n)n.classList.add('active');
+function getProd(id){for(const a of Object.values(P)){const p=a.find(x=>x.id===id);if(p)return p;}return null;}
+
+function ir(pg){
+  document.querySelectorAll('[id^=pg-]').forEach(el=>el.classList.add('hidden'));
+  const el=document.getElementById('pg-'+pg);
+  if(el) el.classList.remove('hidden');
+  document.querySelectorAll('.animal-tab,[id^=nb-]').forEach(t=>t.classList.remove('active'));
+  const tab=document.getElementById('tab-'+pg);
+  if(tab) tab.classList.add('active');
+  const nb=document.getElementById('nb-'+pg);
+  if(nb) nb.classList.add('active');
+  if(pg==='promo') startTimer();
   window.scrollTo({top:0,behavior:'smooth'});
-  if(p==='cao')renderAnimal('cao');
-  else if(p==='gato')renderAnimal('gato');
-  else if(p==='coelho')renderAnimal('coelho');
-  else if(p==='passaro')renderAnimal('passaro');
-  else if(p==='promo')renderPromo();
-  else if(p==='home'){renderInsta('instaHome');updateCart();}
 }
 
-function renderAnimal(a){
-  const list=produtos.filter(p=>p.animal===a);
-  const cats=[...new Set(list.map(p=>p.cat))];
-  if(!animalSC[a])animalSC[a]='todos';
-  const sc=document.getElementById('sc-'+a);
-  sc.innerHTML=`<div class="sc-pill ${animalSC[a]==='todos'?'active':''}" onclick="setSC('${a}','todos')">🛍️ Todos</div>`
-    +cats.map(c=>{const s=scLabels[c]||{l:c,e:'📦'};return`<div class="sc-pill ${animalSC[a]===c?'active':''} ${s.r?'rp':''}" onclick="setSC('${a}','${c}')">${s.e} ${s.l}</div>`;}).join('');
-  const filtered=animalSC[a]==='todos'?list:list.filter(p=>p.cat===animalSC[a]);
-  renderGrid('grid-'+a,filtered);
-  if(a==='cao')renderInsta('instaCao');
+function getSubCats(a){return['todos',...new Set(P[a].map(p=>p.sub))];}
+
+function renderSubCats(a){
+  const el=document.getElementById('sc-'+a);
+  if(!el)return;
+  el.innerHTML=getSubCats(a).map(s=>`<button class="sub-cat${s==='remedio'?' rem':''} ${subAtual[a]===s?'active':''}" onclick="filtrarSub('${a}','${s}')">${subNomes[s]||s}</button>`).join('');
 }
 
-function setSC(a,c){animalSC[a]=c;renderAnimal(a);}
+function filtrarSub(a,s){subAtual[a]=s;renderSubCats(a);renderGrid(a);}
 
-function renderPromo(){
-  renderGrid('grid-promo',produtos.filter(p=>p.animal==='promo'),true);
-  startTimer();
+function renderGrid(a){
+  const el=document.getElementById('grid-'+a);
+  if(!el)return;
+  let list=P[a];
+  if(subAtual[a]!=='todos') list=list.filter(p=>p.sub===subAtual[a]);
+  el.innerHTML=list.map(cardHTML).join('');
 }
 
-function renderGrid(gid,list,isPromo){
-  const g=document.getElementById(gid);
-  if(!g)return;
-  if(!list.length){g.innerHTML='<p style="color:var(--texto2);grid-column:1/-1;text-align:center;padding:40px">Nenhum produto encontrado.</p>';return;}
-  g.innerHTML=list.map(p=>{
-    const off=p.precoOld?Math.round((1-p.preco/p.precoOld)*100):null;
-    const isR=p.cat==='remedio';
-    const inC=cart[p.id];
-    return`<div class="product-card ${isR?'rc':''} ${isPromo?'pr':''}" onclick="openModal(${p.id})">
-      <div class="product-img ${isR?'ri':''} ${isPromo?'pi':''}">
-        ${isPromo?'<span class="badge badge-promo">🔥 PROMO</span>':''}
-        ${isR?'<span class="badge badge-rem">💊</span>':''}
-        ${!isPromo&&!isR&&off?`<span class="badge badge-off">-${off}%</span>`:''}
-        ${p.emoji}
+function cardHTML(p){
+  const off=p.velha?Math.round((1-p.preco/p.velha)*100):null;
+  const isRem=p.sub==='remedio';
+  const inCart=cart[p.id];
+  return `<div class="product-card${isRem?' rem-card':''}" onclick="abrirProd(${p.id})">
+    <div class="product-img">
+      ${p.badge==='novo'?`<span class="badge${isRem?' badge-rem':' badge-novo'}">${isRem?'💊 REM':'NOVO'}</span>`:''}
+      ${off&&!isRem?`<span class="badge badge-off">-${off}%</span>`:''}
+      ${p.emoji}
+    </div>
+    <div class="product-body">
+      <div class="product-tag${isRem?' rem':''}">${p.tag}</div>
+      <div class="product-name">${p.nome}</div>
+      <div class="product-rating">${'★'.repeat(Math.floor(p.r))}${'☆'.repeat(5-Math.floor(p.r))} <span>${p.r} (${p.rv})</span></div>
+      <div class="product-footer">
+        <div><div class="product-price">${fmt(p.preco)}</div>${p.velha?`<div class="product-old">${fmt(p.velha)}</div>`:''}</div>
+        <button class="add-btn${inCart?' ok':''}" id="ab-${p.id}" onclick="event.stopPropagation();addById(${p.id})">${inCart?'✓':'+'}</button>
       </div>
-      <div class="product-body">
-        <div class="product-tag ${isR?'rt':''} ${isPromo?'pt':''}">${p.tag}</div>
-        <div class="product-name">${p.nome}</div>
-        <div class="product-rating">${'★'.repeat(Math.floor(p.rating))}${'☆'.repeat(5-Math.floor(p.rating))} <span>${p.rating} (${p.reviews})</span></div>
-        <div class="product-footer">
-          <div><div class="product-price">${fmt(p.preco)}</div>${p.precoOld?`<div class="product-old">${fmt(p.precoOld)}</div>`:''}</div>
-          <button class="add-btn ${inC?'adicionado':''}" id="addbtn-${p.id}" onclick="event.stopPropagation();addToCartById(${p.id})">${inC?'✓':'+'}</button>
+    </div>
+  </div>`;
+}
+
+function renderPromos(){
+  const g=document.getElementById('promoGrid');
+  if(!g)return;
+  g.innerHTML=PROMOS.map(p=>{
+    const off=Math.round((1-p.preco/p.velha)*100);
+    return `<div class="promo-card" onclick="addPromo(${p.id},${p.preco},'${p.nome}','${p.emoji}')">
+      <div class="promo-img"><span class="promo-badge">-${off}% HOJE</span>${p.emoji}</div>
+      <div class="promo-body">
+        <div class="promo-name">${p.animal} ${p.nome}</div>
+        <div class="promo-prices">
+          <div><div class="promo-price">${fmt(p.preco)}</div><div class="promo-old">${fmt(p.velha)}</div></div>
+          <button class="promo-add" onclick="event.stopPropagation()">+</button>
         </div>
       </div>
     </div>`;
   }).join('');
 }
 
-function renderInsta(elId){
-  const posts=[{bg:'#FFF0E6',e:'🐶'},{bg:'#FBE4F0',e:'🐱'},{bg:'#E8F5E9',e:'🐦'},{bg:'#EDE7F6',e:'🐇'}];
-  const el=document.getElementById(elId);
-  if(!el)return;
-  el.innerHTML=`<div class="insta-section"><div class="container">
-    <div class="insta-head">
-      <div class="insta-icon">📸</div>
-      <div class="insta-info"><h3>@sitionracoes</h3><p>Siga para dicas e promoções exclusivas!</p></div>
-      <button class="insta-follow" onclick="window.open('https://instagram.com/sitionracoes','_blank')">Seguir no Instagram</button>
-    </div>
-    <div class="insta-grid">${posts.map(p=>`<div class="insta-post" style="background:${p.bg}" onclick="window.open('https://instagram.com/sitionracoes','_blank')"><span style="font-size:2.8rem">${p.e}</span><div class="insta-overlay"><span>Ver no Instagram</span></div></div>`).join('')}</div>
-    <div style="text-align:center;margin-top:18px"><button class="btn btn-secondary" onclick="window.open('https://instagram.com/sitionracoes','_blank')">📸 Ver mais no Instagram</button></div>
-  </div></div>`;
-}
-
-function buscarGlobal(){
-  const q=document.getElementById('searchInput').value.toLowerCase().trim();
-  if(!q)return;
-  const found=produtos.filter(p=>p.nome.toLowerCase().includes(q)||p.cat.includes(q)||p.tag.toLowerCase().includes(q)||p.animal.includes(q));
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-home').classList.add('active');
-  let el=document.getElementById('searchResults');
-  if(!el){el=document.createElement('div');el.id='searchResults';document.getElementById('page-home').prepend(el);}
-  el.innerHTML=`<div class="container" style="padding:28px 24px"><div class="section-title">🔍 "${q}"</div><p class="section-sub">${found.length} produto(s) encontrado(s)</p><div class="products-grid" id="grid-search"></div></div>`;
-  renderGrid('grid-search',found);
+function addPromo(id,preco,nome,emoji){
+  if(cart[id]) cart[id].qty++;
+  else cart[id]={id,nome,emoji,preco,qty:1};
+  updateCart();
+  showToast('🔥 '+nome.split(' ').slice(0,3).join(' ')+' adicionado!');
 }
 
 function startTimer(){
-  const end=new Date();end.setHours(23,59,59,0);
-  function tick(){
-    let d=Math.max(0,Math.floor((end-new Date())/1000));
-    const h=Math.floor(d/3600);d%=3600;const m=Math.floor(d/60);const s=d%60;
-    const he=document.getElementById('th'),me=document.getElementById('tm'),se=document.getElementById('ts');
-    if(he)he.textContent=String(h).padStart(2,'0');
-    if(me)me.textContent=String(m).padStart(2,'0');
-    if(se)se.textContent=String(s).padStart(2,'0');
-  }
-  tick();if(window._ti)clearInterval(window._ti);window._ti=setInterval(tick,1000);
+  clearInterval(timerInt);
+  const fim=new Date();fim.setHours(23,59,59,0);
+  const tick=()=>{
+    let d=Math.max(0,Math.floor((fim-new Date())/1000));
+    const pad=n=>String(n).padStart(2,'0');
+    document.getElementById('th').textContent=pad(Math.floor(d/3600));
+    document.getElementById('tm').textContent=pad(Math.floor((d%3600)/60));
+    document.getElementById('ts').textContent=pad(d%60);
+  };
+  tick();timerInt=setInterval(tick,1000);
 }
 
-function addToCartById(id){
-  const p=produtos.find(x=>x.id===id);if(!p)return;
-  if(cart[id])cart[id].qty++;else cart[id]={...p,qty:1};
-  updateCart();toast('🐾 '+p.nome.split(' ').slice(0,3).join(' ')+' adicionado!');
-  const btn=document.getElementById('addbtn-'+id);
-  if(btn){btn.textContent='✓';btn.classList.add('adicionado');}
+function renderInsta(){
+  const emojis=['🐶','🐱','🐇','🐦','🥣','🎾','🏠','🎀','💊','🛁','🌸','🐾'];
+  const cores=['#FFF0E6','#FBE4F0','#E8F5E9','#FFF8E1','#E3F2FD','#F3E5F5'];
+  const g=document.getElementById('instaGrid');
+  if(!g)return;
+  g.innerHTML=emojis.map((e,i)=>`<div class="insta-post" style="background:${cores[i%6]}" onclick="window.open('https://instagram.com/sitionracoes','_blank')"><span style="font-size:2.5rem">${e}</span><div class="insta-overlay">Ver 📸</div></div>`).join('');
+}
+
+function buscar(){
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  if(!q)return;
+  let res=[];
+  Object.values(P).forEach(l=>l.forEach(p=>{if(p.nome.toLowerCase().includes(q)||p.tag.toLowerCase().includes(q)||p.sub.includes(q))res.push(p);}));
+  document.querySelectorAll('[id^=pg-]').forEach(el=>el.classList.add('hidden'));
+  let pg=document.getElementById('pg-busca');
+  if(!pg){pg=document.createElement('div');pg.id='pg-busca';document.querySelector('footer').before(pg);}
+  pg.classList.remove('hidden');
+  pg.innerHTML=`<div class="animal-page"><div class="container"><div style="margin-bottom:24px"><div class="section-title">🔍 "${q}"</div><p class="section-sub">${res.length} produto(s) encontrado(s)</p></div><div class="products-grid">${res.map(cardHTML).join('')}</div></div></div>`;
+  document.querySelectorAll('.animal-tab,[id^=nb-]').forEach(t=>t.classList.remove('active'));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function abrirProd(id){
+  const p=getProd(id);if(!p)return;
+  const off=p.velha?Math.round((1-p.preco/p.velha)*100):null;
+  document.getElementById('prodContent').innerHTML=`
+    <button class="modal-close" onclick="document.getElementById('prodModal').classList.remove('open')">✕</button>
+    <div class="modal-img">${p.emoji}</div>
+    <div class="modal-body">
+      <div class="modal-tag">${p.tag}${off?` · -${off}%`:''}</div>
+      <div class="modal-name">${p.nome}</div>
+      <div style="color:#FFA726;font-size:13px;margin-bottom:10px">${'★'.repeat(Math.floor(p.r))}${'☆'.repeat(5-Math.floor(p.r))} ${p.r} · ${p.rv} avaliações</div>
+      <p class="modal-desc">${p.desc}</p>
+      <div class="modal-price">${fmt(p.preco)}</div>
+      ${p.velha?`<div class="modal-old">De: ${fmt(p.velha)}</div>`:''}
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="addById(${p.id});document.getElementById('prodModal').classList.remove('open')">🛒 Adicionar ao carrinho</button>
+      </div>
+    </div>`;
+  document.getElementById('prodModal').classList.add('open');
+}
+
+function addById(id){
+  const p=getProd(id);if(!p)return;
+  if(cart[id]) cart[id].qty++;
+  else cart[id]={...p,qty:1};
+  updateCart();
+  showToast('🐾 '+p.nome.split(' ').slice(0,3).join(' ')+' adicionado!');
+  const btn=document.getElementById('ab-'+id);
+  if(btn){btn.textContent='✓';btn.classList.add('ok');}
 }
 
 function updateCart(){
   const total=Object.values(cart).reduce((s,i)=>s+i.preco*i.qty,0);
   const count=Object.values(cart).reduce((s,i)=>s+i.qty,0);
   document.getElementById('cartBadge').textContent=count;
-  const body=document.getElementById('cartBody'),foot=document.getElementById('cartFoot');
-  if(!count){body.innerHTML='<div class="cart-empty"><div class="ce-emoji">🛒</div><p>Carrinho vazio</p></div>';foot.style.display='none';return;}
+  const body=document.getElementById('cartBody');
+  const foot=document.getElementById('cartFoot');
+  if(!count){
+    body.innerHTML=`<div class="cart-empty"><div style="font-size:3.5rem;margin-bottom:10px">🛒</div><p style="font-weight:800">Carrinho vazio</p><p style="font-size:13px;margin-top:6px;color:#aaa">Adicione produtos para continuar</p></div>`;
+    foot.style.display='none';return;
+  }
   foot.style.display='block';
-  body.innerHTML=Object.values(cart).map(i=>`<div class="cart-item"><div class="ci-emoji">${i.emoji}</div><div class="ci-info"><div class="ci-name">${i.nome}</div><div class="ci-price">${fmt(i.preco)}</div><div class="ci-controls"><button class="qty-btn" onclick="changeQty(${i.id},-1)">−</button><span class="qty-val">${i.qty}</span><button class="qty-btn" onclick="changeQty(${i.id},1)">+</button><button class="ci-remove" onclick="removeItem(${i.id})">🗑</button></div></div></div>`).join('');
+  body.innerHTML=Object.values(cart).map(i=>`<div class="cart-item"><div class="ci-emoji">${i.emoji}</div><div class="ci-info"><div class="ci-name">${i.nome}</div><div class="ci-price">${fmt(i.preco)}</div><div class="ci-controls"><button class="qty-btn" onclick="chQty(${i.id},-1)">−</button><span class="qty-val">${i.qty}</span><button class="qty-btn" onclick="chQty(${i.id},1)">+</button><button class="ci-remove" onclick="rmItem(${i.id})">🗑</button></div></div></div>`).join('');
   const frete=total>=199?0:15.90;
-  document.getElementById('cartSubtotal').textContent=fmt(total);
-  document.getElementById('cartFrete').textContent=frete===0?'🎉 Grátis':fmt(frete);
-  document.getElementById('cartTotal').textContent=fmt(total+frete);
+  document.getElementById('cSub').textContent=fmt(total);
+  document.getElementById('cFrete').textContent=frete===0?'🎉 Grátis':fmt(frete);
+  document.getElementById('cTotal').textContent=fmt(total+frete);
 }
 
-function changeQty(id,d){if(!cart[id])return;cart[id].qty+=d;if(cart[id].qty<=0)delete cart[id];updateCart();}
-function removeItem(id){delete cart[id];updateCart();}
+function chQty(id,d){if(!cart[id])return;cart[id].qty+=d;if(cart[id].qty<=0)delete cart[id];updateCart();Object.keys(P).forEach(a=>renderGrid(a));}
+function rmItem(id){delete cart[id];updateCart();Object.keys(P).forEach(a=>renderGrid(a));}
 function toggleCart(){document.getElementById('cartPanel').classList.toggle('open');document.getElementById('cartOverlay').classList.toggle('open');}
 function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open');}
 
+// CHECKOUT
 function abrirPix(){
+  document.getElementById('step-endereco').classList.remove('hidden');
+  document.getElementById('step-pix').classList.add('hidden');
+  document.getElementById('checkoutModal').classList.add('open');
+  validarCampos();
+}
+function fecharCheckout(){
+  document.getElementById('checkoutModal').classList.remove('open');
+}
+document.getElementById('checkoutModal').addEventListener('click',function(e){if(e.target===this)fecharCheckout();});
+
+function validarCampos(){
+  const campos=['f-nome','f-tel','f-cpf','f-cep','f-uf','f-cidade','f-bairro','f-rua','f-num'];
+  const ok=campos.every(id=>{
+    const el=document.getElementById(id);
+    return el && el.value.trim().length>=2;
+  });
+  const btn=document.getElementById('btn-ir-pix');
+  btn.disabled=!ok;
+  btn.style.opacity=ok?'1':'0.4';
+  btn.style.cursor=ok?'pointer':'not-allowed';
+}
+
+function irParaPix(){
+  const nome=document.getElementById('f-nome').value.trim();
+  const tel=document.getElementById('f-tel').value.trim();
+  const rua=document.getElementById('f-rua').value.trim();
+  const num=document.getElementById('f-num').value.trim();
+  const comp=document.getElementById('f-comp').value.trim();
+  const bairro=document.getElementById('f-bairro').value.trim();
+  const cidade=document.getElementById('f-cidade').value.trim();
+  const uf=document.getElementById('f-uf').value.trim();
+  const cep=document.getElementById('f-cep').value.trim();
   const total=Object.values(cart).reduce((s,i)=>s+i.preco*i.qty,0);
   const frete=total>=199?0:15.90;
-  document.getElementById('pixValor').textContent=fmt(total+frete);
-  document.getElementById('pixCode').textContent=PIX;
-  document.getElementById('pixOverlay').classList.add('open');
+  document.getElementById('resumo-endereco').innerHTML=
+    `<strong>${nome}</strong> · ${tel}<br/>${rua}, ${num}${comp?' — '+comp:''}<br/>${bairro} · ${cidade}/${uf} · CEP ${cep}`;
+  document.getElementById('pixVal').textContent=fmt(total+frete);
+  document.getElementById('step-endereco').classList.add('hidden');
+  document.getElementById('step-pix').classList.remove('hidden');
 }
-function copiarPix(){navigator.clipboard.writeText(PIX).then(()=>toast('✅ Código Pix copiado!'));}
 
-function openModal(id){
-  const p=produtos.find(x=>x.id===id);if(!p)return;
-  const off=p.precoOld?Math.round((1-p.preco/p.precoOld)*100):null;
-  const isR=p.cat==='remedio';
-  document.getElementById('modalContent').innerHTML=`
-    <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('open')">✕</button>
-    <div class="modal-img" style="background:${isR?'#F3E5F5':'var(--fundo)'}">${p.emoji}</div>
-    <div class="modal-body">
-      <div class="modal-tag ${isR?'rt':''}">${p.tag}${off?` · -${off}%`:''}</div>
-      <div class="modal-name">${p.nome}</div>
-      <div class="modal-rating">${'★'.repeat(Math.floor(p.rating))}${'☆'.repeat(5-Math.floor(p.rating))} ${p.rating} · ${p.reviews} avaliações</div>
-      <p class="modal-desc">${p.desc}</p>
-      <div class="modal-price">${fmt(p.preco)}</div>
-      ${p.precoOld?`<div class="modal-old">De: ${fmt(p.precoOld)}</div>`:''}
-      <div class="modal-btns"><button class="btn btn-primary" onclick="addToCartById(${p.id});document.getElementById('modalOverlay').classList.remove('open')">🛒 Adicionar ao carrinho</button></div>
-    </div>`;
-  document.getElementById('modalOverlay').classList.add('open');
+function voltarEndereco(){
+  document.getElementById('step-pix').classList.add('hidden');
+  document.getElementById('step-endereco').classList.remove('hidden');
 }
-function closeModal(e){if(e.target===document.getElementById('modalOverlay'))document.getElementById('modalOverlay').classList.remove('open');}
 
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
+function copiarPix(){
+  navigator.clipboard.writeText(PIX).then(()=>showToast('✅ Código Pix copiado!')).catch(()=>showToast('📋 Copie o código manualmente'));
+}
 
-renderInsta('instaHome');
+function enviarWhats(){
+  const nome=document.getElementById('f-nome').value.trim();
+  const tel=document.getElementById('f-tel').value.trim();
+  const rua=document.getElementById('f-rua').value.trim();
+  const num=document.getElementById('f-num').value.trim();
+  const comp=document.getElementById('f-comp').value.trim();
+  const bairro=document.getElementById('f-bairro').value.trim();
+  const cidade=document.getElementById('f-cidade').value.trim();
+  const uf=document.getElementById('f-uf').value.trim();
+  const cep=document.getElementById('f-cep').value.trim();
+  const total=Object.values(cart).reduce((s,i)=>s+i.preco*i.qty,0);
+  const frete=total>=199?0:15.90;
+  const items=Object.values(cart);
+  let msg='🐾 *Pedido — Sítio Rações*\n\n';
+  msg+='*Itens:*\n';
+  items.forEach(i=>msg+=`• ${i.nome} x${i.qty} = ${fmt(i.preco*i.qty)}\n`);
+  msg+=`\n🚚 Frete: ${frete===0?'Grátis':fmt(frete)}`;
+  msg+=`\n💰 *Total: ${fmt(total+frete)}*\n`;
+  msg+=`\n📍 *Endereço de entrega:*\n${nome}\n${rua}, ${num}${comp?' — '+comp:''}\n${bairro} · ${cidade}/${uf}\nCEP: ${cep}\nWhatsApp: ${tel}`;
+  msg+='\n\n📎 _Segue em anexo o comprovante de pagamento Pix._';
+  window.open(`https://wa.me/557181517185?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+// MÁSCARAS
+function mascaraTel(el){
+  let v=el.value.replace(/\D/g,'');
+  if(v.length<=11) v=v.replace(/^(\d{2})(\d{5})(\d{4})$/,'($1) $2-$3').replace(/^(\d{2})(\d{4})(\d{0,4})$/,'($1) $2-$3').replace(/^(\d{2})(\d{0,5})$/,'($1) $2').replace(/^(\d{0,2})$/,'$1');
+  el.value=v;
+  validarCampos();
+}
+function mascaraCPF(el){
+  let v=el.value.replace(/\D/g,'').substring(0,11);
+  v=v.replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+  el.value=v;
+  validarCampos();
+}
+function mascaraCEP(el){
+  let v=el.value.replace(/\D/g,'').substring(0,8);
+  v=v.replace(/(\d{5})(\d)/,'$1-$2');
+  el.value=v;
+  validarCampos();
+}
+async function buscarCEP(){
+  const cep=document.getElementById('f-cep').value.replace(/\D/g,'');
+  if(cep.length!==8)return;
+  try{
+    const r=await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+    const d=await r.json();
+    if(d.erro)return;
+    document.getElementById('f-rua').value=d.logradouro||'';
+    document.getElementById('f-bairro').value=d.bairro||'';
+    document.getElementById('f-cidade').value=d.localidade||'';
+    document.getElementById('f-uf').value=d.uf||'';
+    const st=document.getElementById('cep-status');
+    st.style.display='block';
+    setTimeout(()=>st.style.display='none',3000);
+    validarCampos();
+    document.getElementById('f-num').focus();
+  }catch(e){}
+}
+
+function showToast(msg){
+  const t=document.getElementById('toastEl');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2400);
+}
+
+Object.keys(P).forEach(a=>{renderSubCats(a);renderGrid(a);});
+renderPromos();
+renderInsta();
 updateCart();
 </script>
 </body>
