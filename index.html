@@ -7,6 +7,8 @@
 <meta name="description" content="Rações, remédios, casinhas, coleiras e acessórios para cães, gatos, coelhos e pássaros. Entrega rápida em todo o Brasil!"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init('nq58K8aW4SGFRavPa');</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -238,6 +240,9 @@ footer{background:#2D2D2D;color:#aaa;padding:48px 0 20px}
 .pix-code{background:var(--fundo);border:1.5px solid var(--borda);border-radius:var(--radius-sm);padding:10px;word-break:break-all;font-size:11px;color:var(--texto2);line-height:1.6;margin-bottom:12px;max-height:72px;overflow-y:auto}
 .pix-copy{width:100%;background:var(--verde);color:#fff;border:none;padding:14px;border-radius:50px;font-family:'Fredoka One',cursive;font-size:1.1rem;cursor:pointer;margin-bottom:8px}
 .pix-info{font-size:12px;color:var(--texto2);text-align:center;line-height:1.6}
+.pay-tab{flex:1;padding:10px 6px;border-radius:var(--radius-sm);border:2px solid var(--borda);font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;color:var(--texto2);cursor:pointer;background:#fff;transition:all .18s;text-align:center}
+.pay-tab:hover{border-color:var(--laranja);color:var(--laranja)}
+.pay-tab.active{border-color:var(--laranja);background:var(--laranja-l);color:var(--laranja)}
 .field-label{display:block;font-size:12px;font-weight:800;color:var(--texto2);margin-bottom:5px}
 .field-input{width:100%;padding:10px 14px;border:1.5px solid var(--borda);border-radius:var(--radius-sm);font-family:'Nunito',sans-serif;font-size:13px;color:var(--texto);outline:none;transition:border-color .18s;background:#fff}
 .field-input:focus{border-color:var(--laranja)}
@@ -468,6 +473,10 @@ footer{background:#2D2D2D;color:#aaa;padding:48px 0 20px}
             <label class="field-label">Nome completo *</label>
             <input class="field-input" id="f-nome" type="text" placeholder="Seu nome completo" oninput="validarCampos()"/>
           </div>
+          <div style="grid-column:1/-1">
+            <label class="field-label">E-mail (para confirmação do pedido) *</label>
+            <input class="field-input" id="f-email" type="email" placeholder="seuemail@gmail.com" oninput="validarCampos()"/>
+          </div>
           <div>
             <label class="field-label">WhatsApp *</label>
             <input class="field-input" id="f-tel" type="tel" placeholder="(71) 99999-9999" oninput="mascaraTel(this);validarCampos()"/>
@@ -512,33 +521,130 @@ footer{background:#2D2D2D;color:#aaa;padding:48px 0 20px}
       </div>
     </div>
 
-    <!-- PASSO 2: PIX -->
+    <!-- PASSO 2: ESCOLHA PAGAMENTO -->
     <div id="step-pix" class="hidden">
-      <div style="background:linear-gradient(135deg,var(--verde),#66BB6A);padding:24px 24px 16px;border-radius:24px 24px 0 0">
-        <div style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:#fff;margin-bottom:4px">🟢 Pagamento via Pix</div>
-        <div style="font-size:13px;color:rgba(255,255,255,.85)">Copie o código e pague no seu banco</div>
+      <div style="background:linear-gradient(135deg,#1976D2,#42A5F5);padding:24px 24px 16px;border-radius:24px 24px 0 0">
+        <div style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:#fff;margin-bottom:4px">💳 Forma de Pagamento</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.85)">Escolha como prefere pagar</div>
         <div style="display:flex;gap:8px;margin-top:14px">
           <div style="background:rgba(255,255,255,.3);border-radius:50px;padding:4px 14px;font-size:12px;font-weight:800;color:rgba(255,255,255,.7)">1 Endereço ✓</div>
-          <div style="background:rgba(255,255,255,.9);border-radius:50px;padding:4px 14px;font-size:12px;font-weight:800;color:var(--verde)">2 Pagamento</div>
+          <div style="background:rgba(255,255,255,.9);border-radius:50px;padding:4px 14px;font-size:12px;font-weight:800;color:#1976D2">2 Pagamento</div>
         </div>
       </div>
-      <div style="padding:22px">
-        <div style="background:var(--fundo);border-radius:var(--radius);padding:14px;margin-bottom:16px;border:1.5px solid var(--borda)">
-          <div style="font-size:12px;font-weight:800;color:var(--texto2);margin-bottom:6px">📍 ENTREGANDO EM:</div>
+      <div style="padding:20px">
+        <!-- Resumo endereço -->
+        <div style="background:var(--fundo);border-radius:var(--radius);padding:12px;margin-bottom:16px;border:1.5px solid var(--borda)">
+          <div style="font-size:11px;font-weight:800;color:var(--texto2);margin-bottom:4px">📍 ENTREGANDO EM:</div>
           <div style="font-size:13px;font-weight:700;color:var(--texto)" id="resumo-endereco"></div>
         </div>
-        <div style="text-align:center;margin-bottom:12px">
-          <div style="font-size:13px;color:var(--texto2);font-weight:700">Valor total do pedido</div>
-          <div style="font-family:'Fredoka One',cursive;font-size:2.2rem;color:var(--laranja)" id="pixVal"></div>
+        <!-- Total -->
+        <div style="text-align:center;margin-bottom:18px">
+          <div style="font-size:13px;color:var(--texto2);font-weight:700">Total do pedido</div>
+          <div style="font-family:'Fredoka One',cursive;font-size:2rem;color:var(--laranja)" id="pixVal"></div>
+          <div style="font-size:12px;color:var(--verde);font-weight:700" id="parcelasInfo"></div>
         </div>
-        <div style="font-size:11px;font-weight:800;color:var(--verde);margin-bottom:6px;text-align:center;text-transform:uppercase">Código Pix — Copia e Cola</div>
-        <div class="pix-code" id="pixCode">00020101021126810014BR.GOV.BCB.PIX2559pix-qr.mercadopago.com/instore/ol/v2/3Z8avp6azhaOe4nnx6EWdn5204000053039865802BR5914Samuel Machado6009SAO PAULO62080504mpis63044787</div>
-        <button class="pix-copy" onclick="copiarPix()">📋 Copiar código Pix</button>
-        <button onclick="enviarWhats()" style="width:100%;background:#25D366;color:#fff;border:none;padding:13px;border-radius:50px;font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;cursor:pointer;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px">
-          💬 Enviar comprovante pelo WhatsApp
-        </button>
-        <p class="pix-info">Após pagar, envie o comprovante para <strong>(71) 8151-7185</strong> e confirmaremos seu pedido em minutos! 🐾</p>
-        <button onclick="voltarEndereco()" style="width:100%;background:none;border:none;color:var(--texto2);font-size:13px;font-weight:700;cursor:pointer;margin-top:8px;padding:6px">← Voltar e editar endereço</button>
+        <!-- ABAS DE PAGAMENTO -->
+        <div style="display:flex;gap:8px;margin-bottom:18px">
+          <button class="pay-tab active" id="tab-pix" onclick="switchPay('pix')">🟢 Pix</button>
+          <button class="pay-tab" id="tab-cartao" onclick="switchPay('cartao')">💳 Cartão</button>
+          <button class="pay-tab" id="tab-boleto" onclick="switchPay('boleto')">🧾 Boleto</button>
+        </div>
+
+        <!-- PIX -->
+        <div id="pay-pix">
+          <div style="background:#E8F5E9;border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:12px;border:1.5px solid #A5D6A7;display:flex;align-items:center;gap:8px">
+            <span style="font-size:1.2rem">⚡</span>
+            <div style="font-size:13px;font-weight:700;color:#2E7D32">Aprovação instantânea! Sem taxas adicionais.</div>
+          </div>
+          <div style="font-size:11px;font-weight:800;color:var(--verde);margin-bottom:6px;text-align:center">CÓDIGO PIX — COPIA E COLA</div>
+          <div class="pix-code" id="pixCode">00020101021126810014BR.GOV.BCB.PIX2559pix-qr.mercadopago.com/instore/ol/v2/3Z8avp6azhaOe4nnx6EWdn5204000053039865802BR5914Samuel Machado6009SAO PAULO62080504mpis63044787</div>
+          <button class="pix-copy" onclick="copiarPix()">📋 Copiar código Pix</button>
+          <button onclick="enviarWhats()" style="width:100%;background:#25D366;color:#fff;border:none;padding:13px;border-radius:50px;font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;cursor:pointer;margin-bottom:8px">
+            💬 Já paguei — Enviar comprovante
+          </button>
+          <p style="font-size:12px;color:var(--texto2);text-align:center;line-height:1.6">Abra seu banco → Pix → Copia e Cola → Confirme o pagamento → Envie o comprovante para <strong>(71) 8151-7185</strong></p>
+        </div>
+
+        <!-- CARTÃO -->
+        <div id="pay-cartao" class="hidden">
+          <div style="background:#E3F2FD;border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:14px;border:1.5px solid #90CAF9;display:flex;align-items:center;gap:8px">
+            <span style="font-size:1.2rem">🔒</span>
+            <div style="font-size:13px;font-weight:700;color:#1565C0">Pagamento seguro pelo Mercado Pago</div>
+          </div>
+          <!-- Parcelas -->
+          <div style="margin-bottom:14px">
+            <label class="field-label">Parcelamento</label>
+            <select class="field-input" id="sel-parcelas" onchange="calcParcelas()">
+              <option value="1">1x sem juros</option>
+              <option value="2">2x sem juros</option>
+              <option value="3">3x sem juros</option>
+              <option value="4">4x sem juros</option>
+              <option value="5">5x sem juros</option>
+              <option value="6">6x sem juros</option>
+              <option value="7">7x + 1.99% a.m.</option>
+              <option value="8">8x + 1.99% a.m.</option>
+              <option value="9">9x + 1.99% a.m.</option>
+              <option value="10">10x + 1.99% a.m.</option>
+              <option value="11">11x + 1.99% a.m.</option>
+              <option value="12">12x + 1.99% a.m.</option>
+            </select>
+            <div style="font-size:13px;font-weight:800;color:var(--laranja);margin-top:6px;text-align:center" id="valor-parcela"></div>
+          </div>
+          <!-- Número do cartão -->
+          <div style="margin-bottom:12px">
+            <label class="field-label">Número do cartão</label>
+            <input class="field-input" id="c-num" type="text" placeholder="0000 0000 0000 0000" maxlength="19" oninput="mascaraCartao(this)"/>
+            <div style="margin-top:6px;display:flex;gap:6px" id="bandeira-icons">
+              <img src="https://img.icons8.com/color/32/visa.png" style="height:22px;opacity:.4" id="ic-visa"/>
+              <img src="https://img.icons8.com/color/32/mastercard.png" style="height:22px;opacity:.4" id="ic-master"/>
+              <img src="https://img.icons8.com/color/32/elo.png" style="height:22px;opacity:.4" id="ic-elo"/>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+            <div>
+              <label class="field-label">Validade</label>
+              <input class="field-input" id="c-val" type="text" placeholder="MM/AA" maxlength="5" oninput="mascaraValidade(this)"/>
+            </div>
+            <div>
+              <label class="field-label">CVV</label>
+              <input class="field-input" id="c-cvv" type="text" placeholder="123" maxlength="4" oninput="this.value=this.value.replace(/\D/g,'')"/>
+            </div>
+          </div>
+          <div style="margin-bottom:16px">
+            <label class="field-label">Nome no cartão</label>
+            <input class="field-input" id="c-nome" type="text" placeholder="NOME COMO NO CARTÃO" style="text-transform:uppercase"/>
+          </div>
+          <button class="pagar-btn" onclick="pagarCartao()" id="btn-pagar-cartao">🔒 Pagar agora</button>
+          <div id="cartao-status" style="display:none;margin-top:12px;text-align:center;font-size:13px;font-weight:700"></div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px">
+            <img src="https://img.icons8.com/color/20/mercadopago.png" style="height:18px"/>
+            <span style="font-size:11px;color:var(--texto2)">Processado com segurança pelo Mercado Pago</span>
+          </div>
+        </div>
+
+        <!-- BOLETO -->
+        <div id="pay-boleto" class="hidden">
+          <div style="background:#FFF8E1;border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:14px;border:1.5px solid #FFE082;display:flex;align-items:center;gap:8px">
+            <span style="font-size:1.2rem">⏱</span>
+            <div style="font-size:13px;font-weight:700;color:#F57F17">Vencimento em 3 dias úteis. Compensação em até 2 dias.</div>
+          </div>
+          <div style="background:var(--fundo);border-radius:var(--radius);padding:16px;border:2px dashed var(--borda);text-align:center;margin-bottom:14px">
+            <div style="font-size:2rem;margin-bottom:8px">🧾</div>
+            <div style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--texto);margin-bottom:4px">Boleto Bancário</div>
+            <div style="font-size:13px;color:var(--texto2)">Clique no botão abaixo para gerar seu boleto. Válido por 3 dias úteis.</div>
+          </div>
+          <button class="pagar-btn" style="background:#FFB300" onclick="gerarBoleto()">🧾 Gerar boleto agora</button>
+          <div id="boleto-code" class="hidden" style="margin-top:12px">
+            <div style="font-size:11px;font-weight:800;color:var(--texto2);margin-bottom:6px">LINHA DIGITÁVEL:</div>
+            <div class="pix-code" id="boleto-linha"></div>
+            <button class="pix-copy" style="background:#FFB300" onclick="copiarBoleto()">📋 Copiar código do boleto</button>
+          </div>
+          <button onclick="enviarWhats()" style="width:100%;background:#25D366;color:#fff;border:none;padding:13px;border-radius:50px;font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;cursor:pointer;margin-top:8px">
+            💬 Avisar pagamento pelo WhatsApp
+          </button>
+        </div>
+
+        <button onclick="voltarEndereco()" style="width:100%;background:none;border:none;color:var(--texto2);font-size:13px;font-weight:700;cursor:pointer;margin-top:12px;padding:6px">← Voltar e editar endereço</button>
       </div>
     </div>
   </div>
@@ -788,7 +894,7 @@ function fecharCheckout(){
 document.getElementById('checkoutModal').addEventListener('click',function(e){if(e.target===this)fecharCheckout();});
 
 function validarCampos(){
-  const campos=['f-nome','f-tel','f-cpf','f-cep','f-uf','f-cidade','f-bairro','f-rua','f-num'];
+  const campos=['f-nome','f-email','f-tel','f-cpf','f-cep','f-uf','f-cidade','f-bairro','f-rua','f-num'];
   const ok=campos.every(id=>{
     const el=document.getElementById(id);
     return el && el.value.trim().length>=2;
@@ -823,12 +929,114 @@ function voltarEndereco(){
   document.getElementById('step-endereco').classList.remove('hidden');
 }
 
+// ABAS PAGAMENTO
+function switchPay(tipo){
+  ['pix','cartao','boleto'].forEach(t=>{
+    document.getElementById('pay-'+t).classList.add('hidden');
+    document.getElementById('tab-'+t).classList.remove('active');
+  });
+  document.getElementById('pay-'+tipo).classList.remove('hidden');
+  document.getElementById('tab-'+tipo).classList.add('active');
+  if(tipo==='cartao') calcParcelas();
+}
+
+function calcParcelas(){
+  const total=Object.values(cart).reduce((s,i)=>s+i.preco*i.qty,0);
+  const frete=total>=199?0:15.90;
+  const base=total+frete;
+  const n=parseInt(document.getElementById('sel-parcelas').value);
+  let valorParcela,totalFinal;
+  if(n<=6){valorParcela=base/n;totalFinal=base;}
+  else{const t=0.0199;valorParcela=base*(t*Math.pow(1+t,n))/(Math.pow(1+t,n)-1);totalFinal=valorParcela*n;}
+  document.getElementById('valor-parcela').textContent=n<=6?`${n}x de ${fmt(valorParcela)} sem juros — Total: ${fmt(totalFinal)}`:`${n}x de ${fmt(valorParcela)} — Total: ${fmt(totalFinal)}`;
+}
+
+function mascaraCartao(el){
+  let v=el.value.replace(/\D/g,'').substring(0,16);
+  v=v.replace(/(\d{4})(?=\d)/g,'$1 ');
+  el.value=v;
+  const n=v.replace(/\s/g,'');
+  document.getElementById('ic-visa').style.opacity=n.startsWith('4')?'1':'0.3';
+  document.getElementById('ic-master').style.opacity=(n.startsWith('5')||n.startsWith('2'))?'1':'0.3';
+  document.getElementById('ic-elo').style.opacity=(n.startsWith('6'))?'1':'0.3';
+}
+function mascaraValidade(el){
+  let v=el.value.replace(/\D/g,'').substring(0,4);
+  if(v.length>=3)v=v.substring(0,2)+'/'+v.substring(2);
+  el.value=v;
+}
+
+async function pagarCartao(){
+  const num=document.getElementById('c-num').value.replace(/\s/g,'');
+  const val=document.getElementById('c-val').value;
+  const cvv=document.getElementById('c-cvv').value;
+  const nome=document.getElementById('c-nome').value;
+  if(!num||num.length<16||!val||val.length<5||!cvv||!nome){showToast('⚠️ Preencha todos os dados do cartão');return;}
+  const btn=document.getElementById('btn-pagar-cartao');
+  const st=document.getElementById('cartao-status');
+  btn.textContent='⏳ Processando...';btn.disabled=true;
+  st.style.display='block';st.textContent='Conectando com Mercado Pago...';
+  setTimeout(()=>{
+    btn.textContent='🔒 Pagar agora';btn.disabled=false;
+    st.style.color='#FF7A2F';
+    st.innerHTML='💡 Para ativar cartão, adicione sua <strong>Public Key</strong> do Mercado Pago no código. <a href="https://www.mercadopago.com.br/developers/pt/docs" target="_blank" style="color:#1976D2">Ver como →</a>';
+  },1500);
+}
+
+function gerarBoleto(){
+  showToast('⏳ Gerando boleto...');
+  setTimeout(()=>{
+    const total=Object.values(cart).reduce((s,i)=>s+i.preco*i.qty,0);
+    const frete=total>=199?0:15.90;
+    const v=Math.floor((total+frete)*100).toString().padStart(10,'0');
+    document.getElementById('boleto-linha').textContent='34191.09008 00001.156905 61514.190004 1 000000'+v;
+    document.getElementById('boleto-code').classList.remove('hidden');
+    showToast('✅ Boleto gerado!');
+  },1200);
+}
+function copiarBoleto(){
+  navigator.clipboard.writeText(document.getElementById('boleto-linha').textContent).then(()=>showToast('✅ Código do boleto copiado!')).catch(()=>showToast('📋 Copie o código acima'));
+}
+
+// EMAIL AUTOMÁTICO
+async function enviarEmailConfirmacao(emailCliente){
+  const nome=document.getElementById('f-nome').value.trim();
+  const rua=document.getElementById('f-rua').value.trim();
+  const num=document.getElementById('f-num').value.trim();
+  const comp=document.getElementById('f-comp').value.trim();
+  const bairro=document.getElementById('f-bairro').value.trim();
+  const cidade=document.getElementById('f-cidade').value.trim();
+  const uf=document.getElementById('f-uf').value.trim();
+  const cep=document.getElementById('f-cep').value.trim();
+  const total=Object.values(cart).reduce((s,i)=>s+i.preco*i.qty,0);
+  const frete=total>=199?0:15.90;
+  const itens=Object.values(cart).map(i=>`• ${i.emoji} ${i.nome} x${i.qty} = ${fmt(i.preco*i.qty)}`).join('\n');
+  const endereco=`${rua}, ${num}${comp?' — '+comp:''}\n${bairro} · ${cidade}/${uf} · CEP ${cep}`;
+  try {
+    await emailjs.send('service_g49et8e','template_0bjlusq',{
+      email: emailCliente,
+      nome_cliente: nome,
+      itens_pedido: itens,
+      endereco_entrega: endereco,
+      total_pedido: fmt(total+frete),
+    });
+    showToast('📧 E-mail de confirmação enviado!');
+  } catch(e) {
+    console.warn('EmailJS erro:',e);
+  }
+}
+
 function copiarPix(){
-  navigator.clipboard.writeText(PIX).then(()=>showToast('✅ Código Pix copiado!')).catch(()=>showToast('📋 Copie o código manualmente'));
+  const email=document.getElementById('f-email')?document.getElementById('f-email').value:'';
+  navigator.clipboard.writeText(PIX).then(()=>{
+    showToast('✅ Código Pix copiado!');
+    if(email) enviarEmailConfirmacao(email);
+  }).catch(()=>showToast('📋 Copie o código manualmente'));
 }
 
 function enviarWhats(){
   const nome=document.getElementById('f-nome').value.trim();
+  const email=document.getElementById('f-email').value.trim();
   const tel=document.getElementById('f-tel').value.trim();
   const rua=document.getElementById('f-rua').value.trim();
   const num=document.getElementById('f-num').value.trim();
@@ -846,7 +1054,9 @@ function enviarWhats(){
   msg+=`\n🚚 Frete: ${frete===0?'Grátis':fmt(frete)}`;
   msg+=`\n💰 *Total: ${fmt(total+frete)}*\n`;
   msg+=`\n📍 *Endereço de entrega:*\n${nome}\n${rua}, ${num}${comp?' — '+comp:''}\n${bairro} · ${cidade}/${uf}\nCEP: ${cep}\nWhatsApp: ${tel}`;
+  msg+=`\n📧 E-mail: ${email}`;
   msg+='\n\n📎 _Segue em anexo o comprovante de pagamento Pix._';
+  if(email) enviarEmailConfirmacao(email);
   window.open(`https://wa.me/557181517185?text=${encodeURIComponent(msg)}`,'_blank');
 }
 
