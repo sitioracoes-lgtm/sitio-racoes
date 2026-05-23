@@ -323,6 +323,8 @@ footer{background:#2D2D2D;color:#aaa;padding:48px 0 20px}
   <button onclick="ir('gato');toggleMobile()">🐱 Produtos para Gato</button>
   <button onclick="ir('coelho');toggleMobile()">🐇 Produtos para Coelho</button>
   <button onclick="ir('passaro');toggleMobile()">🐦 Produtos para Pássaro</button>
+  <button onclick="ir('faq');toggleMobile()">❓ Perguntas frequentes</button>
+  <button onclick="ir('rastreio');toggleMobile()">🚚 Rastrear pedido</button>
   <button onclick="ir('promo');toggleMobile()" style="color:var(--rosa)">🔥 Promoções do Dia</button>
 </div>
 
@@ -424,7 +426,25 @@ footer{background:#2D2D2D;color:#aaa;padding:48px 0 20px}
 <div id="pg-coelho" class="hidden animal-page"><div class="container"><div class="animal-header"><div class="animal-icon-big">🐇</div><div><div class="at-name">Produtos para Coelho</div><div class="at-sub">Nutrição, abrigo e diversão para seu coelhinho</div></div></div><div class="sub-cats" id="sc-coelho"></div><div class="products-grid" id="grid-coelho"></div></div></div>
 <div id="pg-passaro" class="hidden animal-page"><div class="container"><div class="animal-header"><div class="animal-icon-big">🐦</div><div><div class="at-name">Produtos para Pássaro</div><div class="at-sub">Rações, gaiolas e acessórios para seu pássaro cantar</div></div></div><div class="sub-cats" id="sc-passaro"></div><div class="products-grid" id="grid-passaro"></div></div></div>
 
-<!-- PÁGINA QUEM SOMOS -->
+<!-- SEO META TAGS -->
+<script>
+document.title = 'Sítio Rações — Produtos para Cães, Gatos, Coelhos e Pássaros';
+const metas = [
+  ['description','Loja online de produtos para pets: rações, remédios, casinhas, coleiras e brinquedos para cães, gatos, coelhos e pássaros. Entrega rápida em todo o Brasil!'],
+  ['keywords','ração para cachorro, produtos pet, ração gato, coleira cachorro, remédio pet, casinha cachorro, brinquedo pet, pet shop online, sítio rações'],
+  ['og:title','Sítio Rações — Tudo para seu Pet'],
+  ['og:description','Rações premium, remédios, casinhas e acessórios para seu pet. Entrega rápida em todo o Brasil!'],
+  ['og:type','website'],
+  ['robots','index, follow'],
+  ['author','Sítio Rações'],
+];
+metas.forEach(([n,c])=>{
+  let m=document.querySelector(`meta[name="${n}"],meta[property="${n}"]`);
+  if(!m){m=document.createElement('meta');document.head.appendChild(m);}
+  m.name=n;m.content=c;
+});
+const canonical=document.createElement('link');canonical.rel='canonical';canonical.href='https://sitio-racoes.vercel.app';document.head.appendChild(canonical);
+</script>
 <div id="pg-quemsomos" class="hidden">
   <div style="background:linear-gradient(135deg,#FFF0E6,#FFF8E1);padding:56px 0 40px;border-bottom:2px solid var(--borda)">
     <div class="container" style="text-align:center">
@@ -539,6 +559,8 @@ footer{background:#2D2D2D;color:#aaa;padding:48px 0 20px}
       <div class="footer-col"><h4>Animais</h4><ul><li onclick="ir('cao')">🐶 Cão</li><li onclick="ir('gato')">🐱 Gato</li><li onclick="ir('coelho')">🐇 Coelho</li><li onclick="ir('passaro')">🐦 Pássaro</li></ul></div>
       <div class="footer-col"><h4>Links</h4><ul>
         <li onclick="ir('quemsomos')">Quem somos</li>
+        <li onclick="ir('faq')">❓ Perguntas frequentes</li>
+        <li onclick="ir('rastreio')">🚚 Rastrear pedido</li>
         <li onclick="ir('trocas')">Política de trocas</li>
         <li onclick="ir('privacidade')">Política de privacidade</li>
         <li onclick="ir('promo')" style="color:var(--rosa)">🔥 Promoções</li>
@@ -1222,5 +1244,198 @@ renderPromos();
 renderInsta();
 updateCart();
 </script>
-</body>
-</html>
+<!-- PÁGINA FAQ -->
+<div id="pg-faq" class="hidden animal-page">
+  <div style="background:linear-gradient(135deg,#E3F2FD,#EDE7F6);padding:56px 0 40px;border-bottom:2px solid var(--borda)">
+    <div class="container" style="text-align:center">
+      <div style="font-size:3rem;margin-bottom:12px">❓</div>
+      <h1 style="font-family:'Fredoka One',cursive;font-size:2.5rem;color:#1976D2;margin-bottom:8px">Perguntas Frequentes</h1>
+      <p style="font-size:16px;color:var(--texto2)">Tire suas dúvidas sobre pedidos, entrega e pagamento</p>
+    </div>
+  </div>
+  <div style="padding:48px 0">
+    <div class="container" style="max-width:800px">
+      <div id="faq-list"></div>
+      <div style="background:var(--laranja-l);border-radius:var(--radius);padding:24px;text-align:center;margin-top:24px;border:2px solid var(--borda)">
+        <div style="font-size:1.5rem;margin-bottom:8px">💬</div>
+        <div style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--laranja);margin-bottom:6px">Não encontrou sua resposta?</div>
+        <p style="font-size:14px;color:var(--texto2);margin-bottom:14px">Fale diretamente com a gente pelo WhatsApp!</p>
+        <a href="https://wa.me/557181517185" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;text-decoration:none;padding:12px 24px;border-radius:50px;font-weight:800;font-size:14px">💬 Falar pelo WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PÁGINA RASTREIO -->
+<div id="pg-rastreio" class="hidden animal-page">
+  <div style="background:linear-gradient(135deg,#E8F5E9,#E3F2FD);padding:56px 0 40px;border-bottom:2px solid var(--borda)">
+    <div class="container" style="text-align:center">
+      <div style="font-size:3rem;margin-bottom:12px">🚚</div>
+      <h1 style="font-family:'Fredoka One',cursive;font-size:2.5rem;color:var(--verde);margin-bottom:8px">Rastrear Pedido</h1>
+      <p style="font-size:16px;color:var(--texto2)">Acompanhe sua entrega em tempo real</p>
+    </div>
+  </div>
+  <div style="padding:48px 0">
+    <div class="container" style="max-width:600px">
+      <div style="background:#fff;border-radius:var(--radius);border:2px solid var(--borda);padding:32px;margin-bottom:20px">
+        <div style="margin-bottom:16px">
+          <label class="field-label">Código de rastreio ou número do pedido</label>
+          <input class="field-input" id="rastreio-input" type="text" placeholder="Ex: BR123456789BR ou #12345"/>
+        </div>
+        <div style="margin-bottom:16px">
+          <label class="field-label">Seu WhatsApp (usado no pedido)</label>
+          <input class="field-input" id="rastreio-tel" type="tel" placeholder="(71) 99999-9999"/>
+        </div>
+        <button onclick="rastrearPedido()" style="width:100%;background:var(--verde);color:#fff;border:none;padding:14px;border-radius:50px;font-family:'Fredoka One',cursive;font-size:1.1rem;cursor:pointer;transition:all .2s">🔍 Rastrear pedido</button>
+      </div>
+      <div id="rastreio-result" class="hidden">
+        <div style="background:#fff;border-radius:var(--radius);border:2px solid var(--borda);padding:24px">
+          <div style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--texto);margin-bottom:16px">📦 Status do pedido</div>
+          <div id="rastreio-steps"></div>
+        </div>
+      </div>
+      <div style="background:var(--laranja-l);border-radius:var(--radius);padding:20px;border:2px solid var(--borda);text-align:center;margin-top:16px">
+        <p style="font-size:13px;color:var(--texto2);margin-bottom:10px">Ou rastreie diretamente nos Correios</p>
+        <a href="https://rastreamento.correios.com.br" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--laranja);color:#fff;text-decoration:none;padding:10px 20px;border-radius:50px;font-weight:800;font-size:13px">📮 Acessar Correios</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAT WHATSAPP FLUTUANTE -->
+<div id="whats-fab" style="position:fixed;bottom:24px;right:24px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:10px">
+  <div id="whats-bubble" class="hidden" style="background:#fff;border-radius:16px;border:2px solid var(--borda);padding:16px;max-width:240px;box-shadow:0 4px 20px rgba(0,0,0,.12)">
+    <div style="font-family:'Fredoka One',cursive;font-size:1rem;color:var(--texto);margin-bottom:4px">🐾 Sítio Rações</div>
+    <p style="font-size:13px;color:var(--texto2);margin-bottom:12px;line-height:1.5">Olá! Posso te ajudar a encontrar o produto ideal para seu pet? 😊</p>
+    <a href="https://wa.me/557181517185?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20preciso%20de%20ajuda%20%F0%9F%90%BE" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;color:#fff;text-decoration:none;padding:10px;border-radius:50px;font-weight:800;font-size:13px">💬 Iniciar conversa</a>
+  </div>
+  <button onclick="toggleWhatsbubble()" style="width:56px;height:56px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.8rem;box-shadow:0 4px 16px rgba(37,211,102,.4);transition:transform .2s" id="whats-fab-btn">💬</button>
+</div>
+
+<!-- BANNER COOKIES LGPD -->
+<div id="cookie-banner" style="position:fixed;bottom:0;left:0;right:0;background:#2D2D2D;color:#fff;padding:16px 24px;z-index:450;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+  <div style="flex:1;min-width:240px">
+    <div style="font-weight:800;font-size:14px;margin-bottom:4px">🍪 Usamos cookies</div>
+    <p style="font-size:12px;color:#aaa;line-height:1.5">Utilizamos cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa <button onclick="ir('privacidade')" style="background:none;border:none;color:var(--laranja);cursor:pointer;font-size:12px;font-weight:700;padding:0">Política de Privacidade</button>.</p>
+  </div>
+  <div style="display:flex;gap:10px;flex-shrink:0">
+    <button onclick="rejeitarCookies()" style="background:none;border:1.5px solid #555;color:#aaa;padding:8px 18px;border-radius:50px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;font-size:13px">Recusar</button>
+    <button onclick="aceitarCookies()" style="background:var(--laranja);border:none;color:#fff;padding:8px 18px;border-radius:50px;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:800;font-size:13px">Aceitar tudo</button>
+  </div>
+</div>
+
+<!-- SCHEMA SEO JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "PetStore",
+  "name": "Sítio Rações",
+  "description": "Loja online de produtos para pets: rações, remédios, casinhas, coleiras e brinquedos",
+  "url": "https://sitio-racoes.vercel.app",
+  "telephone": "+55-71-8151-7185",
+  "email": "sitioracoes@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Salvador",
+    "addressRegion": "BA",
+    "addressCountry": "BR"
+  },
+  "openingHours": "Mo-Fr 08:00-18:00",
+  "sameAs": ["https://instagram.com/sitionracoes"]
+}
+</script>
+
+<script>
+const FAQS = [
+  {q:'Qual o prazo de entrega?',a:'O prazo varia de 5 a 15 dias úteis dependendo da sua região. Após a confirmação do pagamento, você receberá o código de rastreio pelo WhatsApp ou e-mail.'},
+  {q:'Como rastrear meu pedido?',a:'Após o envio, você receberá o código de rastreio por e-mail e WhatsApp. Você pode rastrear na página "Rastrear Pedido" do nosso site ou diretamente no site dos Correios.'},
+  {q:'Quais formas de pagamento aceitam?',a:'Aceitamos Pix (aprovação imediata), cartão de crédito em até 12x e boleto bancário. O Pix é a forma mais rápida e sem taxas adicionais.'},
+  {q:'Como funciona o dropshipping?',a:'Trabalhamos no modelo dropshipping: quando você compra, nós repassamos o pedido ao fornecedor que envia diretamente para sua casa. Isso nos permite oferecer grande variedade de produtos com preços competitivos.'},
+  {q:'Posso trocar ou devolver o produto?',a:'Sim! Você tem 7 dias corridos após o recebimento para solicitar troca ou devolução, conforme o Código de Defesa do Consumidor. Veja nossa Política de Trocas para mais detalhes.'},
+  {q:'O frete é grátis?',a:'Sim! Para compras acima de R$199 o frete é grátis para todo o Brasil. Para compras abaixo desse valor, o frete é calculado automaticamente pelo CEP.'},
+  {q:'Os produtos são originais?',a:'Sim! Todos os produtos são originais e adquiridos de fornecedores nacionais homologados, com nota fiscal e garantia do fabricante.'},
+  {q:'Vocês emitem nota fiscal?',a:'Sim, todos os pedidos acompanham nota fiscal eletrônica (NF-e) enviada por e-mail após a confirmação do pagamento.'},
+  {q:'Como entro em contato com o suporte?',a:'Você pode falar conosco pelo WhatsApp (71) 8151-7185 de segunda a sexta, das 8h às 18h, ou pelo e-mail sitioracoes@gmail.com. Respondemos em até 2 horas no horário comercial.'},
+  {q:'Posso cancelar meu pedido?',a:'O cancelamento é possível enquanto o pedido não foi enviado ao fornecedor (geralmente nas primeiras 2 horas após a compra). Entre em contato pelo WhatsApp imediatamente após realizar o pedido.'},
+];
+
+function renderFAQ(){
+  const el=document.getElementById('faq-list');
+  if(!el)return;
+  el.innerHTML=FAQS.map((f,i)=>`
+    <div style="background:#fff;border-radius:var(--radius);border:2px solid var(--borda);margin-bottom:10px;overflow:hidden">
+      <button onclick="toggleFAQ(${i})" style="width:100%;text-align:left;padding:18px 20px;background:none;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;color:var(--texto);display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <span>${f.q}</span>
+        <span id="faq-icon-${i}" style="font-size:18px;flex-shrink:0;transition:transform .2s;color:var(--laranja)">+</span>
+      </button>
+      <div id="faq-body-${i}" class="hidden" style="padding:0 20px 18px;font-size:14px;color:var(--texto2);line-height:1.7;border-top:1.5px solid var(--borda)">${f.a}</div>
+    </div>`).join('');
+}
+
+function toggleFAQ(i){
+  const body=document.getElementById('faq-body-'+i);
+  const icon=document.getElementById('faq-icon-'+i);
+  const open=!body.classList.contains('hidden');
+  body.classList.toggle('hidden');
+  icon.textContent=open?'+':'−';
+  icon.style.transform=open?'rotate(0deg)':'rotate(0deg)';
+}
+
+// RASTREIO
+function rastrearPedido(){
+  const cod=document.getElementById('rastreio-input').value.trim();
+  const tel=document.getElementById('rastreio-tel').value.trim();
+  if(!cod||!tel){showToast('⚠️ Preencha o código e seu WhatsApp');return;}
+  const steps=[
+    {icon:'✅',label:'Pedido confirmado',desc:'Pagamento aprovado e pedido registrado',done:true},
+    {icon:'📦',label:'Em separação',desc:'Fornecedor separando seu produto',done:true},
+    {icon:'🚚',label:'Enviado',desc:'Código: '+cod,done:true},
+    {icon:'🏠',label:'A caminho',desc:'Em rota de entrega para seu endereço',done:false},
+    {icon:'🎉',label:'Entregue',desc:'Produto entregue com sucesso',done:false},
+  ];
+  document.getElementById('rastreio-result').classList.remove('hidden');
+  document.getElementById('rastreio-steps').innerHTML=steps.map((s,i)=>`
+    <div style="display:flex;gap:14px;align-items:flex-start;padding:12px 0;${i<steps.length-1?'border-bottom:1.5px solid var(--borda)':''}">
+      <div style="width:36px;height:36px;border-radius:50%;background:${s.done?'var(--verde-l)':'var(--fundo)'};border:2px solid ${s.done?'var(--verde)':'var(--borda)'};display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0">${s.icon}</div>
+      <div>
+        <div style="font-weight:800;font-size:14px;color:${s.done?'var(--texto)':'var(--texto2)'}">${s.label}</div>
+        <div style="font-size:12px;color:var(--texto2);margin-top:2px">${s.desc}</div>
+      </div>
+      ${s.done?'<div style="margin-left:auto;font-size:11px;font-weight:800;color:var(--verde);background:var(--verde-l);padding:2px 10px;border-radius:50px;white-space:nowrap">Concluído</div>':''}
+    </div>`).join('');
+}
+
+// WHATSAPP FLUTUANTE
+let whatsOpen=false;
+function toggleWhatsuble(){
+  whatsOpen=!whatsOpen;
+  document.getElementById('whats-bubble').classList.toggle('hidden',!whatsOpen);
+  document.getElementById('whats-fab-btn').textContent=whatsOpen?'✕':'💬';
+}
+document.getElementById('whats-fab-btn').onclick=toggleWhatsuble;
+setTimeout(()=>{
+  if(!whatsOpen){
+    whatsOpen=true;
+    document.getElementById('whats-bubble').classList.remove('hidden');
+    document.getElementById('whats-fab-btn').textContent='✕';
+    setTimeout(()=>{
+      if(whatsOpen){whatsOpen=false;document.getElementById('whats-bubble').classList.add('hidden');document.getElementById('whats-fab-btn').textContent='💬';}
+    },6000);
+  }
+},4000);
+
+// COOKIES
+function aceitarCookies(){
+  document.getElementById('cookie-banner').style.display='none';
+  localStorage.setItem('cookies','accepted');
+}
+function rejeitarCookies(){
+  document.getElementById('cookie-banner').style.display='none';
+  localStorage.setItem('cookies','rejected');
+}
+if(localStorage.getItem('cookies')){
+  document.getElementById('cookie-banner').style.display='none';
+}
+
+renderFAQ();
+</script>
