@@ -7,6 +7,7 @@
 <meta name="description" content="Rações, remédios, casinhas, coleiras e acessórios para cães, gatos, coelhos e pássaros. Entrega rápida em todo o Brasil!"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://sdk.mercadopago.com/js/v2"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>emailjs.init('nq58K8aW4SGFRavPa');</script>
 <style>
@@ -1178,6 +1179,9 @@ function mascaraValidade(el){
   el.value=v;
 }
 
+const MP_PUBLIC_KEY='APP_USR-bb29dbc9-7c15-41d8-ad31-412eb4b2453a';
+const MP_ACCESS_TOKEN='APP_USR-5910299892200867-052721-9e012a8378829038460042305d6d43e8-1892810823';
+
 async function pagarCartao(){
   const num=document.getElementById('c-num').value.replace(/\s/g,'');
   const val=document.getElementById('c-val').value;
@@ -1187,12 +1191,55 @@ async function pagarCartao(){
   const btn=document.getElementById('btn-pagar-cartao');
   const st=document.getElementById('cartao-status');
   btn.textContent='⏳ Processando...';btn.disabled=true;
-  st.style.display='block';st.textContent='Conectando com Mercado Pago...';
-  setTimeout(()=>{
+  st.style.display='block';st.style.color='#777';st.textContent='Conectando com Mercado Pago...';
+  try{
+    const mp=new MercadoPago(MP_PUBLIC_KEY,{locale:'pt-BR'});
+    const [expMonth,expYear]=val.split('/');
+    const cardToken=await mp.createCardToken({
+      cardNumber:num,
+      cardholderName:nome,
+      cardExpirationMonth:expMonth,
+      cardExpirationYear:'20'+expYear,
+      securityCode:cvv,
+    });
+    if(!cardToken||!cardToken.id) throw new Error('Token inválido');
+    const total=Object.values(cart).reduce((s,i)=>s+i.preco*i.qty,0);
+    const frete=total>=199?0:15.90;
+    const totalFinal=total+frete;
+    const parcelas=parseInt(document.getElementById('sel-parcelas').value);
+    const emailCliente=document.getElementById('f-email').value.trim();
+    const cpf=document.getElementById('f-cpf').value.replace(/\D/g,'');
+    const resp=await fetch('https://api.mercadopago.com/v1/payments',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+MP_ACCESS_TOKEN,'X-Idempotency-Key':Date.now().toString()},
+      body:JSON.stringify({
+        transaction_amount:totalFinal,
+        token:cardToken.id,
+        description:'Pedido Sítio Rações',
+        installments:parcelas,
+        payment_method_id:cardToken.payment_method_id,
+        payer:{email:emailCliente,identification:{type:'CPF',number:cpf}},
+      }),
+    });
+    const data=await resp.json();
+    if(data.status==='approved'){
+      btn.textContent='✅ Pagamento aprovado!';btn.style.background='var(--verde)';
+      st.style.color='var(--verde)';st.textContent='✅ Pagamento aprovado! Confirmação enviada por e-mail.';
+      if(emailCliente) enviarEmailConfirmacao(emailCliente);
+      showToast('🎉 Pagamento aprovado!');
+      setTimeout(()=>fecharCheckout(),3000);
+    } else if(data.status==='in_process'){
+      st.style.color='#FFB300';st.textContent='⏳ Em análise. Você será notificado por e-mail.';
+      btn.textContent='⏳ Em análise';showToast('⏳ Pagamento em análise!');
+    } else {
+      throw new Error(data.status_detail||'Pagamento recusado');
+    }
+  } catch(e){
     btn.textContent='🔒 Pagar agora';btn.disabled=false;
-    st.style.color='#FF7A2F';
-    st.innerHTML='💡 Para ativar cartão, adicione sua <strong>Public Key</strong> do Mercado Pago no código. <a href="https://www.mercadopago.com.br/developers/pt/docs" target="_blank" style="color:#1976D2">Ver como →</a>';
-  },1500);
+    st.style.color='var(--rosa)';
+    st.textContent='❌ '+(e.message||'Erro ao processar. Verifique os dados e tente novamente.');
+    showToast('❌ Erro no pagamento');
+  }
 }
 
 function gerarBoleto(){
