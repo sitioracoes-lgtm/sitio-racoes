@@ -1048,7 +1048,11 @@ function abrirProd(id){
   const off=p.velha?Math.round((1-p.preco/p.velha)*100):null;
   document.getElementById('prodContent').innerHTML=`
     <button class="modal-close" onclick="document.getElementById('prodModal').classList.remove('open')">✕</button>
-    <div class="modal-img">${p.emoji}</div>
+    <div class="modal-img" style="overflow:hidden;background:#f8f8f8;border-radius:var(--radius);display:flex;align-items:center;justify-content:center">
+      ${p.img?`<img src="${p.img}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="width:100%;height:100%;object-fit:contain;padding:12px" alt="${p.nome}"/>
+      <span style="display:none;font-size:4rem;align-items:center;justify-content:center;width:100%;height:100%">${p.emoji}</span>`
+      :`<span style="font-size:4rem">${p.emoji}</span>`}
+    </div>
     <div class="modal-body">
       <div class="modal-tag">${p.tag}${off?` · -${off}%`:''}</div>
       <div class="modal-name">${p.nome}</div>
@@ -1084,7 +1088,13 @@ function updateCart(){
     foot.style.display='none';return;
   }
   foot.style.display='block';
-  body.innerHTML=Object.values(cart).map(i=>`<div class="cart-item"><div class="ci-emoji">${i.emoji}</div><div class="ci-info"><div class="ci-name">${i.nome}</div><div class="ci-price">${fmt(i.preco)}</div><div class="ci-controls"><button class="qty-btn" onclick="chQty(${i.id},-1)">−</button><span class="qty-val">${i.qty}</span><button class="qty-btn" onclick="chQty(${i.id},1)">+</button><button class="ci-remove" onclick="rmItem(${i.id})">🗑</button></div></div></div>`).join('');
+  body.innerHTML=Object.values(cart).map(i=>{
+    const prod=Object.values(P).flat().find(p=>p.id===i.id);
+    const imgHTML=prod&&prod.img
+      ?`<img src="${prod.img}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="width:100%;height:100%;object-fit:contain;border-radius:8px" alt="${i.nome}"/><span style="display:none;font-size:1.5rem;align-items:center;justify-content:center;width:100%;height:100%">${i.emoji}</span>`
+      :`<span style="font-size:1.5rem;display:flex;align-items:center;justify-content:center;width:100%;height:100%">${i.emoji}</span>`;
+    return `<div class="cart-item"><div class="ci-emoji" style="overflow:hidden;border-radius:8px;background:#f8f8f8;display:flex;align-items:center;justify-content:center">${imgHTML}</div><div class="ci-info"><div class="ci-name">${i.nome}</div><div class="ci-price">${fmt(i.preco)}</div><div class="ci-controls"><button class="qty-btn" onclick="chQty(${i.id},-1)">−</button><span class="qty-val">${i.qty}</span><button class="qty-btn" onclick="chQty(${i.id},1)">+</button><button class="ci-remove" onclick="rmItem(${i.id})">🗑</button></div></div></div>`;
+  }).join('');
   const frete=total>=199?0:15.90;
   document.getElementById('cSub').textContent=fmt(total);
   document.getElementById('cFrete').textContent=frete===0?'🎉 Grátis':fmt(frete);
