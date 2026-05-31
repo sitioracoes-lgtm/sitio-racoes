@@ -227,9 +227,9 @@ footer{background:#2D2D2D;color:#aaa;padding:48px 0 20px}
 .pagar-btn:hover{background:var(--verde-d)}
 
 /* MODAIS */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:600;align-items:center;justify-content:center}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:600;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.open{display:flex}
-.modal-box{background:#fff;border-radius:24px;max-width:480px;width:92%;position:relative;max-height:90vh;overflow-y:auto}
+.modal-box{background:#fff;border-radius:24px;max-width:900px;width:100%;max-height:90vh;overflow:hidden;position:relative;display:flex;flex-direction:column}
 .modal-close{position:absolute;top:14px;right:14px;background:var(--fundo);border:none;width:34px;height:34px;border-radius:50%;font-size:18px;cursor:pointer;color:var(--texto);z-index:1}
 .modal-img{background:var(--fundo);height:200px;display:flex;align-items:center;justify-content:center;font-size:6rem;border-radius:24px 24px 0 0}
 .modal-body{padding:22px}
@@ -1047,25 +1047,133 @@ function buscar(){
 function abrirProd(id){
   const p=getProd(id);if(!p)return;
   const off=p.velha?Math.round((1-p.preco/p.velha)*100):null;
+  const relacionados=Object.values(P).flat().filter(x=>x.id!==p.id&&(x.animal===p.animal||x.sub===p.sub)).slice(0,4);
   document.getElementById('prodContent').innerHTML=`
     <button class="modal-close" onclick="document.getElementById('prodModal').classList.remove('open')">✕</button>
-    <div class="modal-img" style="overflow:hidden;background:#f8f8f8;border-radius:var(--radius);display:flex;align-items:center;justify-content:center">
-      ${p.img?`<img src="${p.img}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="width:100%;height:100%;object-fit:contain;padding:12px" alt="${p.nome}"/>
-      <span style="display:none;font-size:4rem;align-items:center;justify-content:center;width:100%;height:100%">${p.emoji}</span>`
-      :`<span style="font-size:4rem">${p.emoji}</span>`}
-    </div>
-    <div class="modal-body">
-      <div class="modal-tag">${p.tag}${off?` · -${off}%`:''}</div>
-      <div class="modal-name">${p.nome}</div>
-      <div style="color:#FFA726;font-size:13px;margin-bottom:10px">${'★'.repeat(Math.floor(p.r))}${'☆'.repeat(5-Math.floor(p.r))} ${p.r} · ${p.rv} avaliações</div>
-      <p class="modal-desc">${p.desc}</p>
-      <div class="modal-price">${fmt(p.preco)}</div>
-      ${p.velha?`<div class="modal-old">De: ${fmt(p.velha)}</div>`:''}
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="addById(${p.id});document.getElementById('prodModal').classList.remove('open')">🛒 Adicionar ao carrinho</button>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:900px;width:100%">
+
+      <!-- COLUNA ESQUERDA: IMAGEM -->
+      <div style="background:#f8f8f8;border-radius:24px 0 0 24px;padding:24px;display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;min-height:400px">
+        <div style="width:100%;height:280px;display:flex;align-items:center;justify-content:center;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.06)">
+          ${p.img
+            ?`<img src="${p.img}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="max-width:100%;max-height:280px;object-fit:contain;padding:12px" alt="${p.nome}"/>
+            <span style="display:none;font-size:5rem;align-items:center;justify-content:center;width:100%;height:100%">${p.emoji}</span>`
+            :`<span style="font-size:5rem">${p.emoji}</span>`}
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
+          ${off?`<span style="background:#FF4081;color:#fff;padding:4px 12px;border-radius:50px;font-size:12px;font-weight:800">-${off}% OFF</span>`:''}
+          ${p.badge==='top'?`<span style="background:var(--verde);color:#fff;padding:4px 12px;border-radius:50px;font-size:12px;font-weight:800">🔥 Mais vendido</span>`:''}
+          <span style="background:#E3F2FD;color:#1976D2;padding:4px 12px;border-radius:50px;font-size:12px;font-weight:700">📦 Frete Full</span>
+        </div>
+        <a href="${p.link||'#'}" target="_blank" style="font-size:12px;color:#1976D2;text-decoration:none;display:flex;align-items:center;gap:4px">Ver no Mercado Livre →</a>
+      </div>
+
+      <!-- COLUNA DIREITA: DETALHES -->
+      <div style="padding:24px;overflow-y:auto;max-height:80vh;background:#fff;border-radius:0 24px 24px 0">
+        <div style="font-size:11px;font-weight:700;color:var(--laranja);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">${p.tag} · ${p.animal==='cao'?'🐶 Cão':p.animal==='gato'?'🐱 Gato':p.animal==='coelho'?'🐇 Coelho':'🐦 Pássaro'}</div>
+        <div style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:var(--texto);line-height:1.2;margin-bottom:8px">${p.nome}</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+          <span style="color:#FFA726;font-size:14px">${'★'.repeat(Math.floor(p.r))}${'☆'.repeat(5-Math.floor(p.r))}</span>
+          <span style="font-size:13px;font-weight:700;color:var(--texto)">${p.r}</span>
+          <span style="font-size:13px;color:var(--texto2)">(${p.rv.toLocaleString('pt-BR')} avaliações)</span>
+        </div>
+
+        <!-- PREÇO -->
+        <div style="background:var(--laranja-l);border-radius:12px;padding:14px 16px;margin-bottom:16px">
+          ${p.velha?`<div style="font-size:13px;color:var(--texto2);text-decoration:line-through">De: ${fmt(p.velha)}</div>`:''}
+          <div style="font-family:'Fredoka One',cursive;font-size:2rem;color:var(--laranja)">${fmt(p.preco)}</div>
+          <div style="font-size:12px;color:var(--verde);font-weight:700">ou 3x de ${fmt(p.preco/3)} sem juros no cartão</div>
+          <div style="font-size:12px;color:var(--texto2);margin-top:2px">Pix à vista com desconto</div>
+        </div>
+
+        <!-- CALCULAR FRETE -->
+        <div style="border:1.5px solid var(--borda);border-radius:12px;padding:14px;margin-bottom:16px">
+          <div style="font-size:13px;font-weight:800;color:var(--texto);margin-bottom:8px">🚚 Calcular frete</div>
+          <div style="display:flex;gap:8px">
+            <input id="cep-frete-${p.id}" type="text" placeholder="00000-000" maxlength="9"
+              style="flex:1;padding:8px 12px;border:1.5px solid var(--borda);border-radius:8px;font-family:'Nunito',sans-serif;font-size:13px"
+              oninput="mascararCEP(this)" onkeyup="if(this.value.length===9)calcFrete(${p.id})"/>
+            <button onclick="calcFrete(${p.id})" style="background:var(--laranja);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:800;font-size:13px;cursor:pointer">OK</button>
+          </div>
+          <div id="frete-result-${p.id}" style="font-size:12px;color:var(--texto2);margin-top:8px"></div>
+        </div>
+
+        <!-- DESCRIÇÃO -->
+        <div style="margin-bottom:16px">
+          <div style="font-size:13px;font-weight:800;color:var(--texto);margin-bottom:6px">📋 Descrição</div>
+          <p style="font-size:13px;color:var(--texto2);line-height:1.7">${p.desc}</p>
+        </div>
+
+        <!-- BENEFÍCIOS -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
+          <div style="background:var(--verde-l);border-radius:10px;padding:10px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--verde)">✅ Entrega rápida</div>
+          <div style="background:var(--laranja-l);border-radius:10px;padding:10px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--laranja)">🔒 Compra segura</div>
+          <div style="background:#E3F2FD;border-radius:10px;padding:10px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:#1976D2">🔄 7 dias para troca</div>
+          <div style="background:var(--roxo-l);border-radius:10px;padding:10px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--roxo)">💳 3x sem juros</div>
+        </div>
+
+        <!-- BOTÕES -->
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+          <button onclick="addById(${p.id});document.getElementById('prodModal').classList.remove('open')" style="background:var(--laranja);color:#fff;border:none;padding:14px;border-radius:50px;font-family:'Fredoka One',cursive;font-size:1.1rem;cursor:pointer;width:100%;transition:all .2s">🛒 Adicionar ao carrinho</button>
+          <button onclick="addById(${p.id});document.getElementById('prodModal').classList.remove('open');document.getElementById('cartDrawer').classList.add('open')" style="background:#fff;color:var(--laranja);border:2.5px solid var(--laranja);padding:12px;border-radius:50px;font-family:'Fredoka One',cursive;font-size:1rem;cursor:pointer;width:100%">⚡ Comprar agora</button>
+        </div>
+
+        <!-- PRODUTOS RELACIONADOS -->
+        ${relacionados.length?`
+        <div>
+          <div style="font-size:13px;font-weight:800;color:var(--texto);margin-bottom:10px">🐾 Produtos relacionados</div>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
+            ${relacionados.map(r=>`
+            <div onclick="abrirProd(${r.id})" style="background:var(--fundo);border-radius:10px;padding:8px;cursor:pointer;border:1.5px solid var(--borda);display:flex;align-items:center;gap:8px;transition:all .2s" onmouseover="this.style.borderColor='var(--laranja)'" onmouseout="this.style.borderColor='var(--borda)'">
+              <div style="width:40px;height:40px;background:#fff;border-radius:8px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center">
+                ${r.img?`<img src="${r.img}" style="width:40px;height:40px;object-fit:contain" onerror="this.outerHTML='<span style=font-size:1.2rem>${r.emoji}</span>'" alt="${r.nome}"/>`:`<span style="font-size:1.2rem">${r.emoji}</span>`}
+              </div>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:11px;color:var(--texto);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.nome.split(' ').slice(0,4).join(' ')}</div>
+                <div style="font-size:12px;color:var(--laranja);font-weight:800">${fmt(r.preco)}</div>
+              </div>
+            </div>`).join('')}
+          </div>
+        </div>`:''}
       </div>
     </div>`;
   document.getElementById('prodModal').classList.add('open');
+}
+
+function mascararCEP(el){
+  let v=el.value.replace(/\D/g,'');
+  if(v.length>5) v=v.slice(0,5)+'-'+v.slice(5,8);
+  el.value=v;
+}
+
+async function calcFrete(prodId){
+  const cepEl=document.getElementById('cep-frete-'+prodId);
+  const res=document.getElementById('frete-result-'+prodId);
+  const cep=cepEl.value.replace(/\D/g,'');
+  if(cep.length!==8){res.innerHTML='⚠️ CEP inválido';return;}
+  res.innerHTML='⏳ Calculando...';
+  try{
+    const r=await fetch('https://viacep.com.br/ws/'+cep+'/json/');
+    const d=await r.json();
+    if(d.erro){res.innerHTML='⚠️ CEP não encontrado';return;}
+    const norte=['AM','PA','RO','RR','AC','AP','TO'];
+    const sul=['RS','SC','PR'];
+    const nordeste=['BA','SE','AL','PE','PB','RN','CE','PI','MA'];
+    const uf=d.uf;
+    let prazo,frete;
+    if(uf==='SP'||uf==='RJ'||uf==='MG'||uf==='ES'){prazo='3-5 dias úteis';frete='R$15,90';}
+    else if(sul.includes(uf)){prazo='5-7 dias úteis';frete='R$18,90';}
+    else if(nordeste.includes(uf)){prazo='7-10 dias úteis';frete='R$21,90';}
+    else if(norte.includes(uf)){prazo='10-15 dias úteis';frete='R$24,90';}
+    else{prazo='5-8 dias úteis';frete='R$17,90';}
+    res.innerHTML=`<div style="display:flex;flex-direction:column;gap:4px;margin-top:4px">
+      <div style="display:flex;justify-content:space-between;padding:6px 10px;background:var(--verde-l);border-radius:8px">
+        <span style="font-weight:700;color:var(--verde)">📦 PAC — ${prazo}</span>
+        <span style="font-weight:800;color:var(--verde)">${frete}</span>
+      </div>
+      <div style="font-size:11px;color:var(--texto2);padding:0 4px">Entrega para: ${d.localidade}/${uf} · Frete grátis acima de R$199!</div>
+    </div>`;
+  }catch(e){res.innerHTML='⚠️ Erro ao calcular frete';}
 }
 
 function addById(id){
