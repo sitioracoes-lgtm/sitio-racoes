@@ -278,7 +278,7 @@ footer{background:#2D2D2D;color:#aaa;padding:48px 0 20px}
 
 <div class="topbar">
   <span class="topbar-pill">🎉 OFERTA</span>
-  Frete grátis acima de R$199 · Parcele em até 12x sem juros!
+  Frete grátis acima de R$199 · Parcele em até 3x sem juros!
   <span class="topbar-pill">🚚 RÁPIDO</span>
 </div>
 
@@ -646,7 +646,7 @@ const canonical=document.createElement('link');canonical.rel='canonical';canonic
       <div class="footer-col"><h4>Contato</h4><ul><li>📞 (71) 8151-7185</li><li>📧 sitioracoes@gmail.com</li><li>⏰ Seg-Sex 8h às 18h</li><li><a href="https://www.instagram.com/sitiosracoes?igsh=MWVvYTNkZW05cDM4ag==" target="_blank" style="color:#aaa;text-decoration:none">📸 Instagram</a></li></ul></div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-seals"><div class="seal">🔒 Compra Segura</div><div class="seal">🚚 Frete grátis +R$199</div><div class="seal">💳 Pix sem taxa</div><div class="seal">🔄 30 dias troca</div></div>
+      <div class="footer-seals"><div class="seal">🔒 Compra Segura</div><div class="seal">🚚 Frete grátis +R$199</div><div class="seal">💳 3x sem juros</div><div class="seal">🔄 30 dias troca</div></div>
       <p style="font-size:12px;text-align:center;margin-top:10px">© 2025 Sítio Rações. Todos os direitos reservados.</p>
     </div>
   </div>
@@ -791,15 +791,6 @@ const canonical=document.createElement('link');canonical.rel='canonical';canonic
               <option value="1">1x sem juros</option>
               <option value="2">2x sem juros</option>
               <option value="3">3x sem juros</option>
-              <option value="4">4x sem juros</option>
-              <option value="5">5x sem juros</option>
-              <option value="6">6x sem juros</option>
-              <option value="7">7x + 1.99% a.m.</option>
-              <option value="8">8x + 1.99% a.m.</option>
-              <option value="9">9x + 1.99% a.m.</option>
-              <option value="10">10x + 1.99% a.m.</option>
-              <option value="11">11x + 1.99% a.m.</option>
-              <option value="12">12x + 1.99% a.m.</option>
             </select>
             <div style="font-size:13px;font-weight:800;color:var(--laranja);margin-top:6px;text-align:center" id="valor-parcela"></div>
           </div>
@@ -1158,10 +1149,8 @@ function calcParcelas(){
   const frete=total>=199?0:15.90;
   const base=total+frete;
   const n=parseInt(document.getElementById('sel-parcelas').value);
-  let valorParcela,totalFinal;
-  if(n<=6){valorParcela=base/n;totalFinal=base;}
-  else{const t=0.0199;valorParcela=base*(t*Math.pow(1+t,n))/(Math.pow(1+t,n)-1);totalFinal=valorParcela*n;}
-  document.getElementById('valor-parcela').textContent=n<=6?`${n}x de ${fmt(valorParcela)} sem juros — Total: ${fmt(totalFinal)}`:`${n}x de ${fmt(valorParcela)} — Total: ${fmt(totalFinal)}`;
+  const valorParcela=base/n;
+  document.getElementById('valor-parcela').textContent=`${n}x de ${fmt(valorParcela)} sem juros — Total: ${fmt(base)}`;
 }
 
 function mascaraCartao(el){
