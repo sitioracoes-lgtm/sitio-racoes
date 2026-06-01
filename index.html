@@ -588,12 +588,30 @@ const canonical=document.createElement('link');canonical.rel='canonical';canonic
         <span style="font-size:1.5rem;flex-shrink:0">⚖️</span>
         <div><strong style="color:#2E7D32;font-size:14px">Direito garantido pelo Código de Defesa do Consumidor (Lei 8.078/90)</strong><p style="font-size:13px;color:#388E3C;margin-top:4px;line-height:1.6">Você tem direito à troca ou devolução dentro do prazo estabelecido, conforme a legislação brasileira.</p></div>
       </div>
-      ${['🗓️ Prazo para Solicitação|Você tem <strong>7 dias corridos</strong> a partir do recebimento do produto para solicitar troca ou devolução, conforme o Art. 49 do CDC (compras realizadas fora do estabelecimento comercial).',
-      '✅ Quando você pode trocar ou devolver|• Produto com defeito de fabricação<br/>• Produto diferente do anunciado<br/>• Produto avariado na entrega<br/>• Arrependimento da compra (dentro do prazo legal de 7 dias)',
-      '❌ Quando não é possível trocar|• Produto com sinais de uso que impeçam a revenda<br/>• Produto sem embalagem original (exceto defeito)<br/>• Solicitação fora do prazo de 7 dias corridos<br/>• Produtos de higiene íntima abertos (por questões sanitárias)',
-      '📦 Como solicitar a troca|1. Entre em contato pelo WhatsApp <strong>(71) 8151-7185</strong> ou e-mail <strong>sitioracoes@gmail.com</strong><br/>2. Informe o número do pedido, o produto e o motivo<br/>3. Aguarde nossas instruções de envio<br/>4. Envie o produto na embalagem original com nota fiscal',
-      '💰 Reembolso|O reembolso será realizado em até <strong>10 dias úteis</strong> após recebermos e confirmarmos o produto devolvido, via Pix para o mesmo CPF do comprador.',
-      '🚚 Frete de devolução|• <strong>Defeito ou erro nosso:</strong> o frete de devolução é por nossa conta<br/>• <strong>Arrependimento:</strong> o frete de devolução é por conta do cliente'].map(s=>{const[t,c]=s.split('|');return`<div style="background:#fff;border-radius:var(--radius);border:2px solid var(--borda);padding:24px;margin-bottom:16px"><h3 style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--texto);margin-bottom:12px">${t}</h3><p style="font-size:14px;color:var(--texto2);line-height:1.8">${c}</p></div>`;}).join('')}
+      <div style="background:#fff;border-radius:var(--radius);border:2px solid var(--borda);padding:24px;margin-bottom:16px">
+        <h3 style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--texto);margin-bottom:12px">🗓️ Prazo para Solicitação</h3>
+        <p style="font-size:14px;color:var(--texto2);line-height:1.8">Você tem <strong>7 dias corridos</strong> a partir do recebimento do produto para solicitar troca ou devolução, conforme o Art. 49 do CDC (compras realizadas fora do estabelecimento comercial).</p>
+      </div>
+      <div style="background:#fff;border-radius:var(--radius);border:2px solid var(--borda);padding:24px;margin-bottom:16px">
+        <h3 style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--texto);margin-bottom:12px">✅ Quando você pode trocar ou devolver</h3>
+        <p style="font-size:14px;color:var(--texto2);line-height:1.8">• Produto com defeito de fabricação<br/>• Produto diferente do anunciado<br/>• Produto avariado na entrega<br/>• Arrependimento da compra (dentro do prazo legal de 7 dias)</p>
+      </div>
+      <div style="background:#fff;border-radius:var(--radius);border:2px solid var(--borda);padding:24px;margin-bottom:16px">
+        <h3 style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--texto);margin-bottom:12px">❌ Quando não é possível trocar</h3>
+        <p style="font-size:14px;color:var(--texto2);line-height:1.8">• Produto com sinais de uso que impeçam a revenda<br/>• Produto sem embalagem original (exceto defeito)<br/>• Solicitação fora do prazo de 7 dias corridos<br/>• Produtos de higiene íntima abertos (por questões sanitárias)</p>
+      </div>
+      <div style="background:#fff;border-radius:var(--radius);border:2px solid var(--borda);padding:24px;margin-bottom:16px">
+        <h3 style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--texto);margin-bottom:12px">📦 Como solicitar a troca</h3>
+        <p style="font-size:14px;color:var(--texto2);line-height:1.8">1. Entre em contato pelo WhatsApp <strong>(71) 8151-7185</strong> ou e-mail <strong>sitioracoes@gmail.com</strong><br/>2. Informe o número do pedido, o produto e o motivo<br/>3. Aguarde nossas instruções de envio<br/>4. Envie o produto na embalagem original com nota fiscal</p>
+      </div>
+      <div style="background:#fff;border-radius:var(--radius);border:2px solid var(--borda);padding:24px;margin-bottom:16px">
+        <h3 style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--texto);margin-bottom:12px">💰 Reembolso</h3>
+        <p style="font-size:14px;color:var(--texto2);line-height:1.8">O reembolso será realizado em até <strong>10 dias úteis</strong> após recebermos e confirmarmos o produto devolvido, via Pix para o mesmo CPF do comprador.</p>
+      </div>
+      <div style="background:#fff;border-radius:var(--radius);border:2px solid var(--borda);padding:24px;margin-bottom:16px">
+        <h3 style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--texto);margin-bottom:12px">🚚 Frete de devolução</h3>
+        <p style="font-size:14px;color:var(--texto2);line-height:1.8">• <strong>Defeito ou erro nosso:</strong> o frete de devolução é por nossa conta<br/>• <strong>Arrependimento:</strong> o frete de devolução é por conta do cliente</p>
+      </div>
       <div style="background:var(--laranja-l);border-radius:var(--radius);padding:20px 24px;border:2px solid var(--borda);text-align:center">
         <p style="font-size:14px;color:var(--texto2);margin-bottom:10px">Dúvidas sobre trocas e devoluções?</p>
         <a href="https://wa.me/557181517185" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;text-decoration:none;padding:12px 24px;border-radius:50px;font-weight:800;font-size:14px">💬 Falar pelo WhatsApp</a>
@@ -617,14 +635,30 @@ const canonical=document.createElement('link');canonical.rel='canonical';canonic
         <span style="font-size:1.5rem;flex-shrink:0">🛡️</span>
         <div><strong style="color:var(--roxo);font-size:14px">Responsável pelo tratamento de dados (Controlador)</strong><p style="font-size:13px;color:#7B1FA2;margin-top:4px;line-height:1.6">Samuel Machado · Salvador, Bahia · sitioracoes@gmail.com · (71) 8151-7185</p></div>
       </div>
-      ${[
-        ['📋 Quais dados coletamos','Coletamos os seguintes dados pessoais:<br/>• <strong>Nome completo</strong> — para identificação do pedido<br/>• <strong>CPF</strong> — para emissão de nota fiscal<br/>• <strong>E-mail</strong> — para confirmação de pedidos<br/>• <strong>Telefone/WhatsApp</strong> — para comunicação sobre o pedido<br/>• <strong>Endereço completo</strong> — para entrega do produto<br/>• <strong>Dados de pagamento</strong> — processados com segurança pelo Mercado Pago'],
-        ['🎯 Para que usamos seus dados','Seus dados são utilizados exclusivamente para:<br/>• Processar e entregar seus pedidos<br/>• Enviar confirmações e atualizações por e-mail e WhatsApp<br/>• Cumprir obrigações legais e fiscais<br/>• Melhorar nossa loja e serviços<br/>• Enviar promoções (somente com seu consentimento)'],
-        ['🤝 Compartilhamento de dados','Seus dados podem ser compartilhados com:<br/>• <strong>Mercado Pago</strong> — processamento de pagamentos<br/>• <strong>Transportadoras/Correios</strong> — entrega dos produtos<br/>• <strong>EmailJS</strong> — envio de e-mails de confirmação<br/><br/>Não vendemos nem cedemos seus dados a terceiros para fins comerciais.'],
-        ['⏳ Por quanto tempo guardamos','Mantemos seus dados pelo tempo necessário para:<br/>• Executar o contrato (duração do pedido)<br/>• Cumprir obrigações legais (até 5 anos, conforme legislação fiscal)<br/>• Após esse prazo, os dados são deletados ou anonimizados'],
-        ['✊ Seus direitos (LGPD Art. 18)','Você tem direito a:<br/>• <strong>Confirmar</strong> se tratamos seus dados<br/>• <strong>Acessar</strong> seus dados pessoais<br/>• <strong>Corrigir</strong> dados incompletos ou incorretos<br/>• <strong>Deletar</strong> dados desnecessários<br/>• <strong>Revogar</strong> seu consentimento a qualquer momento<br/>• <strong>Reclamar</strong> à ANPD (Autoridade Nacional de Proteção de Dados)<br/><br/>Para exercer seus direitos, entre em contato: <strong>sitioracoes@gmail.com</strong>'],
-        ['🍪 Cookies','Utilizamos cookies apenas para funcionamento básico da loja (sessão e carrinho). Não utilizamos cookies de rastreamento de terceiros.'],
-      ].map(([t,c])=>`<div style="background:#fff;border-radius:var(--radius);border:2px solid var(--borda);padding:24px;margin-bottom:16px"><h3 style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--texto);margin-bottom:12px">${t}</h3><p style="font-size:14px;color:var(--texto2);line-height:1.8">${c}</p></div>`).join('')}
+      <div style="background:#fff;border-radius:var(--radius);border:2px solid var(--borda);padding:24px;margin-bottom:16px">
+        <h3 style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--texto);margin-bottom:12px">📋 Quais dados coletamos</h3>
+        <p style="font-size:14px;color:var(--texto2);line-height:1.8">Coletamos os seguintes dados pessoais:<br/>• <strong>Nome completo</strong> — para identificação do pedido<br/>• <strong>CPF</strong> — para emissão de nota fiscal<br/>• <strong>E-mail</strong> — para confirmação de pedidos<br/>• <strong>Telefone/WhatsApp</strong> — para comunicação sobre o pedido<br/>• <strong>Endereço completo</strong> — para entrega do produto<br/>• <strong>Dados de pagamento</strong> — processados com segurança pelo Mercado Pago</p>
+      </div>
+      <div style="background:#fff;border-radius:var(--radius);border:2px solid var(--borda);padding:24px;margin-bottom:16px">
+        <h3 style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--texto);margin-bottom:12px">🎯 Para que usamos seus dados</h3>
+        <p style="font-size:14px;color:var(--texto2);line-height:1.8">Seus dados são utilizados exclusivamente para:<br/>• Processar e entregar seus pedidos<br/>• Enviar confirmações e atualizações por e-mail e WhatsApp<br/>• Cumprir obrigações legais e fiscais<br/>• Melhorar nossa loja e serviços<br/>• Enviar promoções (somente com seu consentimento)</p>
+      </div>
+      <div style="background:#fff;border-radius:var(--radius);border:2px solid var(--borda);padding:24px;margin-bottom:16px">
+        <h3 style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--texto);margin-bottom:12px">🤝 Compartilhamento de dados</h3>
+        <p style="font-size:14px;color:var(--texto2);line-height:1.8">Seus dados podem ser compartilhados com:<br/>• <strong>Mercado Pago</strong> — processamento de pagamentos<br/>• <strong>Transportadoras/Correios</strong> — entrega dos produtos<br/>• <strong>EmailJS</strong> — envio de e-mails de confirmação<br/><br/>Não vendemos nem cedemos seus dados a terceiros para fins comerciais.</p>
+      </div>
+      <div style="background:#fff;border-radius:var(--radius);border:2px solid var(--borda);padding:24px;margin-bottom:16px">
+        <h3 style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--texto);margin-bottom:12px">⏳ Por quanto tempo guardamos</h3>
+        <p style="font-size:14px;color:var(--texto2);line-height:1.8">Mantemos seus dados pelo tempo necessário para:<br/>• Executar o contrato (duração do pedido)<br/>• Cumprir obrigações legais (até 5 anos, conforme legislação fiscal)<br/>• Após esse prazo, os dados são deletados ou anonimizados</p>
+      </div>
+      <div style="background:#fff;border-radius:var(--radius);border:2px solid var(--borda);padding:24px;margin-bottom:16px">
+        <h3 style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--texto);margin-bottom:12px">✊ Seus direitos (LGPD Art. 18)</h3>
+        <p style="font-size:14px;color:var(--texto2);line-height:1.8">Você tem direito a:<br/>• <strong>Confirmar</strong> se tratamos seus dados<br/>• <strong>Acessar</strong> seus dados pessoais<br/>• <strong>Corrigir</strong> dados incompletos ou incorretos<br/>• <strong>Deletar</strong> dados desnecessários<br/>• <strong>Revogar</strong> seu consentimento a qualquer momento<br/>• <strong>Reclamar</strong> à ANPD (Autoridade Nacional de Proteção de Dados)<br/><br/>Para exercer seus direitos, entre em contato: <strong>sitioracoes@gmail.com</strong></p>
+      </div>
+      <div style="background:#fff;border-radius:var(--radius);border:2px solid var(--borda);padding:24px;margin-bottom:16px">
+        <h3 style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--texto);margin-bottom:12px">🍪 Cookies</h3>
+        <p style="font-size:14px;color:var(--texto2);line-height:1.8">Utilizamos cookies apenas para funcionamento básico da loja (sessão e carrinho). Não utilizamos cookies de rastreamento de terceiros.</p>
+      </div>
       <div style="background:var(--roxo-l);border-radius:var(--radius);padding:20px 24px;border:2px solid #CE93D8;text-align:center">
         <p style="font-size:13px;color:var(--texto2);margin-bottom:4px">Dúvidas sobre privacidade e proteção de dados?</p>
         <p style="font-size:14px;font-weight:800;color:var(--roxo)">sitioracoes@gmail.com · (71) 8151-7185</p>
@@ -877,11 +911,11 @@ const P={
     {id:7,animal:'cao',nome:'Coleira Seresto Antipulgas e Carrapatos até 8kg',sub:'remedio',emoji:'🔵',preco:179.90,velha:214.90,tag:'Remédio',r:4.9,rv:10000,badge:'top',img:'produto7.jpg',desc:'Proteção por até 8 meses contra pulgas, carrapatos e piolhos. Combate Leishmaniose. Sem cheiro, resistente à água. Age em 24h contra pulgas e 48h contra carrapatos. Marca Elanco. Para cães e gatos até 8kg.',link:'https://www.mercadolivre.com.br/seresto-caes-e-gatos-ate-8kg-coleira-antipulgas-e-carrapatos-elanco/p/MLB15982850'},
     {id:8,animal:'cao',nome:'Coleira Ourofino Leevre Antipulgas P/M 48cm',sub:'remedio',emoji:'🟢',preco:179.90,velha:null,tag:'Remédio',r:4.8,rv:10000,badge:'top',img:'produto8.jpg',desc:'Proteção por até 9 meses contra pulgas e até 6 meses contra carrapatos e mosquito-palha da Leishmaniose. Tecnologia dupla ação: Propoxur + Deltametrina. Travamento anti-perda. Para cães pequeno e médio porte.',link:'https://www.mercadolivre.com.br/coleira-antipulgas-ourofino-leevre-ces-pequeno-e-medio-porte-2550g-48cm/p/MLB16008838'},
     {id:9,animal:'cao',nome:'Coleira Scalibor Antiparasita 65cm',sub:'remedio',emoji:'🟡',preco:119.90,velha:null,tag:'Remédio',r:4.8,rv:5000,badge:'novo',img:'produto9.jpg',desc:'Proteção por até 4 meses contra pulgas, carrapatos, moscas e mosquitos transmissores da Leishmaniose. Princípio ativo Deltametrina de liberação lenta. Sem cheiro, resistente à água. Para cães grandes.',link:'https://www.mercadolivre.com.br/coleira-antiparasita-scalibor-65-cm-proteco-4-meses-pulgas-e-mosquitos/p/MLB35005734'},
-    {id:11,animal:'gato',nome:'Petisco Cremoso Wanpy Truly Creamy 50 tubos',sub:'petisco',emoji:'🍡',preco:219.90,velha:null,tag:'Petisco',r:4.9,rv:500,badge:'top',img:'produto11.jpg',desc:'50 tubos de petisco cremoso com sabores variados (frango, atum, camarão). Livre de corantes e conservantes artificiais. 88% carne real. Formato de tubo — o gato come direto da embalagem! Ideal para recompensa, corte de unhas e dar medicamentos. Aumenta a ingestão hídrica.',link:'https://www.mercadolivre.com.br/petisco-gatos-wanpy-truly-creamy-sabores-variados-com-50un/up/MLBU3385454060'},
     {id:10,animal:'cao',nome:'Combo 2 Coleiras Free Dog Antipulga',sub:'remedio',emoji:'🔴',preco:129.90,velha:null,tag:'Remédio',r:4.5,rv:500,badge:'off',img:'produto10.jpg',desc:'Kit com 2 coleiras antipulgas 100% atóxicas com extrato de ervas naturais. Durabilidade de até 90 dias cada. Resistente à água — não precisa retirar no banho. Aroma tutti frutti. Para cães adultos.',link:'https://www.mercadolivre.com.br/combo-2-coleira-free-dog-antipulga-caes-tratamento-pulga/up/MLBU2630727913'},
     {id:9,nome:'Suplemento Condroitina+Glucosamina',sub:'remedio',emoji:'💉',preco:64.90,velha:79.90,tag:'Remédio',r:4.6,rv:93,badge:'off',desc:'Suplemento para saúde articular. Ideal para raças grandes e cães idosos.'},
   ],
   gato:[
+    {id:11,animal:'gato',nome:'Petisco Cremoso Wanpy Truly Creamy 50 tubos',sub:'petisco',emoji:'🍡',preco:219.90,velha:null,tag:'Petisco',r:4.9,rv:500,badge:'top',img:'produto11.jpg',desc:'50 tubos de petisco cremoso com sabores variados (frango, atum, camarão). Livre de corantes e conservantes artificiais. 88% carne real. Formato de tubo — o gato come direto da embalagem! Ideal para recompensa, corte de unhas e dar medicamentos. Aumenta a ingestão hídrica.',link:'https://www.mercadolivre.com.br/petisco-gatos-wanpy-truly-creamy-sabores-variados-com-50un/up/MLBU3385454060'},
     {id:10,nome:'Ração Úmida Filhotes Frango',sub:'racao',emoji:'🍖',preco:12.90,velha:18.90,tag:'Ração',r:4.5,rv:409,badge:'off',desc:'Com frango e legumes para filhotes de 2 a 12 meses. Embalagem 85g.'},
     {id:11,nome:'Ração Seca Adultos 3kg',sub:'racao',emoji:'🥣',preco:79.90,velha:null,tag:'Ração',r:4.7,rv:267,badge:'novo',desc:'Ração premium para gatos adultos. Enriquecida com taurina para saúde do coração.'},
     {id:12,nome:'Arranhador Torre 3 Andares',sub:'acessorio',emoji:'🗼',preco:199.90,velha:249.00,tag:'Acessório',r:4.7,rv:142,badge:'off',desc:'Sisal natural com 3 andares e brinquedo pendente. Altura 120cm.'},
