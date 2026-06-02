@@ -1380,6 +1380,7 @@ async function pagarCartao(){
       btn.textContent='✅ Pagamento aprovado!';btn.style.background='var(--verde)';
       st.style.color='var(--verde)';st.textContent='✅ Pagamento aprovado! Confirmação enviada por e-mail.';
       if(emailCliente) enviarEmailConfirmacao(emailCliente);
+      notificarDono('💳 Cartão de crédito — APROVADO');
       showToast('🎉 Pagamento aprovado!');
       setTimeout(()=>fecharCheckout(),3000);
     } else if(data.status==='in_process'){
@@ -1439,11 +1440,48 @@ async function enviarEmailConfirmacao(emailCliente){
   }
 }
 
+function notificarDono(formaPagamento){
+  const nome=document.getElementById('f-nome').value.trim();
+  const email=document.getElementById('f-email').value.trim();
+  const tel=document.getElementById('f-tel').value.trim();
+  const cpf=document.getElementById('f-cpf').value.trim();
+  const cep=document.getElementById('f-cep').value.trim();
+  const rua=document.getElementById('f-rua').value.trim();
+  const num=document.getElementById('f-num').value.trim();
+  const comp=document.getElementById('f-comp').value.trim();
+  const bairro=document.getElementById('f-bairro').value.trim();
+  const cidade=document.getElementById('f-cidade').value.trim();
+  const uf=document.getElementById('f-uf').value.trim();
+  const total=Object.values(cart).reduce((s,i)=>s+i.preco*i.qty,0);
+  const frete=total>=199?0:15.90;
+  const itens=Object.values(cart).map(i=>{
+    const prod=getProd(i.id);
+    const link=prod&&prod.link?`\n  🔗 ${prod.link}`:'';
+    return `• ${i.nome} x${i.qty} = ${fmt(i.preco*i.qty)}${link}`;
+  }).join('\n');
+  let msg='🛒 *NOVO PEDIDO — Sítio Rações*\n\n';
+  msg+=`👤 *Cliente:* ${nome}\n`;
+  msg+=`📱 *WhatsApp:* ${tel}\n`;
+  msg+=`📧 *E-mail:* ${email}\n`;
+  msg+=`🪪 *CPF:* ${cpf}\n\n`;
+  msg+=`📦 *Produtos:*\n${itens}\n\n`;
+  msg+=`🚚 *Frete:* ${frete===0?'Grátis':fmt(frete)}\n`;
+  msg+=`💰 *Total:* ${fmt(total+frete)}\n`;
+  msg+=`💳 *Pagamento:* ${formaPagamento}\n\n`;
+  msg+=`📍 *Endereço de entrega:*\n`;
+  msg+=`${rua}, ${num}${comp?' — '+comp:''}\n`;
+  msg+=`${bairro} — ${cidade}/${uf}\n`;
+  msg+=`CEP: ${cep}\n\n`;
+  msg+=`⚡ _Compre agora no ML e coloque o endereço acima!_`;
+  window.open(`https://wa.me/557181517185?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
 function copiarPix(){
   const email=document.getElementById('f-email')?document.getElementById('f-email').value:'';
   navigator.clipboard.writeText(PIX).then(()=>{
     showToast('✅ Código Pix copiado!');
     if(email) enviarEmailConfirmacao(email);
+    notificarDono('💛 Pix');
   }).catch(()=>showToast('📋 Copie o código manualmente'));
 }
 
@@ -1470,6 +1508,7 @@ function enviarWhats(){
   msg+=`\n📧 E-mail: ${email}`;
   msg+='\n\n📎 _Segue em anexo o comprovante de pagamento Pix._';
   if(email) enviarEmailConfirmacao(email);
+  notificarDono('💛 Pix — comprovante WhatsApp');
   window.open(`https://wa.me/557181517185?text=${encodeURIComponent(msg)}`,'_blank');
 }
 
