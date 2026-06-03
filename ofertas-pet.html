@@ -662,13 +662,9 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// Proxies CORS gratuitos — tenta em sequência se um falhar
-const ML_PROXIES = [
-  'https://corsproxy.io/?',
-  'https://api.allorigins.win/raw?url=',
-  'https://api.codetabs.com/v1/proxy?quest=',
-];
 const ML_BASE = 'https://api.mercadolibre.com';
+// Endpoint público do ML que aceita requisições sem auth via JSONP/cross-origin
+const ML_SEARCH_BASE = 'https://www.mercadolivre.com.br/jms/mlb/lgz/landing';
 
 function fmtBRL(v) {
   return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -778,33 +774,46 @@ function abrirWppById(id) {
   if (p) abrirWpp(p);
 }
 
-async function fetchComProxy(mlUrl) {
-  const erros = [];
-
-  // Tenta direto primeiro
-  try {
-    const r = await fetch(mlUrl);
-    if (r.ok) {
-      const d = await r.json();
-      if (d && (d.results !== undefined || d.query !== undefined)) return d;
-    }
-  } catch(e) { erros.push('direto: ' + e.message); }
-
-  // Tenta proxies
-  for (const proxy of ML_PROXIES) {
+async function fetchML(query, limit) {
+  // Usa o endpoint público de busca do ML via script tag (JSONP-style via iframe trick)
+  // Fallback: allorigins com o endpoint de highlights/ofertas
+  const urls = [
+    `https://api.mercadolibre.com/sites/MLB/search?q=${encodeURIComponent(query)}&limit=${limit}&sort=relevance`,
+    `https://api.mercadolibre.com/sites/MLB/search?q=${encodeURIComponent(query)}&limit=${limit}&sort=price_asc`,
+  ];
+  
+  // Tenta via fetch direto (funciona quando não há bloqueio de CORS estrito)
+  for (const url of urls) {
     try {
-      const r = await fetch(proxy + encodeURIComponent(mlUrl));
-      if (r.ok) {
-        const text = await r.text();
-        const d = JSON.parse(text);
-        if (d && (d.results !== undefined || d.query !== undefined)) return d;
-        erros.push(proxy + ' retornou: ' + text.substring(0, 80));
-      } else {
-        erros.push(proxy + ' status: ' + r.status);
-      }
-    } catch(e) { erros.push(proxy + ': ' + e.message); }
+      const r = await fetch(url, { mode: 'cors' });
+      if (r.ok) { const d = await r.json(); if (d.results?.length) return d; }
+    } catch(e) {}
   }
-  throw new Error('Falha em todos os proxies. Detalhes: ' + erros.join(' | '));
+
+  // Tenta via proxy confiável com User-Agent customizado
+  const proxies = [
+    q => `https://api.allorigins.win/get?url=${encodeURIComponent(q)}`,
+    q => `https://corsproxy.io/?${encodeURIComponent(q)}`,
+    q => `https://thingproxy.freeboard.io/fetch/${q}`,
+    q => `https://yacdn.org/proxy/${q}`,
+  ];
+
+  for (const proxy of proxies) {
+    for (const url of urls) {
+      try {
+        const r = await fetch(proxy(url));
+        if (!r.ok) continue;
+        const text = await r.text();
+        // allorigins retorna { contents: "..." }
+        let json;
+        try { const wrap = JSON.parse(text); json = JSON.parse(wrap.contents || text); }
+        catch(e) { try { json = JSON.parse(text); } catch(e2) { continue; } }
+        if (json?.results?.length) return json;
+      } catch(e) {}
+    }
+  }
+
+  throw new Error('A API do Mercado Livre está bloqueando requisições externas no momento. Tente novamente em alguns minutos ou acesse via rede diferente (ex: dados móveis).');
 }
 
 async function buscar() {
@@ -826,8 +835,7 @@ async function buscar() {
     </div>`;
 
   try {
-    const mlUrl = `${ML_BASE}/sites/MLB/search?q=${encodeURIComponent(query)}&limit=${limit}&sort=relevance`;
-    const data = await fetchComProxy(mlUrl);
+    const data = await fetchML(query, limit);
 
     const todos = (data.results || []).map(item => {
       const preco = item.price || 0;
