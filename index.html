@@ -4,6 +4,23 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Sítio Rações — Tudo para seu Pet</title>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1559811862164722');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1559811862164722&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐾</text></svg>"/>
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐾</text></svg>"/>
 <meta name="description" content="Rações, remédios, casinhas, coleiras e acessórios para cães, gatos, coelhos e pássaros. Entrega rápida em todo o Brasil!"/>
@@ -1416,6 +1433,7 @@ async function pagarCartao(){
       st.style.color='var(--verde)';st.textContent='✅ Pagamento aprovado! Confirmação enviada por e-mail.';
       if(emailCliente) enviarEmailConfirmacao(emailCliente);
       notificarDono('💳 Cartão de crédito — APROVADO');
+      fbq('track','Purchase',{value:Object.values(cart).reduce((s,i)=>s+i.preco*i.qty,0),currency:'BRL'});
       showToast('🎉 Pagamento aprovado!');
       setTimeout(()=>fecharCheckout(),3000);
     } else if(data.status==='in_process'){
@@ -1517,6 +1535,7 @@ function copiarPix(){
     showToast('✅ Código Pix copiado!');
     if(email) enviarEmailConfirmacao(email);
     notificarDono('💛 Pix');
+    fbq('track','Purchase',{value:Object.values(cart).reduce((s,i)=>s+i.preco*i.qty,0),currency:'BRL'});
   }).catch(()=>showToast('📋 Copie o código manualmente'));
 }
 
@@ -1544,6 +1563,7 @@ function enviarWhats(){
   msg+='\n\n📎 _Segue em anexo o comprovante de pagamento Pix._';
   if(email) enviarEmailConfirmacao(email);
   notificarDono('💛 Pix — comprovante WhatsApp');
+  fbq('track','Purchase',{value:Object.values(cart).reduce((s,i)=>s+i.preco*i.qty,0),currency:'BRL'});
   window.open(`https://wa.me/557181517185?text=${encodeURIComponent(msg)}`,'_blank');
 }
 
@@ -1791,4 +1811,3 @@ if(localStorage.getItem('cookies')){
 
 renderFAQ();
 </script>
-
