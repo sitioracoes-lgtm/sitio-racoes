@@ -654,7 +654,13 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const ML_API = 'https://api.mercadolibre.com';
+// Proxies CORS gratuitos — tenta em sequência se um falhar
+const ML_PROXIES = [
+  'https://corsproxy.io/?',
+  'https://api.allorigins.win/raw?url=',
+  'https://api.codetabs.com/v1/proxy?quest=',
+];
+const ML_BASE = 'https://api.mercadolibre.com';
 
 function fmtBRL(v) {
   return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -764,6 +770,23 @@ function abrirWppById(id) {
   if (p) abrirWpp(p);
 }
 
+async function fetchComProxy(mlUrl) {
+  // Tenta direto primeiro (funciona em alguns ambientes)
+  try {
+    const r = await fetch(mlUrl, { headers: { 'Accept': 'application/json' } });
+    if (r.ok) return r.json();
+  } catch(e) {}
+
+  // Tenta cada proxy em sequência
+  for (const proxy of ML_PROXIES) {
+    try {
+      const r = await fetch(proxy + encodeURIComponent(mlUrl));
+      if (r.ok) return r.json();
+    } catch(e) {}
+  }
+  throw new Error('Não foi possível conectar à API do Mercado Livre. Tente novamente em instantes.');
+}
+
 async function buscar() {
   const query = document.getElementById('query').value.trim() || 'ração pet';
   const descMin = parseInt(document.getElementById('desc-min').value);
@@ -783,10 +806,8 @@ async function buscar() {
     </div>`;
 
   try {
-    const url = `${ML_API}/sites/MLB/search?q=${encodeURIComponent(query)}&limit=${limit}&sort=relevance`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`Erro ${res.status}`);
-    const data = await res.json();
+    const mlUrl = `${ML_BASE}/sites/MLB/search?q=${encodeURIComponent(query)}&limit=${limit}&sort=relevance`;
+    const data = await fetchComProxy(mlUrl);
 
     const resultados = (data.results || []).map(item => {
       const preco = item.price || 0;
