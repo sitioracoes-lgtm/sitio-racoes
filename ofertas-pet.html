@@ -779,20 +779,32 @@ function abrirWppById(id) {
 }
 
 async function fetchComProxy(mlUrl) {
-  // Tenta direto primeiro (funciona em alguns ambientes)
-  try {
-    const r = await fetch(mlUrl, { headers: { 'Accept': 'application/json' } });
-    if (r.ok) return r.json();
-  } catch(e) {}
+  const erros = [];
 
-  // Tenta cada proxy em sequência
+  // Tenta direto primeiro
+  try {
+    const r = await fetch(mlUrl);
+    if (r.ok) {
+      const d = await r.json();
+      if (d && (d.results !== undefined || d.query !== undefined)) return d;
+    }
+  } catch(e) { erros.push('direto: ' + e.message); }
+
+  // Tenta proxies
   for (const proxy of ML_PROXIES) {
     try {
       const r = await fetch(proxy + encodeURIComponent(mlUrl));
-      if (r.ok) return r.json();
-    } catch(e) {}
+      if (r.ok) {
+        const text = await r.text();
+        const d = JSON.parse(text);
+        if (d && (d.results !== undefined || d.query !== undefined)) return d;
+        erros.push(proxy + ' retornou: ' + text.substring(0, 80));
+      } else {
+        erros.push(proxy + ' status: ' + r.status);
+      }
+    } catch(e) { erros.push(proxy + ': ' + e.message); }
   }
-  throw new Error('Não foi possível conectar à API do Mercado Livre. Tente novamente em instantes.');
+  throw new Error('Falha em todos os proxies. Detalhes: ' + erros.join(' | '));
 }
 
 async function buscar() {
@@ -877,7 +889,7 @@ async function buscar() {
       <div class="estado">
         <div class="ico">⚠️</div>
         <h3>Erro ao buscar</h3>
-        <p>${err.message}. Verifique sua conexão ou tente novamente em instantes.</p>
+        <p style="font-size:0.8rem;word-break:break-word">${err.message}</p>
       </div>`;
   } finally {
     btn.disabled = false;
