@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sítio Rações — Monitor de Ofertas Pet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #1a6b3a;
+    --verde-claro: #2d9e58;
+    --verde-bg: #e8f5ee;
+    --amarelo: #f5a623;
+    --amarelo-bg: #fff8ed;
+    --vermelho: #d63031;
+    --vermelho-bg: #fff0f0;
+    --cinza-100: #f7f6f2;
+    --cinza-200: #eeece6;
+    --cinza-400: #b0aea6;
+    --cinza-700: #4a4940;
+    --cinza-900: #1c1b17;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cinza-100);
+    color: var(--cinza-900);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--verde);
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .logo-icon {
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+
+  .logo-text h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+
+  .logo-text span {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.65);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .badge-ml {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.9);
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+
+  /* MAIN */
+  main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+  /* FILTROS */
+  .filtros {
+    background: #fff;
+    border: 1px solid var(--cinza-200);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+
+  .campo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-width: 160px;
+  }
+
+  .campo label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--cinza-400);
+    font-weight: 500;
+  }
+
+  .campo input, .campo select {
+    border: 1.5px solid var(--cinza-200);
+    border-radius: var(--radius-sm);
+    padding: 9px 12px;
+    font-size: 0.9rem;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--cinza-900);
+    background: var(--cinza-100);
+    transition: border-color 0.15s;
+    outline: none;
+  }
+
+  .campo input:focus, .campo select:focus {
+    border-color: var(--verde-claro);
+    background: #fff;
+  }
+
+  .btn-buscar {
+    background: var(--verde);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 10px 22px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+  }
+
+  .btn-buscar:hover { background: var(--verde-claro); }
+  .btn-buscar:active { transform: scale(0.97); }
+
+  .btn-buscar:disabled {
+    background: var(--cinza-400);
+    cursor: not-allowed;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .stat-card {
+    background: #fff;
+    border: 1px solid var(--cinza-200);
+    border-radius: var(--radius);
+    padding: 0.9rem 1.25rem;
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .stat-card .val {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--verde);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-card .lbl {
+    font-size: 0.72rem;
+    color: var(--cinza-400);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+  }
+
+  /* GRID DE CARDS */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .produto-card {
+    background: #fff;
+    border: 1px solid var(--cinza-200);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s, transform 0.15s;
+    position: relative;
+  }
+
+  .produto-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+
+  .desconto-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--vermelho);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 800;
+    padding: 3px 9px;
+    border-radius: 20px;
+    z-index: 2;
+  }
+
+  .frete-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--verde);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 20px;
+    z-index: 2;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .img-area {
+    height: 170px;
+    background: var(--cinza-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    overflow: hidden;
+  }
+
+  .img-area img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    transition: transform 0.2s;
+  }
+
+  .produto-card:hover .img-area img {
+    transform: scale(1.04);
+  }
+
+  .img-area .no-img {
+    font-size: 2.5rem;
+    color: var(--cinza-200);
+  }
+
+  .card-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    flex: 1;
+  }
+
+  .produto-nome {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--cinza-900);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .precos {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .preco-atual {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--verde);
+  }
+
+  .preco-original {
+    font-size: 0.8rem;
+    color: var(--cinza-400);
+    text-decoration: line-through;
+  }
+
+  .avaliacao {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75rem;
+    color: var(--cinza-400);
+  }
+
+  .estrelas { color: var(--amarelo); font-size: 0.8rem; }
+
+  .card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--cinza-200);
+  }
+
+  .btn-wpp {
+    flex: 1;
+    background: #25D366;
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 8px 10px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: background 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn-wpp:hover { background: #1da851; }
+
+  .btn-ver {
+    flex: 1;
+    background: transparent;
+    color: var(--verde);
+    border: 1.5px solid var(--verde-claro);
+    border-radius: var(--radius-sm);
+    padding: 8px 10px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: background 0.15s, color 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn-ver:hover {
+    background: var(--verde-bg);
+  }
+
+  /* ESTADO VAZIO / LOADING */
+  .estado {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    color: var(--cinza-400);
+  }
+
+  .estado .ico { font-size: 3rem; margin-bottom: 1rem; }
+  .estado h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--cinza-700); margin-bottom: 0.4rem; }
+  .estado p { font-size: 0.88rem; max-width: 340px; line-height: 1.6; }
+
+  .spinner {
+    width: 40px; height: 40px;
+    border: 3px solid var(--cinza-200);
+    border-top-color: var(--verde-claro);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin-bottom: 1rem;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* MODAL WHATSAPP */
+  .modal-bg {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .modal-bg.aberto { display: flex; }
+
+  .modal {
+    background: #fff;
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 480px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+
+  .modal-header {
+    background: #25D366;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .modal-header h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.8);
+    font-size: 1.4rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+  }
+
+  .modal-close:hover { color: #fff; }
+
+  .modal-body { padding: 1.25rem; }
+
+  .msg-preview {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    color: #166534;
+    font-family: 'DM Sans', sans-serif;
+    margin-bottom: 1rem;
+    word-break: break-word;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .btn-copiar {
+    flex: 1;
+    background: var(--cinza-100);
+    color: var(--cinza-700);
+    border: 1.5px solid var(--cinza-200);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.15s;
+  }
+
+  .btn-copiar:hover { background: var(--cinza-200); }
+
+  .btn-wpp-enviar {
+    flex: 1;
+    background: #25D366;
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    transition: background 0.15s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-wpp-enviar:hover { background: #1da851; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 0.75rem;
+    color: var(--cinza-400);
+    border-top: 1px solid var(--cinza-200);
+    margin-top: 3rem;
+  }
+
+  footer a { color: var(--verde); text-decoration: none; }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background: var(--cinza-900);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 200;
+    pointer-events: none;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 600px) {
+    header { padding: 1rem; }
+    main { padding: 1.25rem 1rem; }
+    .filtros { flex-direction: column; }
+    .campo { min-width: unset; }
+    .btn-buscar { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-area">
+    <div class="logo-icon">🐾</div>
+    <div class="logo-text">
+      <h1>Sítio Rações</h1>
+      <span>Monitor de Ofertas Pet</span>
+    </div>
+  </div>
+  <div class="header-actions">
+    <span class="badge-ml">📦 Mercado Livre API</span>
+    <span class="badge-ml" id="ultima-atualizacao">—</span>
+  </div>
+</header>
+
+<main>
+
+  <div class="filtros">
+    <div class="campo">
+      <label>Buscar produto</label>
+      <input type="text" id="query" value="ração pet" placeholder="ex: ração golden, areia gato..." />
+    </div>
+    <div class="campo" style="max-width:160px;">
+      <label>Desconto mínimo</label>
+      <select id="desc-min">
+        <option value="0">Qualquer desconto</option>
+        <option value="10">≥ 10%</option>
+        <option value="20" selected>≥ 20%</option>
+        <option value="30">≥ 30%</option>
+        <option value="50">≥ 50%</option>
+      </select>
+    </div>
+    <div class="campo" style="max-width:140px;">
+      <label>Qtd. resultados</label>
+      <select id="limit">
+        <option value="20">20 itens</option>
+        <option value="40" selected>40 itens</option>
+        <option value="60">60 itens</option>
+      </select>
+    </div>
+    <button class="btn-buscar" id="btn-buscar" onclick="buscar()">🔍 Buscar ofertas</button>
+  </div>
+
+  <div class="stats-bar" id="stats-bar" style="display:none">
+    <div class="stat-card">
+      <div class="val" id="stat-total">0</div>
+      <div class="lbl">Com desconto</div>
+    </div>
+    <div class="stat-card">
+      <div class="val" id="stat-avg">—</div>
+      <div class="lbl">Desconto médio</div>
+    </div>
+    <div class="stat-card">
+      <div class="val" id="stat-max">—</div>
+      <div class="lbl">Maior desconto</div>
+    </div>
+    <div class="stat-card">
+      <div class="val" id="stat-frete">0</div>
+      <div class="lbl">Frete grátis</div>
+    </div>
+  </div>
+
+  <div class="grid" id="grid">
+    <div class="estado">
+      <div class="ico">🐕</div>
+      <h3>Pronto para buscar</h3>
+      <p>Clique em <strong>Buscar ofertas</strong> para encontrar produtos pet em promoção no Mercado Livre.</p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>Dados em tempo real via <strong>API pública do Mercado Livre</strong> · Nenhum servidor necessário · Feito para <a href="https://sitioracoes.com.br" target="_blank">sitioracoes.com.br</a></p>
+</footer>
+
+<!-- MODAL WHATSAPP -->
+<div class="modal-bg" id="modal-wpp" onclick="fecharModal(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>📲 Mensagem para WhatsApp</h3>
+      <button class="modal-close" onclick="document.getElementById('modal-wpp').classList.remove('aberto')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="msg-preview" id="msg-preview"></div>
+      <div class="modal-actions">
+        <button class="btn-copiar" onclick="copiarMsg()">📋 Copiar texto</button>
+        <a class="btn-wpp-enviar" id="link-wpp" href="#" target="_blank">
+          WhatsApp ↗
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const ML_API = 'https://api.mercadolibre.com';
+
+function fmtBRL(v) {
+  return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+function calcDesconto(original, atual) {
+  if (!original || original <= atual) return 0;
+  return Math.round((1 - atual / original) * 100);
+}
+
+function estrelas(nota) {
+  if (!nota) return '';
+  const cheia = Math.round(nota);
+  return '★'.repeat(cheia) + '☆'.repeat(5 - cheia);
+}
+
+function mostrarToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function fecharModal(e) {
+  if (e.target.id === 'modal-wpp') {
+    document.getElementById('modal-wpp').classList.remove('aberto');
+  }
+}
+
+function gerarMensagem(p) {
+  const desc = p.desconto > 0 ? `🔥 *${p.desconto}% de desconto!*\n` : '';
+  const frete = p.frete_gratis ? '\n🚚 *Frete grátis*' : '';
+  const original = p.preco_original > p.preco ? `\n~~De ${fmtBRL(p.preco_original)}~~` : '';
+
+  return `🐾 *OFERTA PET — Sítio Rações*\n\n` +
+    `${desc}${p.nome}\n\n` +
+    `💰 Por apenas *${fmtBRL(p.preco)}*${original}${frete}\n\n` +
+    `🛒 Compre agora:\n${p.link}\n\n` +
+    `_Promoção por tempo limitado. Aproveite!_`;
+}
+
+function abrirWpp(p) {
+  const msg = gerarMensagem(p);
+  document.getElementById('msg-preview').textContent = msg;
+  const encoded = encodeURIComponent(msg);
+  document.getElementById('link-wpp').href = `https://wa.me/?text=${encoded}`;
+  document.getElementById('modal-wpp').classList.add('aberto');
+}
+
+function copiarMsg() {
+  const texto = document.getElementById('msg-preview').textContent;
+  navigator.clipboard.writeText(texto).then(() => {
+    mostrarToast('✅ Mensagem copiada!');
+  }).catch(() => {
+    mostrarToast('Selecione o texto e copie manualmente.');
+  });
+}
+
+function renderCard(p) {
+  const card = document.createElement('div');
+  card.className = 'produto-card';
+
+  const descBadge = p.desconto > 0
+    ? `<div class="desconto-badge">-${p.desconto}%</div>` : '';
+
+  const freteBadge = p.frete_gratis
+    ? `<div class="frete-badge">Frete grátis</div>` : '';
+
+  const imgHtml = p.foto
+    ? `<img src="${p.foto}" alt="${p.nome}" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'no-img\\'>📦</span>'">`
+    : `<span class="no-img">📦</span>`;
+
+  const precoOriginal = p.preco_original > p.preco
+    ? `<span class="preco-original">${fmtBRL(p.preco_original)}</span>` : '';
+
+  const avaliacao = p.avaliacao
+    ? `<div class="avaliacao"><span class="estrelas">${estrelas(p.avaliacao)}</span>${p.avaliacao.toFixed(1)} (${p.qtd_avaliacoes || 0})</div>` : '';
+
+  card.innerHTML = `
+    ${descBadge}
+    ${freteBadge}
+    <div class="img-area">${imgHtml}</div>
+    <div class="card-body">
+      <div class="produto-nome">${p.nome}</div>
+      <div class="precos">
+        <span class="preco-atual">${fmtBRL(p.preco)}</span>
+        ${precoOriginal}
+      </div>
+      ${avaliacao}
+      <div class="card-actions">
+        <button class="btn-wpp" onclick="abrirWppById('${p.id}')">
+          📲 WhatsApp
+        </button>
+        <a class="btn-ver" href="${p.link}" target="_blank" rel="noopener">
+          Ver oferta ↗
+        </a>
+      </div>
+    </div>
+  `;
+  return card;
+}
+
+let produtosCache = [];
+
+function abrirWppById(id) {
+  const p = produtosCache.find(x => x.id === id);
+  if (p) abrirWpp(p);
+}
+
+async function buscar() {
+  const query = document.getElementById('query').value.trim() || 'ração pet';
+  const descMin = parseInt(document.getElementById('desc-min').value);
+  const limit = parseInt(document.getElementById('limit').value);
+  const btn = document.getElementById('btn-buscar');
+
+  btn.disabled = true;
+  btn.textContent = '⏳ Buscando...';
+  document.getElementById('stats-bar').style.display = 'none';
+
+  const grid = document.getElementById('grid');
+  grid.innerHTML = `
+    <div class="estado">
+      <div class="spinner"></div>
+      <h3>Buscando no Mercado Livre...</h3>
+      <p>Consultando a API em tempo real para "${query}"</p>
+    </div>`;
+
+  try {
+    const url = `${ML_API}/sites/MLB/search?q=${encodeURIComponent(query)}&limit=${limit}&sort=relevance`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Erro ${res.status}`);
+    const data = await res.json();
+
+    const resultados = (data.results || []).map(item => {
+      const preco = item.price || 0;
+      const original = item.original_price || 0;
+      const desconto = calcDesconto(original, preco);
+      const frete = item.shipping?.free_shipping || false;
+
+      return {
+        id: item.id,
+        nome: item.title,
+        preco,
+        preco_original: original,
+        desconto,
+        frete_gratis: frete,
+        foto: item.thumbnail?.replace(/\-[A-Z]\.jpg/, '-O.jpg') || item.thumbnail || '',
+        link: item.permalink,
+        avaliacao: item.reviews?.rating_average || null,
+        qtd_avaliacoes: item.reviews?.total || null,
+      };
+    }).filter(p => p.desconto >= descMin);
+
+    produtosCache = resultados;
+
+    if (resultados.length === 0) {
+      grid.innerHTML = `
+        <div class="estado">
+          <div class="ico">🔎</div>
+          <h3>Nenhuma oferta encontrada</h3>
+          <p>Tente reduzir o desconto mínimo ou mudar o termo de busca.</p>
+        </div>`;
+    } else {
+      grid.innerHTML = '';
+      resultados.forEach(p => grid.appendChild(renderCard(p)));
+
+      const avgDesc = Math.round(resultados.reduce((s, p) => s + p.desconto, 0) / resultados.length);
+      const maxDesc = Math.max(...resultados.map(p => p.desconto));
+      const qtdFrete = resultados.filter(p => p.frete_gratis).length;
+
+      document.getElementById('stat-total').textContent = resultados.length;
+      document.getElementById('stat-avg').textContent = avgDesc + '%';
+      document.getElementById('stat-max').textContent = maxDesc + '%';
+      document.getElementById('stat-frete').textContent = qtdFrete;
+      document.getElementById('stats-bar').style.display = 'flex';
+    }
+
+    const agora = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('ultima-atualizacao').textContent = `Atualizado às ${agora}`;
+
+  } catch (err) {
+    grid.innerHTML = `
+      <div class="estado">
+        <div class="ico">⚠️</div>
+        <h3>Erro ao buscar</h3>
+        <p>${err.message}. Verifique sua conexão ou tente novamente em instantes.</p>
+      </div>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🔍 Buscar ofertas';
+  }
+}
+
+document.getElementById('query').addEventListener('keypress', e => {
+  if (e.key === 'Enter') buscar();
+});
+
+buscar();
+</script>
+</body>
+</html>
