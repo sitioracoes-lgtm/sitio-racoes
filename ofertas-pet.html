@@ -581,11 +581,19 @@
     <div class="campo" style="max-width:160px;">
       <label>Desconto mínimo</label>
       <select id="desc-min">
-        <option value="0">Qualquer desconto</option>
+        <option value="0" selected>Todos os produtos</option>
+        <option value="1">Com desconto</option>
         <option value="10">≥ 10%</option>
-        <option value="20" selected>≥ 20%</option>
+        <option value="20">≥ 20%</option>
         <option value="30">≥ 30%</option>
         <option value="50">≥ 50%</option>
+      </select>
+    </div>
+    <div class="campo" style="max-width:130px;">
+      <label>Frete grátis</label>
+      <select id="frete-gratis">
+        <option value="0">Todos</option>
+        <option value="1">Só frete grátis</option>
       </select>
     </div>
     <div class="campo" style="max-width:140px;">
@@ -809,7 +817,7 @@ async function buscar() {
     const mlUrl = `${ML_BASE}/sites/MLB/search?q=${encodeURIComponent(query)}&limit=${limit}&sort=relevance`;
     const data = await fetchComProxy(mlUrl);
 
-    const resultados = (data.results || []).map(item => {
+    const todos = (data.results || []).map(item => {
       const preco = item.price || 0;
       const original = item.original_price || 0;
       const desconto = calcDesconto(original, preco);
@@ -827,7 +835,15 @@ async function buscar() {
         avaliacao: item.reviews?.rating_average || null,
         qtd_avaliacoes: item.reviews?.total || null,
       };
-    }).filter(p => p.desconto >= descMin);
+    });
+
+    const soFreteGratis = parseInt(document.getElementById('frete-gratis').value);
+    const resultados = todos.filter(p => {
+      if (descMin === 1 && p.desconto <= 0) return false;
+      if (descMin > 1 && p.desconto < descMin) return false;
+      if (soFreteGratis && !p.frete_gratis) return false;
+      return true;
+    });
 
     produtosCache = resultados;
 
