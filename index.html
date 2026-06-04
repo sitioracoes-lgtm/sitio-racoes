@@ -2078,5 +2078,178 @@ updateCart();
 renderFAQ();
 setTimeout(()=>{setupTilt();initReveal();},500);
 </script>
+
+<!-- =====================================================
+     MODAL ESCOVA — PRODUTO DESTAQUE
+     ===================================================== -->
+<div id="escova-overlay" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:16px" onclick="if(event.target===this)fecharEscovaModal()"></div>
+
+<div id="escova-modal" style="display:none;position:fixed;z-index:1001;top:50%;left:50%;transform:translate(-50%,-50%) scale(.92);opacity:0;transition:all .45s cubic-bezier(.34,1.3,.64,1);width:min(520px,96vw)">
+  <div style="background:#FFFBF7;border-radius:28px;overflow:hidden;border:1.5px solid #F0E0D0;box-shadow:0 32px 80px rgba(0,0,0,.18),0 8px 24px rgba(255,122,47,.12);position:relative">
+    <canvas id="escovaCanvas" style="position:absolute;inset:0;pointer-events:none;border-radius:28px;z-index:0"></canvas>
+    <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1">
+      <div style="position:absolute;top:0;left:0;right:0;height:160px;background:linear-gradient(180deg,#FFF0E6 0%,transparent 100%)"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(0deg,#FFF8F3 0%,transparent 100%)"></div>
+      <span style="position:absolute;font-size:5.5rem;opacity:.04;top:6%;left:3%;transform:rotate(-15deg)">🐾</span>
+      <span style="position:absolute;font-size:5.5rem;opacity:.04;top:8%;right:4%;transform:rotate(18deg)">🐾</span>
+      <span style="position:absolute;font-size:5.5rem;opacity:.04;bottom:10%;left:5%;transform:rotate(10deg)">🐾</span>
+      <span style="position:absolute;font-size:5.5rem;opacity:.04;bottom:8%;right:3%;transform:rotate(-18deg)">🐾</span>
+    </div>
+    <div style="position:relative;z-index:2;padding:32px 28px 28px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <span style="background:rgba(255,64,129,.1);border:1.5px solid rgba(255,64,129,.3);color:#D4537E;font-size:10px;font-weight:900;padding:3px 12px;border-radius:50px;letter-spacing:.08em;font-family:'Nunito',sans-serif">✨ PRODUTO DESTAQUE</span>
+        <button onclick="fecharEscovaModal()" style="width:30px;height:30px;border-radius:50%;background:rgba(255,122,47,.08);border:1.5px solid rgba(255,122,47,.2);color:rgba(255,122,47,.6);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;font-family:inherit" onmouseover="this.style.background='rgba(255,122,47,.16)'" onmouseout="this.style.background='rgba(255,122,47,.08)'">✕</button>
+      </div>
+      <div style="text-align:center;margin-bottom:4px"><span id="escovaFaseLbl" style="font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,122,47,.75);font-family:'Nunito',sans-serif;opacity:0;transition:opacity .3s"></span></div>
+      <div style="text-align:center;margin-bottom:20px"><span id="escovaFaseTitulo" style="font-family:'Baloo 2',cursive;font-size:clamp(16px,4vw,20px);font-weight:900;color:#2D2D2D;opacity:0;transition:opacity .3s .1s"></span></div>
+      <div style="position:relative;height:220px;display:flex;align-items:center;justify-content:center">
+        <div id="escovaProductWrap" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:160px;height:160px;display:flex;align-items:center;justify-content:center;will-change:transform;z-index:5">
+          <div style="position:absolute;width:176px;height:176px;border-radius:50%;border:1.5px dashed rgba(255,122,47,.2);animation:escovaRing 12s linear infinite"></div>
+          <div style="position:absolute;width:210px;height:210px;border-radius:50%;border:1.5px dashed rgba(255,122,47,.12);animation:escovaRing 18s linear infinite reverse"></div>
+          <div style="width:130px;height:130px;border-radius:36px;background:linear-gradient(145deg,#fff 0%,#FFF0E6 100%);border:2px solid rgba(255,122,47,.22);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;position:relative;overflow:hidden;box-shadow:0 16px 48px rgba(255,122,47,.18),0 4px 12px rgba(0,0,0,.06)">
+            <div style="position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.7) 0%,transparent 100%);border-radius:36px 36px 0 0"></div>
+            <span style="font-size:3.2rem;position:relative;z-index:1;filter:drop-shadow(0 3px 8px rgba(255,122,47,.3));animation:escovaIconBob 2.2s ease-in-out infinite;display:block">🪮</span>
+            <span style="font-size:9px;font-weight:800;color:rgba(255,122,47,.65);text-transform:uppercase;letter-spacing:.1em;position:relative;z-index:1;font-family:'Nunito',sans-serif">Auto Brush</span>
+          </div>
+        </div>
+        <div id="escovaChips" style="position:absolute;inset:0;pointer-events:none"></div>
+      </div>
+      <div style="display:flex;justify-content:center;gap:6px;margin-bottom:20px" id="escovaDots"></div>
+      <div id="escovaCtaWrap" style="opacity:0;transition:opacity .4s;pointer-events:none">
+        <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+          <span style="font-family:'Baloo 2',cursive;font-size:2rem;font-weight:900;color:#FF7A2F">R$ 44,90</span>
+          <span style="font-size:12px;color:#999;font-family:'Nunito',sans-serif">ou 3x de R$14,97 sem juros</span>
+        </div>
+        <button onclick="fecharEscovaModal();addById(13)" style="width:100%;background:linear-gradient(135deg,#FF7A2F,#E06820);color:#fff;border:none;border-radius:50px;padding:15px;font-family:'Baloo 2',cursive;font-size:1.1rem;font-weight:800;cursor:pointer;box-shadow:0 6px 24px rgba(255,122,47,.35);transition:transform .2s,box-shadow .2s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 10px 32px rgba(255,122,47,.5)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 6px 24px rgba(255,122,47,.35)'">🛒 Adicionar ao carrinho</button>
+        <button onclick="fecharEscovaModal()" style="width:100%;background:none;border:none;color:#aaa;font-size:13px;font-weight:700;cursor:pointer;padding:10px;margin-top:4px;font-family:'Nunito',sans-serif;transition:color .2s" onmouseover="this.style.color='#888'" onmouseout="this.style.color='#aaa'">Continuar navegando →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+@keyframes escovaRing{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes escovaIconBob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-5px) rotate(4deg)}}
+@keyframes escovaChipIn{0%{opacity:0;transform:translateY(10px) scale(.9)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes escovaChipOut{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.93) translateY(-6px)}}
+</style>
+
+<script>
+(function(){
+  const FASES=[
+    {lbl:'Apresentando',titulo:'Escova Removedora de Pelos',chips:[{txt:'Automática',sub:'Um toque limpa tudo',cor:'#FF7A2F',x:'2%',y:'15%'},{txt:'Cerdas de aço',sub:'Qualidade premium',cor:'#378ADD',x:'62%',y:'20%'}]},
+    {lbl:'Como funciona',titulo:'Pelos coletados na hora',chips:[{txt:'Universal',sub:'Cães, gatos e roedores',cor:'#4CAF50',x:'1%',y:'12%'},{txt:'Auto-limpante',sub:'Botão ejetor mágico',cor:'#FF7A2F',x:'62%',y:'15%'},{txt:'+2.000 avaliações',sub:'⭐ 4.8 de média',cor:'#FFA726',x:'2%',y:'70%'}]},
+    {lbl:'Garanta o seu',titulo:'Frete grátis + 3x sem juros',chips:[{txt:'Frete grátis',sub:'Pedidos acima de R$199',cor:'#4CAF50',x:'1%',y:'12%'},{txt:'3x de R$14,97',sub:'Sem juros no cartão',cor:'#FF7A2F',x:'62%',y:'15%'},{txt:'7 dias de troca',sub:'Satisfação garantida',cor:'#378ADD',x:'62%',y:'68%'}]}
+  ];
+  let fase=0,chipEls=[],transitioning=false,tiltX=0,tiltY=0,curTX=0,curTY=0,rafId=null,hairRaf=null,autoInt=null,hairs=[];
+  const CORES=['#C8A882','#D4AA6A','#A0785A','#E8C49A','#8B6347','#F0D5A8'];
+  const modal=document.getElementById('escova-modal');
+  const overlay=document.getElementById('escova-overlay');
+  const wrap=document.getElementById('escovaProductWrap');
+  const chipsDiv=document.getElementById('escovaChips');
+  const ctaWrap=document.getElementById('escovaCtaWrap');
+  const dotsDiv=document.getElementById('escovaDots');
+  const faseLbl=document.getElementById('escovaFaseLbl');
+  const faseTit=document.getElementById('escovaFaseTitulo');
+  const cvs=document.getElementById('escovaCanvas');
+  const ctx=cvs.getContext('2d');
+
+  window.abrirEscovaModal=function(){
+    overlay.style.display='flex';
+    modal.style.display='block';
+    requestAnimationFrame(()=>{modal.style.opacity='1';modal.style.transform='translate(-50%,-50%) scale(1)';});
+    const r=modal.querySelector('div').getBoundingClientRect();
+    cvs.width=r.width||520;cvs.height=r.height||540;
+    makeDots();renderFase(0);startHair();startTick();startAuto();
+  };
+  window.fecharEscovaModal=function(){
+    modal.style.opacity='0';modal.style.transform='translate(-50%,-50%) scale(.92)';
+    overlay.style.display='none';
+    setTimeout(()=>{modal.style.display='none';},400);
+    if(rafId)cancelAnimationFrame(rafId);rafId=null;
+    if(hairRaf)cancelAnimationFrame(hairRaf);hairRaf=null;
+    if(autoInt)clearInterval(autoInt);autoInt=null;
+    hairs=[];ctx.clearRect(0,0,cvs.width,cvs.height);
+    clearChips();
+  };
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')fecharEscovaModal();});
+
+  function makeDots(){
+    dotsDiv.innerHTML='';
+    FASES.forEach((_,i)=>{
+      const d=document.createElement('div');
+      d.style.cssText=`width:${i===0?20:6}px;height:6px;border-radius:3px;background:${i===0?'#FF7A2F':'rgba(255,122,47,.25)'};transition:all .3s;cursor:pointer`;
+      d.onclick=()=>goTo(i);dotsDiv.appendChild(d);
+    });
+  }
+  function updateDots(i){Array.from(dotsDiv.children).forEach((d,j)=>{d.style.width=j===i?'20px':'6px';d.style.background=j===i?'#FF7A2F':'rgba(255,122,47,.25)';});}
+
+  function renderFase(idx){
+    const f=FASES[idx];
+    faseLbl.style.opacity='0';faseTit.style.opacity='0';
+    setTimeout(()=>{faseLbl.textContent=f.lbl;faseTit.textContent=f.titulo;faseLbl.style.opacity='1';faseTit.style.opacity='1';},160);
+    clearChips();
+    setTimeout(()=>spawnChips(f.chips),300);
+    const last=idx===FASES.length-1;
+    ctaWrap.style.opacity=last?'1':'0';ctaWrap.style.pointerEvents=last?'auto':'none';
+  }
+  function goTo(idx){
+    if(transitioning||idx===fase)return;
+    transitioning=true;fase=idx;updateDots(idx);renderFase(idx);
+    setTimeout(()=>transitioning=false,500);
+  }
+  function clearChips(){
+    chipEls.forEach(el=>{el.style.animation='escovaChipOut .35s ease forwards';setTimeout(()=>el.remove(),370);});
+    chipEls=[];
+  }
+  function spawnChips(chips){
+    chips.forEach((c,i)=>{
+      const el=document.createElement('div');
+      el.style.cssText=`position:absolute;left:${c.x};top:${c.y};background:rgba(255,255,255,.92);border:1.5px solid #F0E0D0;border-radius:14px;padding:9px 13px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(0,0,0,.07);opacity:0;min-width:134px;z-index:6;animation:escovaChipIn .55s cubic-bezier(.34,1.4,.64,1) forwards;animation-delay:${i*170+80}ms`;
+      el.innerHTML=`<div style="width:8px;height:8px;border-radius:50%;background:${c.cor};flex-shrink:0"></div><div><div style="font-size:11.5px;font-weight:800;color:#2D2D2D;font-family:'Nunito',sans-serif">${c.txt}</div><div style="font-size:10px;color:#999;margin-top:1px;font-family:'Nunito',sans-serif">${c.sub}</div></div>`;
+      chipsDiv.appendChild(el);chipEls.push(el);
+    });
+  }
+
+  modal.addEventListener('mousemove',e=>{const r=modal.getBoundingClientRect();tiltX=((e.clientY-r.top)/r.height-.5)*-12;tiltY=((e.clientX-r.left)/r.width-.5)*12;});
+  modal.addEventListener('mouseleave',()=>{tiltX=0;tiltY=0;});
+  function lerp(a,b,t){return a+(b-a)*t;}
+
+  function startTick(){
+    let t=0;
+    function tick(ts){
+      t=ts*.0008;
+      const fx=Math.sin(t*1.1)*2.5,fy=Math.cos(t*.9)*4.2;
+      curTX=lerp(curTX,tiltX,.07);curTY=lerp(curTY,tiltY,.07);
+      wrap.style.transform=`translate(-50%,-50%) perspective(700px) rotateX(${curTX}deg) rotateY(${curTY}deg) translate(${fx}px,${fy}px)`;
+      rafId=requestAnimationFrame(tick);
+    }
+    rafId=requestAnimationFrame(tick);
+  }
+
+  function getPC(){const mr=modal.querySelector('div').getBoundingClientRect(),wr=wrap.getBoundingClientRect();return{x:wr.left-mr.left+wr.width/2,y:wr.top-mr.top+wr.height/2};}
+  function spawnPelo(){
+    const W=cvs.width,H=cvs.height,lado=Math.random()<.5;
+    hairs.push({x:lado?Math.random()*W*.3:W*.7+Math.random()*W*.3,y:40+Math.random()*(H-100),vx:(Math.random()-.5)*.5,vy:.3+Math.random()*.5,len:14+Math.random()*22,w:1.2+Math.random()*1.4,ang:Math.random()*Math.PI,cor:CORES[Math.floor(Math.random()*CORES.length)],alpha:0,state:'fall'});
+  }
+  function drawHairs(){
+    const W=cvs.width,H=cvs.height;ctx.clearRect(0,0,W,H);
+    const pc=getPC(),RAD=170;
+    for(let i=hairs.length-1;i>=0;i--){
+      const h=hairs[i];
+      if(h.state==='fall'){h.x+=h.vx;h.y+=h.vy;h.ang+=.012;h.alpha=Math.min(h.alpha+.04,.55);const dx=pc.x-h.x,dy=pc.y-h.y;if(Math.sqrt(dx*dx+dy*dy)<RAD)h.state='attract';if(h.y>H+30){hairs.splice(i,1);continue;}}
+      else if(h.state==='attract'){const dx=pc.x-h.x,dy=pc.y-h.y,d=Math.sqrt(dx*dx+dy*dy),f=.06+(1-d/RAD)*.12;h.vx=(h.vx+dx*f)*.78;h.vy=(h.vy+dy*f)*.78;h.x+=h.vx;h.y+=h.vy;h.ang+=.06;h.alpha=Math.max(h.alpha-.008,.18);if(d<22){h.state='pop';h.popA=.7;}}
+      else if(h.state==='pop'){h.popA-=.06;if(h.popA<=0){hairs.splice(i,1);continue;}ctx.beginPath();ctx.arc(h.x,h.y,5*(1-h.popA/.7)*3,0,Math.PI*2);ctx.fillStyle=`rgba(255,122,47,${h.popA*.5})`;ctx.fill();continue;}
+      ctx.save();ctx.translate(h.x,h.y);ctx.rotate(h.ang);ctx.beginPath();ctx.moveTo(-h.len/2,0);ctx.bezierCurveTo(-h.len/4,-h.w*1.5,h.len/4,h.w*1.5,h.len/2,0);ctx.strokeStyle=h.cor+Math.round(h.alpha*255).toString(16).padStart(2,'0');ctx.lineWidth=h.w;ctx.lineCap='round';ctx.stroke();ctx.restore();
+    }
+    if(Math.random()<.2)spawnPelo();
+  }
+  function startHair(){for(let i=0;i<10;i++)spawnPelo();function loop(){drawHairs();hairRaf=requestAnimationFrame(loop);}hairRaf=requestAnimationFrame(loop);}
+  function startAuto(){autoInt=setInterval(()=>goTo((fase+1)%FASES.length),3800);}
+
+  setTimeout(abrirEscovaModal,1500);
+})();
+</script>
+
 </body>
 </html>
